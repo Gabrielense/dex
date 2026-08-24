@@ -27,6 +27,15 @@ mesmo lugar. A planilha é lida
 **no navegador** (nada é enviado para servidor nenhum) e as marcas ficam no
 `localStorage`.
 
+Toda planilha gerada pelo site (em branco ou com marcas) sai em duas abas:
+**Instruções** (o que preencher e onde, com a mesma legenda de cores abaixo)
+e **PokéAgenda**. O cabeçalho de cada coluna marcável usa a cor da categoria
+dela (a mesma do site e da aba Resumo original); colunas geradas pelo site
+(nome, região, datas de estreia, marcadores…) ficam com cabeçalho neutro
+escuro — sinal de "não precisa editar". Nas colunas `M`/`N`/`F`, a célula do
+gênero impossível pra aquela espécie (Magnemite não é ♂/♀, Bulbasaur nunca é
+⚲…) fica cinza, o mesmo trancamento da ficha do site traduzido pra planilha.
+
 **As suas marcas são editáveis no site; o esqueleto não.** Dá pra marcar de dois
 jeitos: o botão ✓ no canto do card marca direto a categoria que você está vendo,
 e clicar no card abre a ficha com as 15 marcas (registrado, ♂/♀/⚲, brilhante,
@@ -41,11 +50,10 @@ No topo do painel, as 10 sub-dexes na MESMA ordem das abas do Pokédex do GO
 ★ 100%), cada uma com o número de pegos — o mesmo "Pegos: N" que o jogo
 mostra. É a linha de conferência ao atualizar olhando o celular.
 
-Os cards mostram "X de Y no Pokédex do jogo" usando o universo que o JOGO
-lista (1025 hoje), não o total da planilha (1028) — gerações que ainda nem
-entraram no Pokédex de lá ficam fora do denominador, porque não são
-registráveis. A regra: uma região só conta depois que algum Pokémon dela
-estreia.
+Os denominadores dos cards usam o universo que o JOGO lista (1025 hoje), não
+o total da planilha (1028) — gerações que ainda nem entraram no Pokédex de lá
+ficam fora da conta, porque não são registráveis. A regra: uma região só
+conta depois que algum Pokémon dela estreia.
 
 ### Pokédex Viva (Living Dex)
 
@@ -90,15 +98,17 @@ Pré-evoluções na busca estão planejadas — veja `PLANS.md`.
 
 ### Painel de gênero
 
-Responde três perguntas que a planilha não respondia:
+Três cartões no mesmo formato das outras seções (ícone, número, barra,
+"faltam"/"completo") — sem texto de pergunta, só o dado:
 
-1. **Gêneros na dex** — nos Pokémon que têm macho e fêmea, tenho os dois
-   registrados? (hoje 761/781)
-2. **Diferença visual** — nas espécies em que macho e fêmea são diferentes, tenho
-   o par completo? Separa "tenho um e falta o outro" (a lacuna de gênero de
-   verdade) de "não tenho nenhum dos dois", que é fantasia faltando, não gênero.
-3. **Só de um gênero** — a lista de quem falta ♂ ou ♀, com o sprite e a etiqueta
-   do que falta.
+1. **Gêneros na dex** — nos Pokémon que têm macho e fêmea, quantos têm os dois
+   registrados (hoje 761/781).
+2. **Diferença visual** — nas espécies em que macho e fêmea são diferentes,
+   quantas têm o par completo. Uma nota abaixo do cartão separa "tenho um e
+   falta o outro" (a lacuna de gênero de verdade) de "não tenho nenhum dos
+   dois", que é fantasia faltando, não gênero.
+3. **Só de um gênero** — quantos têm só ♂ ou só ♀, com a lista completa (sprite
+   + etiqueta do que falta) num clique.
 
 O casamento dos pares é feito pelo **ID** sem o `+F`, de propósito: o `Número` veio
 errado em algumas linhas e não dá pra confiar nele.
@@ -162,11 +172,11 @@ Pokémon 952, Brilhante 848, Sortudo 934, XXL 786, XXS 766, 100% 383, Sombroso 4
 Purificado 456, G-MAX 17, Mega 58 — e os 11 denominadores por região também
 (Kanto 151/151, Sinnoh 104/107, Alola 80/86, Galar 72/89, Hisui 6/7, Paldea 74/120…).
 
-O card mostra **pego / lançado**, que é o acionável. O jogo mostra **pego / total**,
-contando o que ainda nem saiu — por isso o card traz a linha "X de Y no jogo todo"
-quando os dois diferem. Só nas categorias presas à estreia normal: para Brilhante,
-Sombroso, Dinamax etc. ninguém sabe quantos ainda virão, e o próprio jogo não
-mostra denominador nessas abas.
+O card mostra **pego / lançado**, que é o acionável — diferente do **pego / total**
+que o jogo mostra em algumas abas (contando o que ainda nem saiu). Só nas
+categorias presas à estreia normal: para Brilhante, Sombroso, Dinamax etc.
+ninguém sabe quantos ainda virão, e o próprio jogo não mostra denominador
+nessas abas.
 
 ### Falhas da planilha que o site corrige
 
@@ -240,6 +250,12 @@ calendário até achar a data em que a planilha foi recalculada e avisa qual foi
 Casca de Pokédex — vermelho, a lente azul e os três LEDs no topo, abas encaixadas
 na borda. A área de dados é tratada como a "tela" do aparelho e fica limpa, pra
 não atrapalhar a leitura dos números.
+
+**Tema padrão**: no desktop (mouse com hover) abre no claro, de propósito —
+é onde a leitura de tabela é mais comum. No celular (sem hover) segue o tema
+do aparelho, como sempre foi. Isso só vale até a primeira escolha manual no
+botão ◐: a partir daí o tema escolhido (inclusive "seguir o sistema", o
+terceiro clique) vale em qualquer dispositivo.
 
 No tema escuro as superfícies são **carvão neutro levemente quente**, não
 azul-ardósia: misturar painéis frios com a casca vermelha (quente e saturada)

@@ -484,23 +484,6 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 .custom-builder .row{margin:8px 0 6px}
 .custom-builder .chip{background:var(--panel)}
 
-/* =========================== gênero =========================== */
-.gender-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
-.gcard{
-  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);
-  padding:13px;box-shadow:var(--shadow-1);text-align:left;width:100%;display:block;
-  transition:transform .12s,border-color .12s;
-}
-.gcard:hover{transform:translateY(-2px);border-color:var(--c,var(--dex-red))}
-.gcard .gtop{display:flex;align-items:center;gap:8px;color:var(--c,var(--dex-red));
-  font-weight:700;font-size:12.5px}
-.gcard .gq{font-size:12px;color:var(--dim);margin:7px 0 8px;line-height:1.4}
-.gcard .gnum{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;
-  letter-spacing:-.02em}
-.gcard .gnum .of{font-size:13px;color:var(--faint)}
-.gcard .gans{font-size:12.5px;font-weight:700;margin-top:3px}
-.gcard .gans.yes{color:var(--ok)} .gcard .gans.no{color:var(--miss)}
-
 /* =========================== responsivo =========================== */
 @media(max-width:600px){
   .brand h1{font-size:16px}

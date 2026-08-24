@@ -10,7 +10,16 @@ const App = {
     const guess = (navigator.language || "pt").slice(0, 2) === "en" ? "en" : "pt";
     setLang(prefs.lang || guess);
     document.documentElement.lang = LANG === "en" ? "en" : "pt-BR";
-    this.applyTheme(prefs.theme);
+
+    /* Sem preferência salva ainda: no desktop abre no tema claro por
+       padrão; no celular segue o tema do aparelho, como sempre foi.
+       Uma vez que a pessoa escolhe um tema (inclusive "auto" pelo botão),
+       essa escolha fica salva e vale em qualquer dispositivo. */
+    let theme = prefs.theme;
+    if (localStorage.getItem("pokeagenda.prefs") === null && this.isDesktop()) {
+      theme = "light";
+    }
+    this.applyTheme(theme);
     Store.load();
 
     try {
@@ -72,6 +81,13 @@ const App = {
   applyTheme(th) {
     if (th) document.documentElement.setAttribute("data-theme", th);
     else document.documentElement.removeAttribute("data-theme");
+  },
+
+  /* Mouse fino + hover disponível = aparelho "de mesa". Celulares e
+     tablets (ponteiro grosso, sem hover) caem no padrão "segue o sistema". */
+  isDesktop() {
+    return !!(window.matchMedia &&
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches);
   },
 
   go(view, params) {

@@ -126,6 +126,13 @@
       "resumo": { "caught": 39, "released": 40, "total": 41 }
     },
     {
+      "key": "variantShiny", "icon": "globeSparkle", "group": "variant", "color": "#32D6A9",
+      "labelPt": "Variante regional brilhante", "labelEn": "Shiny regional variant",
+      "shortPt": "Var. ✦", "shortEn": "Shiny var.",
+      "scope": "entry", "gate": "shiny", "mark": "shiny",
+      "subset": { "nonempty": "regFormPt" }
+    },
+    {
       "key": "variantShadow", "icon": "globeFlame", "group": "variant", "color": "#6E8C46",
       "labelPt": "Variante sombrosa", "labelEn": "Shadow variant",
       "shortPt": "Var. 🔥", "shortEn": "Shadow var.",
@@ -150,12 +157,26 @@
       "resumo": { "caught": 46, "released": 47, "total": 48 }
     },
     {
+      "key": "formShiny", "icon": "formSparkle", "group": "variant", "color": "#7287DE",
+      "labelPt": "Forma alternativa brilhante", "labelEn": "Shiny alternate form",
+      "shortPt": "Formas ✦", "shortEn": "Shiny forms",
+      "scope": "entry", "gate": "shiny", "mark": "shiny",
+      "subset": { "nonempty": "altFormPt" }
+    },
+    {
       "key": "costume", "icon": "hat", "group": "variant", "color": "#C4772B",
       "labelPt": "Fantasia", "labelEn": "Costume",
       "shortPt": "Fantasia", "shortEn": "Costume",
       "scope": "entry", "gate": "base", "mark": "caught",
       "subset": { "nonempty": "costumePt" },
       "resumo": { "caught": 49, "released": 50 }
+    },
+    {
+      "key": "costumeShiny", "icon": "hat", "group": "variant", "color": "#E6B046",
+      "labelPt": "Fantasia brilhante", "labelEn": "Shiny costume",
+      "shortPt": "Fant. ✦", "shortEn": "Shiny cost.",
+      "scope": "entry", "gate": "shiny", "mark": "shiny",
+      "subset": { "nonempty": "costumePt" }
     },
     {
       "key": "costumeShadow", "icon": "hatFlame", "group": "variant", "color": "#9A5C3C",

@@ -237,13 +237,15 @@ const Agg = {
   },
 
   /* ---- linha do tempo ---- */
-  /* Mapa data -> [entradas] para um tipo de estreia. */
-  debutsByDate(gate, onlyMissing) {
-    const cat = this.categories.find(c => c.gate === gate && c.scope !== "x");
+  /* Mapa data -> [entradas] para um tipo de estreia. Fantasias ficam de fora
+     por padrão (poluem a régua — um evento de fantasia às vezes é 1 estreia
+     "de verdade" e 8 variações de traje no mesmo dia); showCostumes religa. */
+  debutsByDate(gate, onlyMissing, showCostumes) {
     const map = new Map();
     for (const e of this.skeleton.entries) {
       const d = e.debut[gate];
       if (!d) continue;
+      if (!showCostumes && e.costumePt) continue;
       if (onlyMissing) {
         const mark = GATE_MARK[gate];
         if (mark && Store.has(e.id, mark)) continue;

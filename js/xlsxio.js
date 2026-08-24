@@ -4,7 +4,9 @@
    Importar: só precisamos da coluna ID + as colunas de marcas. Datas de
    estreia vêm do esqueleto, então são ignoradas na importação (mas a gente
    avisa se a planilha do usuário parece mais nova que o esqueleto).
-   Exportar: uma aba só, com a mesma ordem de colunas da aba "PokéAgenda". */
+   Exportar: duas abas — "Instruções" (legenda das cores) e "PokéAgenda"
+   (mesma ordem de colunas de sempre, agora com cabeçalhos coloridos por
+   categoria e células M/N/F sinalizadas quando o gênero é impossível). */
 
 const XlsxIO = (() => {
 
@@ -228,20 +230,121 @@ const XlsxIO = (() => {
     return { head, body };
   }
 
-  function sheetXml(head, body) {
-    const rows = [];
-    const cells = (vals, r) => vals.map((v, i) => {
-      const ref = colName(i) + r;
-      if (v === "" || v == null) return "";
-      if (typeof v === "object" && v.date) {
-        return `<c r="${ref}" s="1"><v>${isoToSerial(v.date)}</v></c>`;
-      }
-      if (typeof v === "number") return `<c r="${ref}"><v>${v}</v></c>`;
-      return `<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${esc(v)}</t></is></c>`;
-    }).join("");
+  /* ------------------------------------------------------ estilo/cores
+     As mesmas cores das categorias do site (data/categories.json), pra
+     quem preenche no Excel reconhecer de cara as mesmas cores do app e
+     da aba Resumo da planilha original. Colunas fora deste mapa (nome,
+     região, datas de estreia, marcadores…) são geradas pelo site e
+     ganham um cabeçalho neutro escuro — sinal de "não precisa editar". */
+  const MARK_COLOR = {
+    caught: "1E9BD7",
+    m: "7C5CD6", n: "7C5CD6", f: "7C5CD6",
+    shiny: "E0A21B", shinyDex: "E0A21B",
+    shadow: "7A4CC0", purified: "22AEBC", shadowShiny: "9B55CC",
+    dmax: "C6317B", dmaxShiny: "DB5397",
+    xxs: "8659C5", xxl: "3A6FB0", lucky: "EE7B22", perfect: "E14B62",
+    living: "1E9BD7", livingShiny: "E0A21B", livingShadow: "7A4CC0",
+    livingPurified: "22AEBC", livingDmax: "C6317B", livingLucky: "EE7B22"
+  };
+  const REF_COLOR = "3A4150";
+  const BLOCKED_FILL = "E3E6EC";
+  const BLOCKED_FONT = "9AA0AC";
+  const headerColorFor = key => MARK_COLOR[key] || REF_COLOR;
 
-    rows.push(`<row r="1">${cells(head, 1)}</row>`);
-    body.forEach((b, i) => rows.push(`<row r="${i + 2}">${cells(b, i + 2)}</row>`));
+  /* Monta xl/styles.xml e devolve os índices de estilo (xf) prontos pra
+     usar nas duas abas — cabeçalho colorido por categoria, célula
+     "bloqueada" (gênero impossível) e os estilos da aba de instruções. */
+  function buildStyles() {
+    const headerColors = Array.from(new Set(SHEET_COLUMNS.map(([, k]) => headerColorFor(k))));
+
+    const fills = [
+      `<fill><patternFill patternType="none"/></fill>`,
+      `<fill><patternFill patternType="gray125"/></fill>`,
+      ...headerColors.map(c =>
+        `<fill><patternFill patternType="solid"><fgColor rgb="FF${c}"/><bgColor indexed="64"/></patternFill></fill>`),
+      `<fill><patternFill patternType="solid"><fgColor rgb="FF${BLOCKED_FILL}"/><bgColor indexed="64"/></patternFill></fill>`
+    ];
+    const fillIdOf = {};
+    headerColors.forEach((c, i) => { fillIdOf[c] = 2 + i; });
+    const blockedFillId = fills.length - 1;
+
+    const fonts = [
+      `<font><sz val="11"/><name val="Calibri"/></font>`,
+      `<font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font>`,
+      `<font><sz val="11"/><color rgb="FF${BLOCKED_FONT}"/><name val="Calibri"/></font>`,
+      `<font><b/><sz val="18"/><color rgb="FF${REF_COLOR}"/><name val="Calibri"/></font>`,
+      `<font><b/><sz val="12"/><color rgb="FF${REF_COLOR}"/><name val="Calibri"/></font>`
+    ];
+
+    const xfs = [
+      `<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>`,                    // 0 padrão
+      `<xf numFmtId="14" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>` // 1 data
+    ];
+    const headerXf = {};
+    for (const c of headerColors) {
+      headerXf[c] = xfs.length;
+      xfs.push(`<xf numFmtId="0" fontId="1" fillId="${fillIdOf[c]}" borderId="0" xfId="0" ` +
+        `applyFont="1" applyFill="1" applyAlignment="1"><alignment vertical="center" wrapText="1"/></xf>`);
+    }
+    const blockedXf = xfs.length;
+    xfs.push(`<xf numFmtId="0" fontId="2" fillId="${blockedFillId}" borderId="0" xfId="0" ` +
+      `applyFont="1" applyFill="1"/>`);
+    const titleXf = xfs.length;
+    xfs.push(`<xf numFmtId="0" fontId="3" fillId="0" borderId="0" xfId="0" applyFont="1"/>`);
+    const subXf = xfs.length;
+    xfs.push(`<xf numFmtId="0" fontId="4" fillId="0" borderId="0" xfId="0" applyFont="1"/>`);
+    const swatchXf = {};
+    for (const c of headerColors) {
+      swatchXf[c] = xfs.length;
+      xfs.push(`<xf numFmtId="0" fontId="0" fillId="${fillIdOf[c]}" borderId="0" xfId="0" applyFill="1"/>`);
+    }
+
+    const xml = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<fonts count="${fonts.length}">${fonts.join("")}</fonts>
+<fills count="${fills.length}">${fills.join("")}</fills>
+<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>
+<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>
+<cellXfs count="${xfs.length}">${xfs.join("")}</cellXfs>
+</styleSheet>`;
+
+    return { xml, headerXf, blockedXf, titleXf, subXf, swatchXf };
+  }
+
+  function xCell(ref, v, style) {
+    if (v === "" || v == null) return style ? `<c r="${ref}" s="${style}"/>` : "";
+    if (typeof v === "object" && v.date) return `<c r="${ref}" s="1"><v>${isoToSerial(v.date)}</v></c>`;
+    const sAttr = style ? ` s="${style}"` : "";
+    if (typeof v === "number") return `<c r="${ref}"${sAttr}><v>${v}</v></c>`;
+    return `<c r="${ref}"${sAttr} t="inlineStr"><is><t xml:space="preserve">${esc(v)}</t></is></c>`;
+  }
+
+  /* Aba de dados: cabeçalho colorido por categoria; nas colunas M/N/F,
+     células sem o gênero possível pra aquela espécie ganham o estilo
+     "bloqueado" (mesmo espírito do trancamento na ficha do site). */
+  function dataSheetXml(head, body, entries, styles) {
+    const { headerXf, blockedXf } = styles;
+    const mIdx = SHEET_COLUMNS.findIndex(([, k]) => k === "m");
+    const nIdx = SHEET_COLUMNS.findIndex(([, k]) => k === "n");
+    const fIdx = SHEET_COLUMNS.findIndex(([, k]) => k === "f");
+    const genderAtCol = { [mIdx]: "m", [nIdx]: "n", [fIdx]: "f" };
+
+    const rows = [];
+    const headCells = head.map((v, i) =>
+      xCell(colName(i) + "1", v, headerXf[headerColorFor(SHEET_COLUMNS[i][1])])).join("");
+    rows.push(`<row r="1" customHeight="1" ht="30">${headCells}</row>`);
+
+    body.forEach((b, i) => {
+      const r = i + 2;
+      const entry = entries[i];
+      const allowed = Agg.allowedGenders(entry);
+      const rowCells = b.map((v, ci) => {
+        const g = genderAtCol[ci];
+        const style = (g && allowed.indexOf(g) === -1) ? blockedXf : 0;
+        return xCell(colName(ci) + r, v, style);
+      }).join("");
+      rows.push(`<row r="${r}">${rowCells}</row>`);
+    });
 
     const lastCol = colName(head.length - 1);
     return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -254,12 +357,80 @@ const XlsxIO = (() => {
 </worksheet>`;
   }
 
+  /* Legenda: uma linha por coluna marcável, com o mesmo swatch de cor do
+     cabeçalho dela na aba de dados — pra bater visualmente com o que a
+     pessoa vê ao trocar de aba. */
+  const LEGEND = [
+    ["caught", "Registro", "Você tem este Pokémon registrado na Pokédex."],
+    ["m", "M", "Você tem um macho registrado."],
+    ["n", "N", "Você tem um exemplar sem gênero registrado."],
+    ["f", "F", "Você tem uma fêmea registrada."],
+    ["shiny", "Brilhante", "Você pegou um brilhante desta entrada específica."],
+    ["shinyDex", "Dex brilhante", "Você já tem algum brilhante deste número na Pokédex (calculado — ajuste se precisar)."],
+    ["shadow", "Sombroso", "Você tem este sombroso."],
+    ["purified", "Purificado", "Você purificou este sombroso."],
+    ["shadowShiny", "Sombroso brilhante", "Você tem este sombroso brilhante."],
+    ["dmax", "Dinamax", "Você tem este em Dinamax."],
+    ["dmaxShiny", "Dinamax brilhante", "Você tem este em Dinamax brilhante."],
+    ["xxs", "XXS", "Menor tamanho já registrado desta entrada."],
+    ["xxl", "XXL", "Maior tamanho já registrado desta entrada."],
+    ["lucky", "Sortudo", "Você tem este sortudo."],
+    ["perfect", "Perfeito", "Você tem este com 100% de IV."],
+    ["living", "Living dex", "Você TEM este na caixa agora — diferente de só registrado."],
+    ["livingShiny", "Living dex brilhante", "Brilhante na caixa agora."],
+    ["livingShadow", "Living dex sombroso", "Sombroso na caixa agora."],
+    ["livingPurified", "Living dex purificado", "Purificado na caixa agora."],
+    ["livingDmax", "Living dex dinamax", "Dinamax na caixa agora."],
+    ["livingLucky", "Living dex sortudo", "Sortudo na caixa agora."]
+  ];
+
+  function instructionsSheetXml(styles) {
+    const { headerXf, titleXf, subXf, swatchXf } = styles;
+    const rows = [];
+    let r = 1;
+    const add = cellsSpec => {
+      const cs = cellsSpec.map(([col, val, style]) => xCell(colName(col) + r, val, style)).join("");
+      rows.push(`<row r="${r}">${cs}</row>`);
+      r++;
+    };
+    const skip = n => { r += (n || 1); };
+
+    add([[0, "PokéAgenda — instruções de preenchimento", titleXf]]);
+    skip();
+    add([[0, "Marque as colunas coloridas com qualquer texto — o site usa \"x\" — para indicar que você tem aquele Pokémon ou aquela marca."]]);
+    add([[0, "Colunas com cabeçalho cinza-escuro são geradas pelo site (nome, região, datas de estreia, marcadores…) e não precisam ser editadas."]]);
+    add([[0, "Nas colunas M / N / F, uma célula cinza indica um gênero que não existe para aquele Pokémon — deixe em branco."]]);
+    add([[0, "Não apague nem reordene a coluna ID: é ela que liga cada linha ao Pokémon certo na hora de importar."]]);
+    skip();
+    add([[0, "Legenda das colunas", subXf]]);
+    skip();
+    add([[0, "", headerXf[REF_COLOR]], [1, "Coluna", headerXf[REF_COLOR]], [2, "O que marcar", headerXf[REF_COLOR]]]);
+    for (const [key, label, expl] of LEGEND) {
+      const c = headerColorFor(key);
+      add([[0, "", swatchXf[c]], [1, label], [2, expl]]);
+    }
+    add([[0, "", swatchXf[REF_COLOR]], [1, "Cabeçalho cinza-escuro"],
+      [2, "Gerado pelo site a partir do esqueleto do jogo — nome, região, datas de estreia, marcadores etc. Não precisa editar."]]);
+    skip();
+    add([[0, "Depois de preencher", subXf]]);
+    skip();
+    add([[0, "Salve o arquivo e importe pela aba \"Meus dados\" do site — suas marcas substituem as que já estavam salvas neste navegador."]]);
+
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<sheetFormatPr defaultRowHeight="16"/>
+<cols><col min="1" max="1" width="4" customWidth="1"/><col min="2" max="2" width="26" customWidth="1"/><col min="3" max="3" width="85" customWidth="1"/></cols>
+<sheetData>${rows.join("")}</sheetData>
+</worksheet>`;
+  }
+
   const CONTENT_TYPES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
 <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
 <Default Extension="xml" ContentType="application/xml"/>
 <Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
 <Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
+<Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
 <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
 </Types>`;
 
@@ -268,40 +439,33 @@ const XlsxIO = (() => {
 <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
 </Relationships>`;
 
+  /* "Instruções" aparece primeiro (é a aba que abre), mas o arquivo físico
+     sheet1.xml continua sendo o de dados — mantém o fallback de leitura
+     (readSheet cai em sheet1.xml se não conseguir resolver pelo nome). */
   const WORKBOOK = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-<sheets><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/></sheets>
+<sheets><sheet name="Instruções" sheetId="2" r:id="rId2"/><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/></sheets>
 </workbook>`;
 
   const WB_RELS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
 <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>
-<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/>
+<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
 </Relationships>`;
-
-  /* estilo 1 = data dd/mm/aaaa (numFmtId 14) */
-  const STYLES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
-<fonts count="1"><font><sz val="11"/><name val="Calibri"/></font></fonts>
-<fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills>
-<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>
-<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>
-<cellXfs count="2">
-<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>
-<xf numFmtId="14" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>
-</cellXfs>
-</styleSheet>`;
 
   async function buildXlsx(skeleton, blank) {
     const { head, body } = buildRows(skeleton, blank);
+    const styles = buildStyles();
     const enc = new TextEncoder();
     return Zip.write([
       { name: "[Content_Types].xml", data: enc.encode(CONTENT_TYPES) },
       { name: "_rels/.rels", data: enc.encode(ROOT_RELS) },
       { name: "xl/workbook.xml", data: enc.encode(WORKBOOK) },
       { name: "xl/_rels/workbook.xml.rels", data: enc.encode(WB_RELS) },
-      { name: "xl/styles.xml", data: enc.encode(STYLES) },
-      { name: "xl/worksheets/sheet1.xml", data: enc.encode(sheetXml(head, body)) }
+      { name: "xl/styles.xml", data: enc.encode(styles.xml) },
+      { name: "xl/worksheets/sheet1.xml", data: enc.encode(dataSheetXml(head, body, skeleton.entries, styles)) },
+      { name: "xl/worksheets/sheet2.xml", data: enc.encode(instructionsSheetXml(styles)) }
     ]);
   }
 

@@ -20,17 +20,14 @@ const Icons = (() => {
             '<path d="M12 12c-2.5 0-4.5 1-4.5 3s1.5 3 3.5 3 3-1.5 3-3.5c0-1.3-.7-2.5-2-2.5Z" fill="currentColor"/>' +
             '<path d="M12 12c2.5 0 4.5 1 4.5 3s-1.5 3-3.5 3-3-1.5-3-3.5c0-1.3.7-2.5 2-2.5Z" fill="currentColor" opacity=".7"/>',
 
-    /* Régua cheia + seta pra fora — XXL */
-    xxl: '<path d="M3 8v8M21 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-         '<path d="M6 12h12" stroke="currentColor" stroke-width="2"/>' +
-         '<path d="m8.5 9.5-3 2.5 3 2.5M15.5 9.5l3 2.5-3 2.5" fill="none" stroke="currentColor" ' +
-         'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+    /* Triângulo cheio, grande — XXL (o maior já registrado). A régua com
+       setinhas finas sumia nos badges pequenos (11-14px); forma sólida
+       aguenta qualquer tamanho. */
+    xxl: '<path d="M12 2.5 21.5 20 2.5 20Z" fill="currentColor"/>',
 
-    /* Régua estreita + seta pra dentro — XXS */
-    xxs: '<path d="M3 8v8M21 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
-         '<path d="M8 12h8" stroke="currentColor" stroke-width="2"/>' +
-         '<path d="m6 9.5 3 2.5-3 2.5M18 9.5l-3 2.5 3 2.5" fill="none" stroke="currentColor" ' +
-         'stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+    /* Mesmo triângulo, em escala menor — XXS (o menor já registrado). Par
+       visual com o XXL: mesma forma, só o tamanho muda. */
+    xxs: '<path d="M12 9 15.5 15.5 8.5 15.5Z" fill="currentColor"/>',
 
     /* Estrela cheia — 100% */
     star: '<path d="m12 3 2.6 5.6 6.1.8-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L3.3 9.4l6.1-.8Z" fill="currentColor"/>',
@@ -94,9 +91,21 @@ const Icons = (() => {
            '<path d="M18 11c1.6 1.9 2.5 3 2.5 4.4a2.5 2.5 0 1 1-5 0c0-1.4.9-2.5 2.5-4.4Z" fill="currentColor"/>' +
            '<path d="M18.4 2.6l.7 1.9 1.9.7-1.9.7-.7 1.9-.7-1.9-1.9-.7 1.9-.7Z" fill="currentColor" opacity=".85"/>',
 
+    /* Globo encolhido + brilho — variante regional brilhante */
+    globeSparkle: '<circle cx="9.3" cy="10.3" r="6.6" fill="none" stroke="currentColor" stroke-width="1.8"/>' +
+           '<path d="M3.3 8.1h12M3.3 12.5h12" stroke="currentColor" stroke-width="1.3"/>' +
+           '<path d="M9.3 3.7c1.9 1.8 2.9 4 2.9 6.6s-1 4.8-2.9 6.6c-1.9-1.8-2.9-4-2.9-6.6s1-4.8 2.9-6.6Z" ' +
+           'fill="none" stroke="currentColor" stroke-width="1.3"/>' +
+           '<path d="M18.6 14.2l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9Z" fill="currentColor"/>',
+
     /* Peça de quebra-cabeça — forma alternativa */
     form: '<path d="M4 5.5h5a2 2 0 1 1 4 0h5v5a2 2 0 1 0 0 4v5h-5a2 2 0 1 0-4 0H4v-5a2 2 0 1 0 0-4Z" ' +
           'fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+
+    /* Peça encolhida + brilho — forma alternativa brilhante */
+    formSparkle: '<path d="M3 6.1h3.6a1.6 1.6 0 1 1 3.2 0H13.4v3.6a1.6 1.6 0 1 0 0 3.2V16.5H9.8a1.6 1.6 0 1 0-3.2 0H3v-3.6a1.6 1.6 0 1 0 0-3.2Z" ' +
+          'fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>' +
+          '<path d="M18.6 15.2l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9Z" fill="currentColor"/>',
 
     /* Chapéu de festa — fantasia */
     hat: '<path d="M12 3 18.5 17h-13Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>' +
@@ -167,6 +176,7 @@ const Icons = (() => {
     gmax:     { img: "gigantamax" },
     gmaxShiny:{ img: "gigantamax", ovl: "shiny" },
     costume:  { img: "event" },
+    costumeShiny: { img: "event", ovl: "shiny" },
     costumeShadow: { img: "event", ovl: "shadow" },
     /* camadas do living dex */
     regular:  { img: "pokedex" },

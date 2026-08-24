@@ -91,11 +91,7 @@ const Dashboard = {
       const p = el("div", "panel");
       p.appendChild(sectionHead(label, null, cats[0].color));
       const grid = el("div", "kpis");
-      /* se ALGUM card do grupo tem a linha "no jogo", todos ganham a linha
-         (vazia quando não se aplica) — senão os cards desalinham */
-      const anyLine = cats.some(c =>
-        c.gate === "base" && all[c.key].total.inGame !== all[c.key].total.released);
-      for (const c of cats) grid.appendChild(this.card(c, all[c.key].total, anyLine));
+      for (const c of cats) grid.appendChild(this.card(c, all[c.key].total));
       p.appendChild(grid);
       root.appendChild(p);
     }
@@ -130,7 +126,7 @@ const Dashboard = {
     return strip;
   },
 
-  card(cat, s, groupHasLine) {
+  card(cat, s) {
     const b = el("button", "kpi");
     b.type = "button";
     b.style.setProperty("--c", cat.color);
@@ -157,21 +153,6 @@ const Dashboard = {
          miss <= 0 ? t("dash.complete") : miss + " " + t("dash.missing")));
 
     b.append(top, num, bar, sub);
-    /* O jogo mostra pego/total na aba Pokémon, contando o que nem saiu ainda
-       (Sinnoh 104/107, Paldea 74/120) — mas SÓ o que já está listado no
-       Pokédex dele. Usamos esse universo (inGame, 1025 hoje), não o total da
-       planilha (1028), que inclui gerações inalcançáveis. Só onde o universo
-       é conhecido: categorias presas à estreia normal. E se algum card do
-       grupo tem a linha, os outros ganham uma vazia — senão desalinham. */
-    const wantsLine = cat.gate === "base" && s.inGame !== s.released;
-    if (wantsLine) {
-      b.appendChild(el("div", "kpi-sub",
-        t("dash.ofTotal", { c: s.caught, n: s.inGame })));
-    } else if (groupHasLine) {
-      const ghost = el("div", "kpi-sub", " ");
-      ghost.style.visibility = "hidden";
-      b.appendChild(ghost);
-    }
     b.title = `${catLabel(cat)}\n${s.caught} / ${s.released} ${t("dash.released")}\n` +
               `${t("dash.total")}: ${s.total}`;
     b.addEventListener("click", () => App.go("lists", { cat: cat.key }));
@@ -188,58 +169,61 @@ const Dashboard = {
       return p;
     }
     const g = Agg.genderStats();
-    const wrap = el("div", "gender-cards");
+    const grid = el("div", "kpis");
 
-    const mk = (icon, color, label, question, numHtml, answer, ok, onClick) => {
-      const c = el("button", "gcard");
-      c.type = "button";
-      c.style.setProperty("--c", color);
-      const top = el("div", "gtop");
-      top.append(Icons.svg(icon, 16), el("span", null, label));
-      c.append(top, el("div", "gq", question));
-      c.appendChild(numHtml);
-      c.appendChild(el("div", "gans " + (ok ? "yes" : "no"), answer));
-      if (onClick) c.addEventListener("click", onClick);
-      else c.style.cursor = "default";
-      return c;
+    /* Mesmo cartão das outras seções (ícone, número, barra, faltam/completo) —
+       sem pergunta nem resposta, só o dado. Quando não há um "total" que
+       faça sentido (cartão 3), o cartão fica sem barra. */
+    const mk = (icon, color, label, caught, total, missN, onClick) => {
+      const b = el("button", "kpi");
+      b.type = "button";
+      b.style.setProperty("--c", color);
+      if (missN <= 0) b.classList.add("done");
+      const top = el("div", "kpi-top");
+      top.append(Icons.svg(icon, 20), el("span", "kpi-name", label));
+      const num = el("div", "kpi-num");
+      if (total != null) {
+        num.append(document.createTextNode(String(caught)), el("span", "of", " / " + total));
+        const bar = el("div", "bar");
+        const fill = el("i");
+        const pc = pct(caught, total);
+        fill.style.width = pc + "%";
+        if (pc >= 100) fill.className = "full";
+        bar.appendChild(fill);
+        const sub = el("div", "kpi-sub");
+        sub.append(el("span", null, pc + "%"),
+          el("span", "kpi-miss" + (missN <= 0 ? " zero" : ""),
+             missN <= 0 ? t("dash.complete") : missN + " " + t("dash.missing")));
+        b.append(top, num, bar, sub);
+      } else {
+        num.textContent = String(caught);
+        b.append(top, num);
+      }
+      if (onClick) b.addEventListener("click", onClick);
+      else b.style.cursor = "default";
+      return b;
     };
 
     /* 1 — macho e fêmea marcados na dex */
-    const n1 = el("div", "gnum");
-    n1.append(document.createTextNode(String(g.dualBoth)),
-              el("span", "of", " / " + g.dualTotal));
     const gap1 = g.dualTotal - g.dualBoth;
-    wrap.appendChild(mk("genders", "#7c5cd6", t("gender.dexLabel"), t("gender.dexQ"), n1,
-      gap1 === 0 ? t("gender.yesAll") : t("gender.noMissing", { n: gap1 }),
-      gap1 === 0,
-      gap1 ? () => GenderList.open("all") : null));
+    grid.appendChild(mk("genders", "#7c5cd6", t("gender.dexLabel"),
+      g.dualBoth, g.dualTotal, gap1, gap1 ? () => GenderList.open("all") : null));
 
-    /* 2 — pares com diferença visual. A pergunta é sobre pares PELA METADE;
-       ter zero dos dois é fantasia faltando, não lacuna de gênero. */
-    const n2 = el("div", "gnum");
-    n2.append(document.createTextNode(String(g.diffFull)),
-              el("span", "of", " / " + g.diffTotal));
-    const half = g.diffHalf.length;
-    wrap.appendChild(mk("form", "#2e9c6c", t("gender.diffLabel"), t("gender.diffQ"), n2,
-      half === 0 ? t("gender.yesNoHalf") : t("gender.noHalf", { n: half }),
-      half === 0,
-      (half || g.diffNone.length) ? () => GenderList.open("diff") : null));
+    /* 2 — pares com diferença visual (♂/♀ de fato diferentes). "Faltam" aqui
+       inclui os dois jeitos de faltar (metade e nenhum); a distinção entre
+       eles vira uma nota abaixo, não fica embutida no cartão. */
+    const missDiff = g.diffTotal - g.diffFull;
+    grid.appendChild(mk("form", "#2e9c6c", t("gender.diffLabel"),
+      g.diffFull, g.diffTotal, missDiff, missDiff ? () => GenderList.open("diff") : null));
 
-    /* 3 — só de um gênero */
-    const n3 = el("div", "gnum");
-    n3.textContent = String(g.onlyM.length + g.onlyF.length);
-    wrap.appendChild(mk("male", "#3a6fb0", t("gender.onlyLabel"), t("gender.onlyQ"), n3,
-      t("gender.onlyBreak", { m: g.onlyF.length, f: g.onlyM.length }),
-      (g.onlyM.length + g.onlyF.length) === 0,
-      (g.onlyM.length + g.onlyF.length) ? () => GenderList.open("only") : null));
+    /* 3 — só de um gênero: não tem um "total" natural, fica sem barra */
+    const onlyN = g.onlyM.length + g.onlyF.length;
+    const only = mk("male", "#3a6fb0", t("gender.onlyLabel"), onlyN, null, onlyN,
+      onlyN ? () => GenderList.open("only") : null);
+    only.appendChild(el("div", "kpi-sub", t("gender.onlyBreak", { m: g.onlyF.length, f: g.onlyM.length })));
+    grid.appendChild(only);
 
-    p.appendChild(wrap);
-
-    if (g.neither.length) {
-      p.appendChild(el("p", "small dim",
-        t("gender.neither", { n: g.neither.length,
-          list: g.neither.slice(0, 6).map(i => speciesOf(i.display)).join(", ") })));
-    }
+    p.appendChild(grid);
     return p;
   },
 
@@ -494,7 +478,7 @@ function monCard(it, cat, opt) {
 
 /* ========================================================= LINHA DO TEMPO */
 const Timeline = {
-  state: { gate: "base", onlyMissing: false, sel: null },
+  state: { gate: "base", onlyMissing: false, showCostumes: false, sel: null },
   MONTHS: {
     pt: ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"],
     en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -525,6 +509,7 @@ const Timeline = {
       chips.appendChild(c);
     }
     controls.appendChild(chips);
+    controls.appendChild(el("span", "spacer"));
 
     if (!Store.isEmpty()) {
       const om = el("button", "chip" + (this.state.onlyMissing ? " is-on" : ""),
@@ -532,11 +517,17 @@ const Timeline = {
       om.addEventListener("click", () => {
         this.state.onlyMissing = !this.state.onlyMissing; App.rerender();
       });
-      controls.append(el("span", "spacer"), om);
+      controls.appendChild(om);
     }
+    const cc = el("button", "chip" + (this.state.showCostumes ? " is-on" : ""),
+                  t("tl.showCostumes"));
+    cc.addEventListener("click", () => {
+      this.state.showCostumes = !this.state.showCostumes; App.rerender();
+    });
+    controls.appendChild(cc);
     p.appendChild(controls);
 
-    const map = Agg.debutsByDate(this.state.gate, this.state.onlyMissing);
+    const map = Agg.debutsByDate(this.state.gate, this.state.onlyMissing, this.state.showCostumes);
     let maxN = 1;
     for (const [, arr] of map) if (arr.length > maxN) maxN = arr.length;
 
@@ -686,20 +677,21 @@ const GenderList = {
       } else if (kind === "diff") {
         items = g.diffHalf.concat(g.diffNone);
         title = t("gender.diffLabel");
-        note = g.diffHalf.length
-          ? t("gender.noHalf", { n: g.diffHalf.length }) + " · " +
-            t("gender.noneNote", { n: g.diffNone.length })
-          : t("gender.yesNoHalf") + " · " + t("gender.noneNote", { n: g.diffNone.length });
+        const parts = [];
+        if (g.diffHalf.length) parts.push(t("gender.halfCount", { n: g.diffHalf.length }));
+        if (g.diffNone.length) parts.push(t("gender.noneNote", { n: g.diffNone.length }));
+        note = parts.join(" · ");
       } else {
         items = g.onlyM.concat(g.onlyF, g.neither);
         title = t("gender.dexLabel");
-        note = t("gender.dexQ");
+        const missN = g.dualTotal - g.dualBoth;
+        note = missN <= 0 ? t("dash.complete") : missN + " " + t("dash.missing");
       }
       sheetHead(sheet, title, "#7c5cd6");
       sheet.appendChild(el("div", "small dim", note));
 
       if (!items.length) {
-        sheet.appendChild(el("div", "empty-state", t("gender.yesAll")));
+        sheet.appendChild(el("div", "empty-state", t("dash.complete")));
         return;
       }
       const grid = el("div", "grid");
