@@ -166,7 +166,9 @@ const I18N = {
 
     "bg.title": "Dex de Fundos",
     "bg.sub": "Os fundos colecionáveis de eventos. Um fundo conta como seu assim que você marca qualquer Pokémon elegível — inclusive quem chegou lá evoluindo de um deles.",
-    "bg.special": "Especiais", "bg.location": "Presenciais",
+    "bg.special": "Fundos Especiais", "bg.location": "Fundos de Localização",
+    "bg.specialShiny": "Brilhante + Fundo Especial",
+    "bg.locationShiny": "Brilhante + Fundo de Localização",
     "bg.pokemonCount": "{c} / {n} Pokémon",
     "bg.locationNote": "Presenciais dependem de ter ido ao evento — a maioria é praticamente impossível de completar à distância. Aqui é só pra acompanhar o que você já tem.",
     "bg.unavailable": "Lista de fundos indisponível no momento.",
@@ -344,7 +346,9 @@ const I18N = {
 
     "bg.title": "Background Dex",
     "bg.sub": "Collectible event backgrounds. A background counts as yours as soon as you register any eligible Pokémon — including ones reached by evolving one of them.",
-    "bg.special": "Special", "bg.location": "Location",
+    "bg.special": "Special Backgrounds", "bg.location": "Location Backgrounds",
+    "bg.specialShiny": "Shiny + Special Background",
+    "bg.locationShiny": "Shiny + Location Background",
     "bg.pokemonCount": "{c} / {n} Pokémon",
     "bg.locationNote": "Location backgrounds require having attended the event — most are practically impossible to complete remotely. This is just to track what you already have.",
     "bg.unavailable": "Background list unavailable right now.",

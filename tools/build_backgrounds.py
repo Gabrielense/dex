@@ -808,29 +808,30 @@ for _bg in ("special-background-valor", "special-background-mystic", "special-ba
     for _species in ("Bulbasaur", "Charmander", "Squirtle"):
         CI_OVERRIDES[(_bg, _species)] = "%s party hat" % _species
 
-# Confirmado pelo Gabriel: na mesma linha "Ultra Unlock: 10th Anniversary
-# Edition" dos 3 backgrounds de time, os iniciais de Kanto (Agua/Fogo/
-# Grama) E os de Hoenn tambem saiam SOMBROSOS - as outras geracoes de
-# inicial (Johto, Sinnoh, Unova, Kalos, Alola, Galar, Paldea) nunca
-# tiveram versao sombrosa no jogo. So um sinal visual (ver bg-sprite
-# shadow no site); nao afeta contagem, so exibicao.
-# Confirmed by Gabriel: on that same "Ultra Unlock: 10th Anniversary
-# Edition" row of the 3 team backgrounds, the Kanto (Water/Fire/Grass) AND
-# Hoenn starters also came as Shadow - the other starter generations
-# (Johto, Sinnoh, Unova, Kalos, Alola, Galar, Paldea) have never had a
-# Shadow release in the game. Display-only signal (see the site's
-# bg-sprite shadow badge); doesn't affect counting.
-SHADOW_ELIGIBLE_BG_IDS = {
-    "special-background-valor", "special-background-mystic", "special-background-instinct",
-}
-SHADOW_ELIGIBLE_NUMS = {
-    1, 2, 3,          # Bulbasaur, Ivysaur, Venusaur
-    4, 5, 6,          # Charmander, Charmeleon, Charizard
-    7, 8, 9,          # Squirtle, Wartortle, Blastoise
-    252, 253, 254,    # Treecko, Grovyle, Sceptile
-    255, 256, 257,    # Torchic, Combusken, Blaziken
-    258, 259, 260,    # Mudkip, Marshtomp, Swampert
-}
+# (bg_id, num) -> "both" (saiu normal E sombroso - dois pares
+# independentes pra marcar, ver "+shadow" mais abaixo) ou "only" (SÓ saiu
+# sombroso - marca a própria entrada, sem duplicar, porque não existe uma
+# "normal" separada pra confundir). Tudo aqui é confirmado pelo Gabriel
+# caso a caso, não é dedutível do wikitext do Fandom (que não fala de
+# sombroso). Display-only: não afeta contagem, só o selo de canto (ver
+# .bg-sprite-badge no site).
+# (bg_id, num) -> "both" (came out both normal AND Shadow - two
+# independent pairs to mark, see "+shadow" below) or "only" (ONLY came out
+# Shadow - flags the entry itself, no duplicate, since there's no
+# separate "normal" to disambiguate from). Everything here is confirmed
+# by Gabriel case by case, not derivable from Fandom's wikitext (which
+# doesn't mention Shadow at all). Display-only: doesn't affect counting,
+# just the corner badge (see .bg-sprite-badge on the site).
+SHADOW_ELIGIBLE = {}
+# Ultra Unlock: 10th Anniversary Edition (as 3 abas de time) - Kanto
+# Agua/Fogo/Grama e Hoenn saiam tanto normais quanto sombrosos; as outras
+# geracoes de inicial nunca tiveram sombroso no jogo.
+for _bg in ("special-background-valor", "special-background-mystic", "special-background-instinct"):
+    for _num in (1, 2, 3, 4, 5, 6, 7, 8, 9, 252, 253, 254, 255, 256, 257, 258, 259, 260):
+        SHADOW_ELIGIBLE[(_bg, _num)] = "both"
+# Into the Wild 2025 / Pokémon GO Wild Area 2025: Global - Darkrai só
+# saiu sombroso ali, ao contrario dos outros Pokemon do mesmo fundo.
+SHADOW_ELIGIBLE[("special-background-wild-area-global-2025", 491)] = "only"
 
 
 # ------------------------------------------------------------------ main
@@ -923,10 +924,23 @@ def main():
     for bg in backgrounds.values():
         b2 = dict(bg)
         b2["pokemon"] = sorted(bg["pokemon"].values(), key=lambda p: p["num"])
-        if bg["id"] in SHADOW_ELIGIBLE_BG_IDS:
-            for p in b2["pokemon"]:
-                if p["num"] in SHADOW_ELIGIBLE_NUMS:
-                    p["viaShadow"] = True
+        dupes = []
+        for p in b2["pokemon"]:
+            mode = SHADOW_ELIGIBLE.get((bg["id"], p["num"]))
+            if mode == "both":
+                # Duplica, nao marca em cima: normal E sombroso saem os
+                # dois, entao precisam de marcas independentes - o
+                # "+shadow" no final do id (mesma ideia do "+F"/"+S" ja
+                # usados no site) da uma chave de Store diferente sem
+                # inventar um ID de esqueleto que nao existe.
+                dupes.append({"id": p["id"] + "+shadow", "num": p["num"],
+                               "viaEvolution": p["viaEvolution"], "viaShadow": True})
+            elif mode == "only":
+                # So sombroso saiu - marca a propria entrada, sem duplicar
+                # (nao existe uma "normal" separada pra essa captura).
+                p["viaShadow"] = True
+        if dupes:
+            b2["pokemon"] = sorted(b2["pokemon"] + dupes, key=lambda p: p["num"])
         b2["debut"] = earliest_debut(bg["events"], bg["year"])
 
         override = MANUAL_OVERRIDES.get(bg["id"], {})

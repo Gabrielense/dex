@@ -236,10 +236,10 @@ const DataPanel = {
       this.say(t("data.matched", { n: res.report.matched }), "ok");
       this.say(t("data.marksFound", { n: count }), "ok");
       if (bgMarks) {
-        Store.replaceAllBackgroundMarks(bgMarks);
-        let bgCount = 0;
-        for (const k in bgMarks) bgCount += Object.keys(bgMarks[k]).length;
-        this.say(t("data.bgMarksFound", { n: bgCount }), "ok");
+        Store.replaceAllBackgroundMarks(bgMarks.marks);
+        Store.replaceAllBackgroundShinyMarks(bgMarks.shinyMarks);
+        const countPairs = m => { let n = 0; for (const k in m) n += Object.keys(m[k]).length; return n; };
+        this.say(t("data.bgMarksFound", { n: countPairs(bgMarks.marks) + countPairs(bgMarks.shinyMarks) }), "ok");
       }
       if (res.report.unmatched.length) {
         this.say(t("data.unmatched", { n: res.report.unmatched.length }), "warn");

@@ -168,37 +168,46 @@ const XlsxIO = (() => {
     return { rows: out, report };
   }
 
-  /* Cabecalhos da aba "Fundos" -> indice de coluna. */
+  /* Cabecalhos da aba "Fundos" -> indice de coluna. Duas colunas de marca
+     porque todo Pokémon de background é elegível a brilhante desde
+     sempre — não é um extra opcional, é o mesmo par (background,
+     Pokémon) visto pelos dois ângulos. */
   const BG_SHEET_COLUMNS = [
     ["ID do Fundo", "bgId"], ["Nome do Fundo", "bgName"],
     ["Tipo", "bgType"], ["ID do Pokémon", "pokemonId"],
     ["Nome do Pokémon", "pokemonName"], ["Via evolução", "viaEvolution"],
-    ["Marcado", "marked"]
+    ["Marcado", "marked"], ["Marcado brilhante", "markedShiny"]
   ];
 
   /* rows: saida crua de readSheet(arrayBuffer, "Fundos", {requireName:true}).
-     -> { bgId: { pokemonId: 1 } }, só os pares marcados com "x". */
+     -> { marks: {bgId:{pokemonId:1}}, shinyMarks: {bgId:{pokemonId:1}} },
+     só os pares marcados com "x" em cada coluna. */
   function backgroundRowsToMarks(rows) {
-    if (!rows.length) return {};
+    if (!rows.length) return { marks: {}, shinyMarks: {} };
     const header = rows[0].map(h => normHeader(h));
     const idx = {};
     for (const [h, k] of BG_SHEET_COLUMNS) {
       const i = header.indexOf(normHeader(h));
       if (i >= 0) idx[k] = i;
     }
-    if (idx.bgId === undefined || idx.pokemonId === undefined) return {};
-    const out = Object.create(null);
+    if (idx.bgId === undefined || idx.pokemonId === undefined) return { marks: {}, shinyMarks: {} };
+    const marks = Object.create(null);
+    const shinyMarks = Object.create(null);
     for (let r = 1; r < rows.length; r++) {
       const row = rows[r];
-      const marked = String(row[idx.marked] || "").trim();
-      if (!marked) continue;
       const bgId = String(row[idx.bgId] || "").trim();
       const pokemonId = String(row[idx.pokemonId] || "").trim();
       if (!bgId || !pokemonId) continue;
-      if (!out[bgId]) out[bgId] = {};
-      out[bgId][pokemonId] = 1;
+      if (String(row[idx.marked] || "").trim()) {
+        if (!marks[bgId]) marks[bgId] = {};
+        marks[bgId][pokemonId] = 1;
+      }
+      if (idx.markedShiny !== undefined && String(row[idx.markedShiny] || "").trim()) {
+        if (!shinyMarks[bgId]) shinyMarks[bgId] = {};
+        shinyMarks[bgId][pokemonId] = 1;
+      }
     }
-    return out;
+    return { marks, shinyMarks };
   }
 
   function normHeader(s) {
@@ -457,7 +466,7 @@ const XlsxIO = (() => {
     skip();
     add([[0, "Salve o arquivo e importe pela aba \"Meus dados\" do site — suas marcas substituem as que já estavam salvas neste navegador."]]);
     skip();
-    add([[0, "A aba \"Fundos\" é separada: cada linha é um Pokémon elegível para um fundo de evento. Marque a coluna \"Marcado\" para o Pokémon que você pegou COM aquele fundo especificamente — o mesmo Pokémon pode aparecer marcado numa linha e não marcado em outra, já que o registro normal (\"Registro\") não distingue de qual captura veio."]]);
+    add([[0, "A aba \"Fundos\" é separada: cada linha é um Pokémon elegível para um fundo de evento. Marque a coluna \"Marcado\" para o Pokémon que você pegou COM aquele fundo especificamente — o mesmo Pokémon pode aparecer marcado numa linha e não marcado em outra, já que o registro normal (\"Registro\") não distingue de qual captura veio. A coluna \"Marcado brilhante\" é separada da \"Marcado\": todo Pokémon de fundo é elegível a brilhante, então as duas marcas são independentes — dá pra ter só o normal, só o brilhante, os dois ou nenhum."]]);
 
     return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
@@ -477,7 +486,8 @@ const XlsxIO = (() => {
     const rows = [];
     const headCells = head.map((v, i) => {
       const key = BG_SHEET_COLUMNS[i][1];
-      const color = key === "marked" ? headerColorFor("caught") : REF_COLOR;
+      const color = key === "marked" ? headerColorFor("caught")
+                  : key === "markedShiny" ? headerColorFor("shiny") : REF_COLOR;
       return xCell(colName(i) + "1", v, headerXf[color]);
     }).join("");
     rows.push(`<row r="1" customHeight="1" ht="30">${headCells}</row>`);
@@ -487,10 +497,11 @@ const XlsxIO = (() => {
       for (const p of bg.pokemon) {
         const entry = Agg.byId && Agg.byId.get(p.id);
         const marked = !blank && Store.hasBackgroundMark(bg.id, p.id) ? "x" : "";
+        const markedShiny = !blank && Store.hasBackgroundShinyMark(bg.id, p.id) ? "x" : "";
         const vals = [
           bg.id, bg.name, bg.type === "special" ? "Especial" : "Presencial",
           p.id, entry ? (LANG === "en" ? (entry.nameEn || entry.namePt) : entry.namePt) : "",
-          p.viaEvolution ? "Sim" : "", marked
+          p.viaEvolution ? "Sim" : "", marked, markedShiny
         ];
         const cells = vals.map((v, ci) => xCell(colName(ci) + r, v)).join("");
         rows.push(`<row r="${r}">${cells}</row>`);
@@ -589,7 +600,8 @@ const XlsxIO = (() => {
       customTiers: Store.customTiers,
       customMarks: Store.customMarks,
       /* dex de backgrounds tambem viaja aqui, alem da aba propria no .xlsx */
-      backgroundMarks: Store.backgroundMarks
+      backgroundMarks: Store.backgroundMarks,
+      backgroundShinyMarks: Store.backgroundShinyMarks
     }, null, 1)], { type: "application/json" });
   }
 
@@ -601,6 +613,7 @@ const XlsxIO = (() => {
       Store.customMarks = o.customMarks || {};
     }
     if (o.backgroundMarks) Store.backgroundMarks = o.backgroundMarks;
+    if (o.backgroundShinyMarks) Store.backgroundShinyMarks = o.backgroundShinyMarks;
     const known = new Set(skeleton.entries.map(e => e.id));
     const report = { matched: 0, unmatched: [], marks: 0, rows: Object.keys(o.marks).length };
     const rows = [];

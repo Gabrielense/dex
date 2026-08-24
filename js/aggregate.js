@@ -636,12 +636,17 @@ const Agg = {
     this.backgrounds = (data && data.backgrounds) || [];
   },
 
-  backgroundStats(type) {
+  /* shiny=true olha pro par (background, Pokémon) do lado brilhante -
+     Store.backgroundShinyMarks em vez de backgroundMarks. Todo Pokémon de
+     background é elegível a brilhante (sempre foi), então é um segundo
+     eixo sempre presente, não um recorte condicional. */
+  backgroundStats(type, shiny) {
+    const hasMark = shiny ? Store.hasBackgroundShinyMark.bind(Store) : Store.hasBackgroundMark.bind(Store);
     const bgs = this.backgrounds.filter(b => b.type === type);
     let bgOwned = 0, pkmnTotal = 0, pkmnOwned = 0;
     for (const b of bgs) {
       let owned = 0;
-      for (const p of b.pokemon) if (Store.hasBackgroundMark(b.id, p.id)) owned++;
+      for (const p of b.pokemon) if (hasMark(b.id, p.id)) owned++;
       pkmnTotal += b.pokemon.length;
       pkmnOwned += owned;
       if (owned > 0) bgOwned++;
@@ -649,13 +654,14 @@ const Agg = {
     return { bgTotal: bgs.length, bgOwned, pkmnTotal, pkmnOwned };
   },
 
-  backgroundItems(type) {
+  backgroundItems(type, shiny) {
+    const hasMark = shiny ? Store.hasBackgroundShinyMark.bind(Store) : Store.hasBackgroundMark.bind(Store);
     return this.backgrounds
       .filter(b => b.type === type)
       .map(b => ({
         ...b,
         pokemon: reorderPikachu(b.pokemon.slice(), p => p.num, p => p.id),
-        caught: b.pokemon.filter(p => Store.hasBackgroundMark(b.id, p.id)).length
+        caught: b.pokemon.filter(p => hasMark(b.id, p.id)).length
       }))
       /* mais novo primeiro; sem data reconhecida (ver tools/build_backgrounds.py)
          cai por ano+nome, no fim do próprio ano. */

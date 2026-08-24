@@ -886,7 +886,7 @@ const DayPanel = {
         g.style.marginTop = "10px";
         for (const bg of entries.slice().sort((a, b) => bgNameOf(a).localeCompare(bgNameOf(b)))) {
           const caught = bg.pokemon.filter(p => Store.hasBackgroundMark(bg.id, p.id)).length;
-          g.appendChild(Backgrounds.card({ ...bg, caught }));
+          g.appendChild(Backgrounds.card({ ...bg, caught }, false));
         }
         sheet.appendChild(g);
         return;
@@ -1261,6 +1261,17 @@ const Living = {
    de sempre (ver Agg.backgroundStats/backgroundItems). Especiais primeiro
    e por padrao - presenciais ficam numa sub-aba a parte porque a imensa
    maioria e impossivel de completar sem ter ido ao evento (PLANS.md). */
+/* Cada fundo agora é visto por DOIS ângulos independentes - normal e
+   brilhante (todo Pokémon de background é elegível a brilhante, sempre
+   foi, então não é um extra opcional) - dobrando as sub-abas e os cards
+   de resumo. TAB_DEF mapeia a chave de estado pra (tipo, brilhante?). */
+const BG_TAB_DEF = {
+  special: { type: "special", shiny: false, icon: "sparkle" },
+  specialShiny: { type: "special", shiny: true, icon: "sparkle" },
+  location: { type: "location", shiny: false, icon: "globe" },
+  locationShiny: { type: "location", shiny: true, icon: "globe" }
+};
+
 const Backgrounds = {
   state: { tab: "special" },
 
@@ -1275,23 +1286,30 @@ const Backgrounds = {
     const p1 = el("div", "panel");
     p1.append(el("h2", null, t("bg.title")), el("p", "sub", t("bg.sub")));
     const summary = el("div", "kpis");
-    summary.append(this.summaryCard("special", "sparkle", "#E0A21B"),
-                   this.summaryCard("location", "globe", "#3A6FB0"));
+    summary.append(
+      this.summaryCard("special", "#E0A21B"),
+      this.summaryCard("specialShiny", "#E0A21B"),
+      this.summaryCard("location", "#3A6FB0"),
+      this.summaryCard("locationShiny", "#3A6FB0")
+    );
     p1.appendChild(summary);
     root.appendChild(p1);
 
     const p2 = el("div", "panel");
     const chips = el("div", "chips");
-    for (const [key, icon] of [["special", "sparkle"], ["location", "globe"]]) {
+    for (const key of ["special", "specialShiny", "location", "locationShiny"]) {
+      const def = BG_TAB_DEF[key];
       const c = el("button", "chip" + (this.state.tab === key ? " is-on" : ""));
-      c.append(Icons.svg(icon, 14), el("span", null, t("bg." + key)));
+      if (def.shiny) c.append(Icons.svg("sparkle", 13));
+      c.append(Icons.svg(def.icon, 14), el("span", null, t("bg." + key)));
       c.addEventListener("click", () => { this.state.tab = key; App.rerender(); });
       chips.appendChild(c);
     }
     p2.appendChild(chips);
 
-    const items = Agg.backgroundItems(this.state.tab);
-    if (this.state.tab === "location") {
+    const { type, shiny } = BG_TAB_DEF[this.state.tab];
+    const items = Agg.backgroundItems(type, shiny);
+    if (type === "location") {
       p2.appendChild(el("p", "small dim", t("bg.locationNote")));
     }
     p2.appendChild(el("p", "small dim", t("bg.count", { n: items.length })));
@@ -1301,18 +1319,27 @@ const Backgrounds = {
       p2.appendChild(el("div", "empty-state", t("bg.noneYet")));
     } else {
       const grid = el("div", "bg-grid");
-      for (const b of items) grid.appendChild(this.card(b));
+      for (const b of items) grid.appendChild(this.card(b, shiny));
       p2.appendChild(grid);
     }
     root.appendChild(p2);
   },
 
-  summaryCard(type, icon, color) {
-    const s = Agg.backgroundStats(type);
-    const b = el("div", "kpi noclick");
+  summaryCard(tabKey, color) {
+    const def = BG_TAB_DEF[tabKey];
+    const s = Agg.backgroundStats(def.type, def.shiny);
+    const b = el("button", "kpi" + (this.state.tab === tabKey ? " done" : ""));
+    b.type = "button";
     b.style.setProperty("--c", color);
     const top = el("div", "kpi-top");
-    top.append(Icons.svg(icon, 20), el("span", "kpi-name", t("bg." + type)));
+    const iconBox = el("span", null);
+    iconBox.append(Icons.svg(def.icon, 18));
+    if (def.shiny) {
+      const spark = Icons.svg("sparkle", 12);
+      spark.style.marginLeft = "2px";
+      iconBox.appendChild(spark);
+    }
+    top.append(iconBox, el("span", "kpi-name", t("bg." + tabKey)));
     const num = el("div", "kpi-num");
     num.append(document.createTextNode(String(s.bgOwned)), el("span", "of", " / " + s.bgTotal));
     const bar = el("div", "bar");
@@ -1325,10 +1352,11 @@ const Backgrounds = {
     sub.append(el("span", null, p + "%"),
       el("span", "dim", t("bg.pokemonCount", { c: s.pkmnOwned, n: s.pkmnTotal })));
     b.append(top, num, bar, sub);
+    b.addEventListener("click", () => { this.state.tab = tabKey; App.rerender(); });
     return b;
   },
 
-  card(bg) {
+  card(bg, shiny) {
     const card = el("div", "bg-card" + (bg.caught === 0 ? " is-empty" : ""));
     const banner = el("div", "bg-banner");
     banner.style.backgroundImage = `url("${bg.image}")`;
@@ -1357,35 +1385,44 @@ const Backgrounds = {
       if (text) card.appendChild(el("div", "small dim bg-events", text));
     }
 
+    const hasMark = shiny ? Store.hasBackgroundShinyMark.bind(Store) : Store.hasBackgroundMark.bind(Store);
+    const toggleMark = shiny ? Store.toggleBackgroundShinyMark.bind(Store) : Store.toggleBackgroundMark.bind(Store);
     const canMark = !Store.isEmpty();
     const sprites = el("div", "bg-sprites");
     for (const p of bg.pokemon) {
-      const entry = Agg.byId.get(p.id);
+      /* "+shadow" no final e um ID sintetico (mesma ideia do "+F"/"+S" ja
+         usados no site) so pra dar uma chave de marca INDEPENDENTE ao par
+         normal/sombroso do mesmo Pokemon - a entrada de verdade no
+         esqueleto e a mesma, sem o sufixo (ver SHADOW_ELIGIBLE_* em
+         tools/build_backgrounds.py). */
+      const entry = Agg.byId.get(p.id) || Agg.byId.get(p.id.replace(/\+shadow$/, ""));
       if (!entry) continue;
-      const got = Store.hasBackgroundMark(bg.id, p.id);
+      const got = hasMark(bg.id, p.id);
       const s = el("div", "bg-sprite" + (got ? " got" : ""));
       s.title = nameOf(entry) + (p.viaEvolution ? " (" + t("bg.viaEvolution") + ")" : "") +
         (p.viaShadow ? " (" + t("e.shadow") + ")" : "") +
         (canMark ? " — " + t("bg.tapHint") : "");
-      s.appendChild(Sprites.img(entry, false));
+      s.appendChild(Sprites.img(entry, shiny));
       /* alguns backgrounds tambem valiam pra captura sombrosa da mesma
-         especie (confirmado caso a caso - ver SHADOW_ELIGIBLE_* em
-         tools/build_backgrounds.py) - mesmo selo de canto do Faltantes. */
+         especie, como um par INDEPENDENTE do normal (confirmado caso a
+         caso - ver SHADOW_ELIGIBLE_* em tools/build_backgrounds.py) -
+         mesmo selo de canto do Faltantes. */
       if (p.viaShadow) {
         const shadowBadge = Icons.badge(Agg.byCat.shadow, 14);
         shadowBadge.classList.add("mon-variant-badge", "bg-sprite-badge");
         s.appendChild(shadowBadge);
       }
-      /* marcacao rapida: clique liga/desliga o par (background, Pokemon) -
-         mesmo espirito do botao ✓ quick nas outras telas. De propósito NÃO
-         reconstroi o card inteiro, só o que mudou (ver monCard). */
+      /* marcacao rapida: clique liga/desliga o par (background, Pokemon,
+         normal OU brilhante conforme a aba) - mesmo espirito do botao ✓
+         quick nas outras telas. De propósito NÃO reconstroi o card
+         inteiro, só o que mudou (ver monCard). */
       if (canMark) {
         s.setAttribute("role", "button");
         s.tabIndex = 0;
         const toggle = () => {
-          const on = Store.toggleBackgroundMark(bg.id, p.id);
+          const on = toggleMark(bg.id, p.id);
           s.classList.toggle("got", on);
-          const nowCaught = bg.pokemon.filter(pp => Store.hasBackgroundMark(bg.id, pp.id)).length;
+          const nowCaught = bg.pokemon.filter(pp => hasMark(bg.id, pp.id)).length;
           bg.caught = nowCaught;
           progress.textContent = `${nowCaught} / ${bg.pokemon.length}`;
           progress.classList.toggle("done", nowCaught === bg.pokemon.length);

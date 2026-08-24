@@ -272,15 +272,51 @@ principal, que já tem 51 colunas.
   time): Bulbasaur/Charmander/Squirtle estavam sem `ci=` no wiki mas
   saíam de Chapéu de Festa de verdade (confirmado pelo Gabriel) —
   `CI_OVERRIDES` força a fantasia certa pra esses 3 nessas 3 linhas. Os 6
-  iniciais de Kanto+Hoenn (e evoluções) também saíam Sombrosos ali —
-  `SHADOW_ELIGIBLE_NUMS`/`SHADOW_ELIGIBLE_BG_IDS` marca `viaShadow:true`
-  nesses pares (background, Pokémon) especificamente, mostrado como o
-  mesmo selo de canto sombroso do Faltantes (`.bg-sprite-badge`).
+  iniciais de Kanto+Hoenn (e evoluções) também saíam Sombrosos ali,
+  além do normal — ver `SHADOW_ELIGIBLE` na quinta rodada abaixo (isso
+  mudou de "marca a mesma entrada" pra "duplica" depois que o Gabriel
+  corrigiu).
 - Imagem do fundo "2026 Community Days" trocada pela arte real de
   serebii.net (a do Fandom era genérica), recortada uma vez (abaixo da
   marca d'água "X", acima da barra preta) e commitada em
   `assets/backgrounds/community-day-2026.jpg` — hotlink sempre serviria a
   imagem inteira sem o recorte.
+
+**Quinta rodada (mesmo dia, dex brilhante de fundos + mais bugs):**
+
+- Todo Pokémon de background é elegível a brilhante desde sempre — não é
+  um extra opcional, é um segundo eixo sempre presente. A Dex de Fundos
+  dobrou de 2 pra 4 sub-abas/cards-resumo: "Fundos Especiais", "Brilhante
+  + Fundo Especial", "Fundos de Localização", "Brilhante + Fundo de
+  Localização" (`BG_TAB_DEF` em `js/views.js`, mapeia cada chave pra
+  `{type, shiny}`). Card de resumo agora é clicável e pula pra aba
+  correspondente.
+  - Nova marca `Store.backgroundShinyMarks` (mesmo formato de
+    `backgroundMarks`, `{bgId:{pokemonId:1}}`), independente — dá pra ter
+    só o normal, só o brilhante, os dois ou nenhum. Mesmo tratamento de
+    sempre: localStorage, backup `.json` (`backgroundShinyMarks`) e nova
+    coluna "Marcado brilhante" na aba "Fundos" do `.xlsx`
+    (`BG_SHEET_COLUMNS`/`backgroundRowsToMarks` devolve `{marks,
+    shinyMarks}` agora em vez de só `marks`).
+  - Nas abas brilhantes o sprite mostra a arte brilhante mesmo
+    (`Sprites.img(entry, shiny)`) e o clique marca
+    `Store.hasBackgroundShinyMark`/`toggleBackgroundShinyMark` em vez do
+    normal.
+- `SHADOW_ELIGIBLE` (substituiu `SHADOW_ELIGIBLE_NUMS`/`_BG_IDS`) virou um
+  dict `(bg_id, num) -> "both" | "only"`, corrigido pelo Gabriel: os
+  iniciais de Kanto+Hoenn nos 3 fundos de time saíam normais **e**
+  sombrosos (dois pares independentes de marcar — a entrada sombrosa
+  ganha um id sintético `+shadow` no final, mesma ideia do `+F`/`+S` já
+  usados no site, só pra ter uma chave de Store própria sem inventar ID
+  de esqueleto), enquanto o Darkrai de "Into the Wild 2025 · Pokémon GO
+  Wild Area 2025: Global" só saiu sombroso ali (`"only"` — marca a
+  própria entrada, sem duplicar, já que não existe uma "normal" separada
+  pra confundir).
+- Dois consertos de dado confirmados pelo Gabriel: **Psyduck Boia**
+  (Pokémon Concierge) não casava porque o esqueleto tinha o texto errado
+  — "Swin ring" faltando o "m" de "Swim ring" — corrigido por cirurgia de
+  XML no `.xlsx` mestre (backup
+  `PokéAgenda 2026 (backup 2026-08-24-psyduck-swim-ring-typo).xlsx`).
 
 <details>
 <summary>Plano original (histórico, antes da implementação)</summary>

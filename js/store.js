@@ -36,9 +36,14 @@ const Store = {
      diferentes em ocasiões diferentes, então isso NÃO pode ser derivado
      da marca "caught" (registro é por espécie/entrada; background é por
      captura específica). Formato: { bgId: { pokemonId: 1 } }.
-     Vive no navegador, no backup .json e numa aba própria "Backgrounds"
-     do .xlsx (js/xlsxio.js) — nunca como coluna na aba PokéAgenda. */
+     Vive no navegador, no backup .json e numa aba própria "Fundos" do
+     .xlsx (js/xlsxio.js) — nunca como coluna na aba PokéAgenda.
+     backgroundShinyMarks é o mesmo par (background, Pokémon), mas pro
+     brilhante especificamente — TODO Pokémon de background é elegível a
+     brilhante (o jogo não restringe), então é um segundo eixo sempre
+     disponível, não um extra opcional. */
   backgroundMarks: Object.create(null),
+  backgroundShinyMarks: Object.create(null),
 
   load() {
     try {
@@ -50,6 +55,7 @@ const Store = {
       this.customTiers = o.customTiers || [];
       this.customMarks = o.customMarks || Object.create(null);
       this.backgroundMarks = o.backgroundMarks || Object.create(null);
+      this.backgroundShinyMarks = o.backgroundShinyMarks || Object.create(null);
       return true;
     } catch (e) {
       console.warn("marks illegible, starting empty", e);
@@ -62,7 +68,8 @@ const Store = {
       localStorage.setItem(KEY, JSON.stringify({
         v: 1, marks: this.marks, meta: this.meta,
         customTiers: this.customTiers, customMarks: this.customMarks,
-        backgroundMarks: this.backgroundMarks
+        backgroundMarks: this.backgroundMarks,
+        backgroundShinyMarks: this.backgroundShinyMarks
       }));
       return true;
     } catch (e) {
@@ -77,6 +84,7 @@ const Store = {
     this.customTiers = [];
     this.customMarks = Object.create(null);
     this.backgroundMarks = Object.create(null);
+    this.backgroundShinyMarks = Object.create(null);
     try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
   },
 
@@ -87,6 +95,7 @@ const Store = {
     this.customTiers = [];
     this.customMarks = Object.create(null);
     this.backgroundMarks = Object.create(null);
+    this.backgroundShinyMarks = Object.create(null);
     this.save();
   },
 
@@ -136,6 +145,25 @@ const Store = {
   /* Substitui tudo (usado pela importação — planilha ou backup .json). */
   replaceAllBackgroundMarks(marks) {
     this.backgroundMarks = marks || Object.create(null);
+    this.save();
+  },
+
+  hasBackgroundShinyMark(bgId, pokemonId) {
+    const m = this.backgroundShinyMarks[bgId];
+    return !!(m && m[pokemonId]);
+  },
+  toggleBackgroundShinyMark(bgId, pokemonId) {
+    let m = this.backgroundShinyMarks[bgId];
+    if (!m) m = this.backgroundShinyMarks[bgId] = {};
+    const on = !m[pokemonId];
+    if (on) m[pokemonId] = 1; else delete m[pokemonId];
+    if (!on && Object.keys(m).length === 0) delete this.backgroundShinyMarks[bgId];
+    this.meta.dirty = true;
+    this.save();
+    return on;
+  },
+  replaceAllBackgroundShinyMarks(marks) {
+    this.backgroundShinyMarks = marks || Object.create(null);
     this.save();
   },
 
