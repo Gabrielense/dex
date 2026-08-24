@@ -246,14 +246,15 @@
   },
 
   "_staleUntilRecalc": {
-    "pt": "Celulas do Resumo que ficaram velhas depois dos consertos de 24/08/2026 (Zigzagoon/Linoone: sombroso movido para as formas de Galar). Somem sozinhas quando a planilha for aberta e salva no Excel — dai esta secao pode ser apagada.",
-    "en": "Resumo cells gone stale after the 2026-08-24 fixes (Zigzagoon/Linoone shadow moved to the Galar forms). They clear themselves once the sheet is opened and saved in Excel — then this section can be deleted.",
+    "pt": "Celulas do Resumo que ficaram velhas depois dos consertos de 24/08/2026 (Zigzagoon/Linoone: sombroso movido para as formas de Galar; Squawkabilly: data de brilhante prematura removida - ver PLANS.md/memoria do projeto). Somem sozinhas quando a planilha for aberta e salva no Excel — dai esta secao pode ser apagada.",
+    "en": "Resumo cells gone stale after the 2026-08-24 fixes (Zigzagoon/Linoone shadow moved to the Galar forms; Squawkabilly: premature shiny date removed - see PLANS.md/project memory). They clear themselves once the sheet is opened and saved in Excel — then this section can be deleted.",
     "gaps": [
       { "category": "shadow", "regions": ["Hoenn"], "fields": ["caught", "released"] },
       { "category": "purified", "regions": ["Hoenn"], "fields": ["caught", "released"] },
       { "category": "shadowShiny", "regions": ["Hoenn"], "fields": ["released"] },
       { "category": "variantShadow", "regions": ["Galar"], "fields": ["caught", "released"] },
-      { "category": "variantShadowShiny", "regions": ["Galar"], "fields": ["released"] }
+      { "category": "variantShadowShiny", "regions": ["Galar"], "fields": ["released"] },
+      { "category": "shiny", "regions": ["Paldea"], "fields": ["released"] }
     ]
   },
 
