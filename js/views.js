@@ -532,13 +532,31 @@ const Lists = {
   }
 };
 
+/* Sombroso e Dinamax não têm sprite próprio (o jogo não desenha um bicho
+   diferente pra eles) — sem alguma marca visual, o card fica idêntico ao
+   normal/brilhante. Mesma ideia do selo que o pogorewind já usa nos
+   sprites dele: um distintivo pequeno no canto. Só nessas 4 categorias
+   (as únicas sem diferença de sprite); Purificado etc. ficam de fora —
+   não foi pedido e não têm essa ambiguidade visual. */
+const VARIANT_BADGE_KEYS = new Set(["shadow", "shadowShiny", "dmax", "dmaxShiny"]);
+
 /* card de Pokémon reaproveitado em todas as telas */
 function monCard(it, cat, opt) {
   opt = opt || {};
   const card = el("div", "mon" + (opt.unreleased ? " unreleased" : ""));
   if (opt.dim) card.style.opacity = ".72";
   card.appendChild(el("span", "dexno", String(it.num).padStart(4, "0")));
-  card.appendChild(Sprites.img(it.display, !!opt.shiny));
+
+  const spriteWrap = el("div", "sprite-wrap");
+  spriteWrap.appendChild(Sprites.img(it.display, !!opt.shiny));
+  if (cat && VARIANT_BADGE_KEYS.has(cat.key)) {
+    const badge = Icons.badge(cat, 18);
+    badge.classList.add("mon-variant-badge");
+    badge.title = catLabel(cat);
+    spriteWrap.appendChild(badge);
+  }
+  card.appendChild(spriteWrap);
+
   card.appendChild(el("div", "nm", labelFor(it, cat)));
 
   /* marcação rápida: um toque marca sem abrir a ficha */
