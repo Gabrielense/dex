@@ -206,6 +206,13 @@ const Agg = {
       !it.released && (!region || it.region === region));
   },
 
+  /* O oposto de missing(): o que você já tem marcado — pra poder navegar
+     os sprites de uma categoria completa em vez de só ver "Completo!". */
+  registered(catKey, region) {
+    return this.items(catKey).filter(it =>
+      it.got && (!region || it.region === region));
+  },
+
   /* String de busca do jogo: NÚMEROS da dex separados por vírgula.
      Números são mais curtos que nomes e funcionam em qualquer idioma do
      jogo (o nome em português nem sempre é o que a busca aceita).

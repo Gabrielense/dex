@@ -21,6 +21,10 @@ const App = {
     }
     this.applyTheme(theme);
     Store.load();
+    /* Sem dado nenhum ainda (nem importado, nem "começar do zero"): abre
+       direto em Meus dados, que é a única tela útil nesse estado — o
+       Painel só faz sentido depois que existe alguma marca pra mostrar. */
+    if (Store.isEmpty()) this.view = "data";
 
     try {
       const [sk, cats] = await Promise.all([

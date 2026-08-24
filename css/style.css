@@ -299,7 +299,6 @@ table.matrix tr.total-row td{border-top:2px solid var(--line-strong);font-weight
 .cell .minibar{width:36px;height:3px;border-radius:99px;background:var(--line);overflow:hidden}
 .cell .minibar i{display:block;height:100%;background:var(--c,var(--accent))}
 .cell.done b{color:var(--ok)}
-.cell.done .minibar i{background:var(--ok)}
 .cell.empty{color:var(--faint)}
 
 /* =========================== controles =========================== */
@@ -408,6 +407,17 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 .day.sel{outline:2px solid var(--ink);outline-offset:1px}
 .legend{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--dim)}
 .legend .day{cursor:default}
+
+.sitecards{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.sitecard{
+  display:flex;align-items:center;gap:11px;flex:1;min-width:220px;
+  padding:11px 14px;background:var(--panel2);border:1px solid var(--line);
+  border-radius:var(--radius-sm);text-decoration:none;color:inherit;
+  transition:border-color .12s,transform .12s;
+}
+.sitecard:hover{border-color:var(--accent);transform:translateY(-1px)}
+.sitecard .ico{color:var(--accent);flex:none}
+.sitecard-name{font-weight:700;font-size:13.5px;color:var(--ink)}
 
 /* =========================== painel deslizante =========================== */
 .sheet{

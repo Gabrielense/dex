@@ -19,6 +19,16 @@ const catShort = c => (LANG === "en" ? (c.shortEn || c.labelEn) : (c.shortPt || 
 const labelFor = (it, cat) =>
   cat && cat.scope === "dex" ? speciesOf(it.display) : nameOf(it.display);
 
+/* "faltam N" (PT: verbo antes do número, singular em N=1) vs "N missing"
+   (EN: como já era). Só a ordem/gênero do PT muda — o EN fica intacto. */
+const missingLabel = n => LANG === "en"
+  ? n + " " + t("dash.missing")
+  : t(n === 1 ? "dash.missing1" : "dash.missing") + " " + n;
+
+/* "Gen 10" ainda não tem nome oficial em PT — mostra "10ª geração" só na
+   tela; o valor cru continua "Gen 10" pra bater com os dados. */
+const regionLabel = r => (r === "Gen 10" && LANG === "pt") ? "10ª geração" : r;
+
 function toast(msg) {
   document.querySelectorAll(".toast").forEach(t => t.remove());
   const t = el("div", "toast");
@@ -150,9 +160,15 @@ const Dashboard = {
     const sub = el("div", "kpi-sub");
     sub.append(el("span", null, p + "%"),
       el("span", "kpi-miss" + (miss <= 0 ? " zero" : ""),
-         miss <= 0 ? t("dash.complete") : miss + " " + t("dash.missing")));
+         miss <= 0 ? t("dash.complete") : missingLabel(miss)));
 
     b.append(top, num, bar, sub);
+    /* O que existe na planilha mas ainda nem saiu no jogo (inclui a Gen 10
+       inteira, hoje) — único lugar do painel que cita isso. */
+    const unrel = s.total - s.released;
+    if (unrel > 0) {
+      b.appendChild(el("div", "kpi-sub", t("lists.unreleasedCount", { n: unrel })));
+    }
     b.title = `${catLabel(cat)}\n${s.caught} / ${s.released} ${t("dash.released")}\n` +
               `${t("dash.total")}: ${s.total}`;
     b.addEventListener("click", () => App.go("lists", { cat: cat.key }));
@@ -193,7 +209,7 @@ const Dashboard = {
         const sub = el("div", "kpi-sub");
         sub.append(el("span", null, pc + "%"),
           el("span", "kpi-miss" + (missN <= 0 ? " zero" : ""),
-             missN <= 0 ? t("dash.complete") : missN + " " + t("dash.missing")));
+             missN <= 0 ? t("dash.complete") : missingLabel(missN)));
         b.append(top, num, bar, sub);
       } else {
         num.textContent = String(caught);
@@ -252,8 +268,13 @@ const Dashboard = {
 
     const tbody = el("tbody");
     for (const r of Agg.skeleton.regions) {
+      /* Região sem nada lançado em NENHUMA coluna desta tabela (ex.: Gen 10
+         inteira, ou Hisui em Formas especiais) some — reaparece sozinha no
+         dia em que alguma entrada de lá ganhar uma data de estreia. */
+      const rowStats = cats.map(c => all[c.key].byRegion[r]);
+      if (!rowStats.some(s => s && s.released > 0)) continue;
       const tr = el("tr");
-      tr.appendChild(el("td", null, r));
+      tr.appendChild(el("td", null, regionLabel(r)));
       for (const c of cats) tr.appendChild(this.cell(all[c.key].byRegion[r], c, r));
       tbody.appendChild(tr);
     }
@@ -270,7 +291,10 @@ const Dashboard = {
 
   cell(s, cat, region) {
     const td = el("td");
-    if (!s || !s.total) { td.appendChild(el("span", "cell empty", "–")); return td; }
+    /* "–" quando nada dessa região ainda foi lançado nesta categoria —
+       não só quando não existe na planilha. Um "0" aqui insinuava que
+       dava pra progredir; se ainda nem lançou, não dá. */
+    if (!s || !s.released) { td.appendChild(el("span", "cell empty", "–")); return td; }
     const done = s.caught >= s.released && s.released > 0;
     const d = el("div", "cell" + (done ? " done" : ""));
     d.style.setProperty("--c", cat.color);
@@ -280,7 +304,7 @@ const Dashboard = {
     i.style.width = pct(s.caught, s.released) + "%";
     mb.appendChild(i);
     d.appendChild(mb);
-    td.title = `${catLabel(cat)}${region ? " · " + region : ""}\n` +
+    td.title = `${catLabel(cat)}${region ? " · " + regionLabel(region) : ""}\n` +
       `${s.caught} / ${s.released} (${pct(s.caught, s.released)}%)\n` +
       `${t("dash.total")}: ${s.total}`;
     td.appendChild(d);
@@ -290,7 +314,7 @@ const Dashboard = {
 
 /* ============================================================ FALTANTES */
 const Lists = {
-  state: { cat: "pokemon", region: "", q: "", showUnreleased: false },
+  state: { cat: "pokemon", region: "", q: "", showUnreleased: false, showRegistered: false },
 
   render(root, params) {
     if (params && params.cat) this.state.cat = params.cat;
@@ -323,7 +347,7 @@ const Lists = {
     const optAll = el("option", null, t("lists.all")); optAll.value = "";
     regSel.appendChild(optAll);
     for (const r of Agg.skeleton.regions) {
-      const o = el("option", null, r); o.value = r;
+      const o = el("option", null, regionLabel(r)); o.value = r;
       if (r === this.state.region) o.selected = true;
       regSel.appendChild(o);
     }
@@ -340,7 +364,15 @@ const Lists = {
       this.state.showUnreleased = !this.state.showUnreleased; App.rerender();
     });
 
-    controls.append(catSel, regSel, q, unrel);
+    /* pra navegar os sprites de uma categoria já completa — sem isso, clicar
+       num card 100% só mostrava "Completo!" e nada pra ver. */
+    const showReg = el("button", "chip" + (this.state.showRegistered ? " is-on" : ""));
+    showReg.append(el("span", null, t("lists.showRegistered")));
+    showReg.addEventListener("click", () => {
+      this.state.showRegistered = !this.state.showRegistered; App.rerender();
+    });
+
+    controls.append(catSel, regSel, q, unrel, showReg);
     p.appendChild(controls);
 
     const body = el("div");
@@ -424,6 +456,16 @@ const Lists = {
         h.style.marginTop = "18px";
         h.textContent = t("lists.unreleasedCount", { n: un.length });
         body.append(h, this.grid(un, cat, true));
+      }
+    }
+
+    if (this.state.showRegistered) {
+      const reg = filt(Agg.registered(this.state.cat, region));
+      if (reg.length) {
+        const h = el("div", "small dim");
+        h.style.marginTop = "18px";
+        h.textContent = t("lists.registeredCount", { n: reg.length });
+        body.append(h, this.grid(reg, cat, false));
       }
     }
   },
@@ -538,6 +580,7 @@ const Timeline = {
     if (!years.length) {
       p.appendChild(el("div", "empty-state", t("tl.nothing")));
       root.appendChild(p);
+      root.appendChild(this.seeAlso());
       return;
     }
 
@@ -555,6 +598,31 @@ const Timeline = {
     p.appendChild(lg);
 
     root.appendChild(p);
+    root.appendChild(this.seeAlso());
+  },
+
+  /* Outros dois sites do Gabrielense — atalhos discretos no fim da aba. */
+  seeAlso() {
+    const p = el("div", "panel");
+    p.appendChild(sectionHead(t("tl.seeAlso"), null, "#8659C5"));
+    const grid = el("div", "sitecards");
+    const sites = [
+      { url: "https://pogorewind.vercel.app", icon: "gallery", name: "PogoRewind",
+        desc: t("tl.pogorewindDesc") },
+      { url: "https://pikachugo.vercel.app", icon: "bolt", name: "PikachuGO",
+        desc: t("tl.pikachugoDesc") }
+    ];
+    for (const s of sites) {
+      const a = el("a", "sitecard");
+      a.href = s.url; a.target = "_blank"; a.rel = "noopener";
+      a.appendChild(Icons.svg(s.icon, 22));
+      const info = el("div");
+      info.append(el("div", "sitecard-name", s.name), el("div", "small dim", s.desc));
+      a.appendChild(info);
+      grid.appendChild(a);
+    }
+    p.appendChild(grid);
+    return p;
   },
 
   year(y, map, maxN) {
@@ -685,7 +753,7 @@ const GenderList = {
         items = g.onlyM.concat(g.onlyF, g.neither);
         title = t("gender.dexLabel");
         const missN = g.dualTotal - g.dualBoth;
-        note = missN <= 0 ? t("dash.complete") : missN + " " + t("dash.missing");
+        note = missN <= 0 ? t("dash.complete") : missingLabel(missN);
       }
       sheetHead(sheet, title, "#7c5cd6");
       sheet.appendChild(el("div", "small dim", note));
@@ -860,7 +928,7 @@ const Living = {
     const optAll = el("option", null, t("lists.all")); optAll.value = "";
     regSel.appendChild(optAll);
     for (const r of Agg.skeleton.regions) {
-      const o = el("option", null, r); o.value = r;
+      const o = el("option", null, regionLabel(r)); o.value = r;
       if (r === this.state.region) o.selected = true;
       regSel.appendChild(o);
     }
@@ -1001,7 +1069,7 @@ const Living = {
     const sub = el("div", "kpi-sub");
     sub.append(el("span", null, p + "%"),
       el("span", "kpi-miss" + (miss <= 0 ? " zero" : ""),
-         miss <= 0 ? t("dash.complete") : miss + " " + t("dash.missing")));
+         miss <= 0 ? t("dash.complete") : missingLabel(miss)));
     b.append(top, num, bar, sub);
     b.addEventListener("click", () => { this.state.tier = tier.key; App.rerender(); });
     return b;
@@ -1076,7 +1144,7 @@ const Detail = {
       sheet.appendChild(d);
 
       const meta = el("div", "meta");
-      const bits = [`${t("e.dexNo")} ${entry.num}`, `${t("e.region")}: ${entry.region}`];
+      const bits = [`${t("e.dexNo")} ${entry.num}`, `${t("e.region")}: ${regionLabel(entry.region)}`];
       if (entry.gender) bits.push(entry.gender);
       if (entry.flags.length) bits.push(entry.flags.map(flagLabel).join(", "));
       meta.textContent = bits.join(" · ");

@@ -3,7 +3,13 @@
    -> silhueta. Alguns IDs de variante não têm arquivo (ex.: 1024). */
 
 const Sprites = (() => {
-  const BASE = "https://cdn.jsdelivr.net/gh/Gabrielense/pogorewind@main/sprites/";
+  /* raw.githubusercontent.com, não jsDelivr: jsDelivr cacheia por branch e,
+     sob carga em rajada (uma grade grande pedindo 200+ sprites de uma vez),
+     pode devolver 502/404 transitório enquanto preenche o cache — e como
+     "bad" abaixo é permanente pro resto da sessão, um erro passageiro vira
+     um sprite "sumido" pra sempre na tela. raw.githubusercontent.com não
+     tem esse comportamento de cache frio. */
+  const BASE = "https://raw.githubusercontent.com/Gabrielense/pogorewind/main/sprites/";
   const bad = new Set();      // URLs que já sabemos que faltam
 
   /* ---- correção de tamanho ----

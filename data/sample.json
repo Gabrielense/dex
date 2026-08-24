@@ -1,0 +1,14251 @@
+{
+ "app": "pokeagenda",
+ "v": 1,
+ "sample": true,
+ "exported": "2026-08-24T16:47:01.264794Z",
+ "skeletonGenerated": "2026-08-24T13:03:43",
+ "marks": {
+  "0001": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0001-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0001-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0001-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0002": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0002-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0002-00-00-02": [
+   "caught"
+  ],
+  "0003": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0003+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax"
+  ],
+  "0003-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0003-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0003-00-00-02": [
+   "caught"
+  ],
+  "0003-00-00-02+F": [
+   "caught"
+  ],
+  "0003-00-01": [
+   "caught",
+   "m"
+  ],
+  "0003-00-01+F": [
+   "caught"
+  ],
+  "0003G": [
+   "caught",
+   "m"
+  ],
+  "0003M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0004": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0004-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0004-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0004-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0005": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0005-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0005-00-00-02": [
+   "caught"
+  ],
+  "0006": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0006-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0006-00-00-02": [
+   "caught"
+  ],
+  "0006-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0006G": [
+   "caught",
+   "m"
+  ],
+  "0006M-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0006M-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0007": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0007-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0007-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0007-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0007-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0008": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0008-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0008-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0008-00-00-03": [
+   "caught"
+  ],
+  "0009": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0009-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0009-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0009-00-00-03": [
+   "caught"
+  ],
+  "0009-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0009G": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0009M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0010": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0010-00-01": [
+   "caught",
+   "m"
+  ],
+  "0011": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0012": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0012+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax"
+  ],
+  "0012-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0012-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0012G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0013": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0014": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0015": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0015M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0016": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0017": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0018": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0018M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0019": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0019+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0019-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0020": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0020+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0020-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0020-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0020-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0021": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0022": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0023": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0024": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0025": [
+   "caught",
+   "m",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0025+F": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax"
+  ],
+  "0025-00-00-01": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-02": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-02+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-03": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-03+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-04": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-04+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-05": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-05+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-06": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-06+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-07": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-07+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-08": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-09": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-09+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-10": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-11": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-11+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-12": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-12+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-14": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-14+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-15": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-15+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-16": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-16+F": [
+   "caught"
+  ],
+  "0025-00-00-17": [
+   "caught",
+   "shiny",
+   "shadow"
+  ],
+  "0025-00-00-17+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0025-00-00-18": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-18+F": [
+   "caught"
+  ],
+  "0025-00-00-19": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-19+F": [
+   "caught"
+  ],
+  "0025-00-00-20": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-20+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-21": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-21+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-22": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-22+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-23": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-23+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-24": [
+   "caught",
+   "shiny",
+   "shadow"
+  ],
+  "0025-00-00-24+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0025-00-00-25": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-25+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-26": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-26+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-29": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-29+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-30": [
+   "shadow"
+  ],
+  "0025-00-00-31": [
+   "shadow"
+  ],
+  "0025-00-00-32": [
+   "caught",
+   "shiny",
+   "shadow"
+  ],
+  "0025-00-00-32+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0025-00-00-33": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-33+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-34": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-34+F": [
+   "caught"
+  ],
+  "0025-00-00-35": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-35+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-36": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-36+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-37": [
+   "shadow"
+  ],
+  "0025-00-00-38": [
+   "shadow"
+  ],
+  "0025-00-00-39": [
+   "shadow"
+  ],
+  "0025-00-00-40": [
+   "shadow"
+  ],
+  "0025-00-00-41": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-41+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-42": [
+   "caught",
+   "shiny",
+   "shadow"
+  ],
+  "0025-00-00-42+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0025-00-00-43": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-43+F": [
+   "caught"
+  ],
+  "0025-00-00-44": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-44+F": [
+   "caught"
+  ],
+  "0025-00-00-45": [
+   "shadow"
+  ],
+  "0025-00-00-46": [
+   "shadow"
+  ],
+  "0025-00-00-47": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-47+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-48": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-48+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-49": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-49+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-50": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-50+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-51": [
+   "caught",
+   "shadow"
+  ],
+  "0025-00-00-51+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-52": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-52+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-53": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-53+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-54": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-54+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-55": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-55+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-56": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-56+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-57": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-57+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-58": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-58+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-59": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-59+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-61": [
+   "shadow"
+  ],
+  "0025-00-00-62": [
+   "shadow"
+  ],
+  "0025-00-00-63": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-63+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-64": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow"
+  ],
+  "0025-00-00-64+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0025-00-00-65": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow"
+  ],
+  "0025-00-00-65+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0025-00-00-66": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-66+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-67": [
+   "caught",
+   "f",
+   "shadow"
+  ],
+  "0025-00-00-68": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-68+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-69": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-69+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-70": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-70+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-71": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-71+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-72": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-73": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-73+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-74": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-74+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-75": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-75+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-76": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-76+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-77": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-77+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-78": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-78+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-79": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-79+F": [
+   "caught"
+  ],
+  "0025-00-00-80": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-80+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-81": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-81+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-82": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-82+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-83": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-83+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-84": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-84+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-85": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-85+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-86": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-86+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-87": [
+   "shadow"
+  ],
+  "0025-00-00-88": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-00-88+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-89": [
+   "caught",
+   "m"
+  ],
+  "0025-00-00-89+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-90": [
+   "caught",
+   "m"
+  ],
+  "0025-00-00-90+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-91": [
+   "caught",
+   "m"
+  ],
+  "0025-00-00-91+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-00-92": [
+   "caught",
+   "m"
+  ],
+  "0025-00-00-92+F": [
+   "caught",
+   "f"
+  ],
+  "0025-00-01": [
+   "caught",
+   "m",
+   "shadow"
+  ],
+  "0025-00-01+F": [
+   "caught"
+  ],
+  "0025-00-02-13": [
+   "caught",
+   "f",
+   "shadow"
+  ],
+  "0025-00-02-27": [
+   "caught",
+   "f",
+   "shadow"
+  ],
+  "0025-00-02-28": [
+   "caught",
+   "f",
+   "shadow"
+  ],
+  "0025-00-02-60": [
+   "caught",
+   "f",
+   "shadow"
+  ],
+  "0025G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0026": [
+   "caught",
+   "m",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0026+F": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax"
+  ],
+  "0026-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-01+F": [
+   "caught"
+  ],
+  "0026-00-00-02": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-02+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-03": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-03+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-04": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-04+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-05": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-05+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-06": [
+   "caught"
+  ],
+  "0026-00-00-06+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-07": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-07+F": [
+   "caught"
+  ],
+  "0026-00-00-08": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-09": [
+   "caught"
+  ],
+  "0026-00-00-09+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-10": [
+   "caught"
+  ],
+  "0026-00-00-10+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-11": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-11+F": [
+   "caught"
+  ],
+  "0026-00-00-12": [
+   "caught"
+  ],
+  "0026-00-00-12+F": [
+   "caught",
+   "f"
+  ],
+  "0026-00-00-13": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0026-00-00-13+F": [
+   "caught",
+   "shiny"
+  ],
+  "0026-00-00-14": [
+   "caught",
+   "m"
+  ],
+  "0026-00-00-14+F": [
+   "caught",
+   "f"
+  ],
+  "0026-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0026M-00-01": [
+   "caught",
+   "m"
+  ],
+  "0026M-00-02": [
+   "caught",
+   "m"
+  ],
+  "0027": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0027-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0028": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0028-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0029": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0030": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0031": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0031-00-00-01": [
+   "caught",
+   "f"
+  ],
+  "0032": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0033": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0033-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0034": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0034-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0035": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0036": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0037": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0037-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shadow",
+   "purified"
+  ],
+  "0037-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0038": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0038-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shadow",
+   "purified"
+  ],
+  "0038-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0039": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0039-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0040": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0040-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0041": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0041+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0042": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0042+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0043": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0044": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0044+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0045": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0045+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0046": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0047": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0048": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0049": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0050": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0050-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0050-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0051": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0051-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0051-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0052": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0052-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0052-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0052G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0053": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0053-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0054": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0054-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0054-00-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0055": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0055-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0056": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0057": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0058": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0058-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0059": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0059-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0060": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0061": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0062": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0063": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0064": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0064+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax"
+  ],
+  "0065": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0065+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax"
+  ],
+  "0065M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0066": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0067": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0068": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0068G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0069": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0070": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0071": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0071M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0072": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0073": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0074": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0074-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0075": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0075-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0076": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0076-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0077": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0077-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0077-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0077-01-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0078": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0078-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0078-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0079": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0079-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0079-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0079-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0080": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0080-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0080-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0080M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0081": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0082": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0083": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0083-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0084": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0084+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0085": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0085+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0086": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0087": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0088": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0088-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0088-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0089": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0089-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0089-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0090": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0091": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0092": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0093": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0094": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0094-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0094-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0094-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0094-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0094G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0094M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0095": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0096": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0097": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0097+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0098": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0099": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0099G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0100": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0100-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0101": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0101-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0102": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0103": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0103-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0104": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0104-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0105": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0105-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0105-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0106": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0107": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0108": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0109": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0110": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0110-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow"
+  ],
+  "0111": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0111+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0112": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0112+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0113": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0113-00-00-01": [
+   "caught",
+   "f"
+  ],
+  "0114": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0115": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0115M": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0116": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0117": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0118": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0118+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0119": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0119+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0120": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0121": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0121M": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0122": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0122-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0123": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0123+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0124": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0125": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0125-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0126": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0127": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0127M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0128": [
+   "caught",
+   "m",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0128-01-01": [
+   "caught",
+   "m"
+  ],
+  "0128-01-02": [
+   "caught",
+   "m"
+  ],
+  "0128-01-03": [
+   "caught",
+   "m"
+  ],
+  "0129": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0129+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0130": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0130+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0130M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0131": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0131-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0131-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0131G": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0132": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0132-00-00-01": [
+   "caught",
+   "n"
+  ],
+  "0132-00-00-02": [
+   "caught",
+   "n"
+  ],
+  "0133": [
+   "caught",
+   "m",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0133+F": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax"
+  ],
+  "0133-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0133-00-00-01+F": [
+   "caught"
+  ],
+  "0133-00-00-02": [
+   "caught",
+   "m"
+  ],
+  "0133-00-00-02+F": [
+   "caught",
+   "f"
+  ],
+  "0133-00-00-03": [
+   "caught",
+   "m"
+  ],
+  "0133-00-00-03+F": [
+   "caught",
+   "f"
+  ],
+  "0133-00-00-04": [
+   "caught",
+   "m"
+  ],
+  "0133-00-00-04+F": [
+   "caught"
+  ],
+  "0133-00-00-05": [
+   "caught",
+   "m"
+  ],
+  "0133-00-00-05+F": [
+   "caught",
+   "f"
+  ],
+  "0134": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0134-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0134-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0134-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0134-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0135": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0135-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0135-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0135-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0135-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0136": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0136-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0136-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0136-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0136-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0137": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0138": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0139": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0140": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0141": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0142": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0142M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0143": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0143-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0143-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0143-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0143G": [
+   "caught",
+   "m"
+  ],
+  "0144": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "dmaxShiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0144-01": [
+   "caught",
+   "n"
+  ],
+  "0145": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0145-01": [
+   "caught",
+   "n"
+  ],
+  "0146": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "lucky"
+  ],
+  "0146-01": [
+   "caught",
+   "n"
+  ],
+  "0147": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0148": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0149": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0149-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0149M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0150": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0150-00-01": [
+   "caught",
+   "n"
+  ],
+  "0150M-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0150M-00-02": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0151": [
+   "caught",
+   "n"
+  ],
+  "0152": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0153": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0154": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0154+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0155": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0156": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0157": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0157-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0158": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0159": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0160": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0161": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0162": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0163": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0163-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0164": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0164-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0165": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0165+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0166": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0166+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0167": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0168": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0169": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0170": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0171": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0172": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0172-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-06": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-07": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-08": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0172-00-00-09": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0173": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0174": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0175": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0175-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0176": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0176-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0177": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0178": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0178+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0179": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0180": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0181": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0181M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0182": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0183": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0184": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0185": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0185+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0185-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0185-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0186": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0186+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0187": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0188": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0189": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0190": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0190+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0191": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0192": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0193": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0194": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0194+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0194-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0194-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0194-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0195": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0195+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0195-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0195-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0196": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0196-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0196-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0196-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0196-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0196-00-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0197": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0197-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0197-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0197-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0197-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0197-00-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0198": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0198+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0199": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0199-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0199-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0200": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0201-00-01": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0201-00-02": [
+   "caught",
+   "n"
+  ],
+  "0201-00-03": [
+   "caught",
+   "n"
+  ],
+  "0201-00-04": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-05": [
+   "caught",
+   "n"
+  ],
+  "0201-00-06": [
+   "caught",
+   "n"
+  ],
+  "0201-00-07": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-08": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-09": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-10": [
+   "caught",
+   "n"
+  ],
+  "0201-00-11": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-12": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-13": [
+   "caught",
+   "n"
+  ],
+  "0201-00-14": [
+   "caught",
+   "n"
+  ],
+  "0201-00-15": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-16": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-17": [
+   "caught",
+   "n"
+  ],
+  "0201-00-18": [
+   "caught",
+   "n"
+  ],
+  "0201-00-19": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-20": [
+   "caught",
+   "n"
+  ],
+  "0201-00-21": [
+   "caught",
+   "n"
+  ],
+  "0201-00-22": [
+   "caught",
+   "n"
+  ],
+  "0201-00-23": [
+   "caught",
+   "n"
+  ],
+  "0201-00-24": [
+   "caught",
+   "n"
+  ],
+  "0201-00-25": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0201-00-26": [
+   "caught",
+   "n"
+  ],
+  "0201-00-27": [
+   "caught",
+   "n"
+  ],
+  "0201-00-28": [
+   "caught",
+   "n"
+  ],
+  "0202": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0202+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0202-00-00-01": [
+   "caught"
+  ],
+  "0202-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0203": [
+   "caught",
+   "m",
+   "shadow",
+   "purified",
+   "xxl",
+   "lucky"
+  ],
+  "0203+F": [
+   "caught",
+   "f",
+   "shadow",
+   "purified"
+  ],
+  "0204": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0205": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0206": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0207": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0207+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0208": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0208+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0208M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0209": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0210": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0211": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0211-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0212": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0212+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0212M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0213": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0214": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0214+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0214M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0215": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0215+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0215-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0215-00-00-01+F": [
+   "caught"
+  ],
+  "0215-01": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0215-01+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0216": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0216-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0217": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0217+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0217-00-00-01": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0217-00-00-01+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0218": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0219": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0220": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0221": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0221+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0222": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0222-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0222-01-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0223": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0224": [
+   "caught",
+   "m",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0224+F": [
+   "caught",
+   "f"
+  ],
+  "0225": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0225-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0226": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0227": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0227M": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0228": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0229": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0229+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0229M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0230": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0231": [
+   "caught",
+   "m",
+   "f",
+   "shadow",
+   "purified",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0232": [
+   "caught",
+   "m",
+   "shadow",
+   "purified",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0232+F": [
+   "caught",
+   "f",
+   "shadow",
+   "purified"
+  ],
+  "0233": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0234": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0234-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0235": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0236": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "lucky",
+   "perfect"
+  ],
+  "0237": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0238": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0238-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0239": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0239-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0240": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0241": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0242": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0242-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0243": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "lucky"
+  ],
+  "0244": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0245": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "lucky",
+   "perfect"
+  ],
+  "0246": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0247": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0248": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0248M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0249": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0250": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0251": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "perfect"
+  ],
+  "0252": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0253": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0254": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0254M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0255": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0255+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0256": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0256+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0257": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0257+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0257M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0258": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0259": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0260": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0260M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0261": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0262": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0263": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0263-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0263-01-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0264": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0264-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0265": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0265-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0266": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0267": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0267+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0268": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0269": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0269+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0270": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0271": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0272": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0272+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0273": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0274": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0274+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0275": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0275+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0276": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0277": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0278": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0279": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0280": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0281": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0281-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0282": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0282-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0282M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0283": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0284": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0285": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0286": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0287": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0287-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0288": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0288-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0289": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0289-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0290": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0291": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0292": [
+   "caught",
+   "n",
+   "lucky"
+  ],
+  "0293": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0294": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0295": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0296": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0297": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0298": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0299": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0300": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0301": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0302": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0302-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0302M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0303": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0303M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0304": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0305": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0306": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0306M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0307": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0307+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0308": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0308+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0308M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0309": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0310": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0310M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0311": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0312": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0313": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0314": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0315": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0315+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0316": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0316+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0317": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0317+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0318": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0319": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0319M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0320": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0321": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0322": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0322+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0323": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0323+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0323M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0324": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0325": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0326": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0327-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0327-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0327-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0327-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0327-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0327-00-06": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0327-00-07": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0327-00-08": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0327-00-09": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0328": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0329": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0330": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0330-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0331": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0332": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0332+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0333": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0334": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0334M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0335": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0336": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0337": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0338": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0339": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0340": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0341": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0342": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0343": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0344": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0345": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0346": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0347": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0348": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0349": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0350": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0350+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0351-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0351-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0351-00-03": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0351-00-04": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0352": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0353": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0354": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0354M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0355": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0355-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0356": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0356-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0357": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0358": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0359": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0359-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0359M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0360": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0361": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0362": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0362M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0363": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0363-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0364": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0365": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0366": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0367": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0368": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0369": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0369+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0370": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0371": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0372": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0373": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0373M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0374": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0375": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0376": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0376M": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0377": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0378": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0379": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "lucky"
+  ],
+  "0380": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0380M": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0381": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0381M": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0382": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0382M": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0383": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0383M": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0384": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0384M": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0385": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex"
+  ],
+  "0386-00-01": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "perfect"
+  ],
+  "0386-00-02": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0386-00-03": [
+   "caught",
+   "n"
+  ],
+  "0386-00-04": [
+   "caught",
+   "n"
+  ],
+  "0387": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0387-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0387-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0388": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0389": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0390": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0390-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0390-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0391": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0392": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0393": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0393-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0393-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0393-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0394": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0395": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0396": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0396+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0397": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0397+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0398": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0398+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0399": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0399+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0400": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0400+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0401": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0401+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0402": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0402+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0403": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0403+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0403-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0403-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0404": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0404+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0405": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0405+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0406": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0407": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0407+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0408": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0409": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0410": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0411": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0412-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0412-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0412-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0413-00-01": [
+   "caught",
+   "f",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0413-00-02": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0413-00-03": [
+   "caught",
+   "f"
+  ],
+  "0414": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0415": [
+   "caught",
+   "m",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0415+F": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax"
+  ],
+  "0416": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0417": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0417+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0418": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0418+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0419": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0419+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0420": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0421-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0421-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0422-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0422-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0423-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0423-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0424": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0424+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0425": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0426": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0426-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0427": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0427-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0428": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0428-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0428M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0429": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0430": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0431": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0432": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0433": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0434": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0435": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0436": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0437": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0438": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0439": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0440": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0440-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0441": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0442": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0443": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0443+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0444": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0444+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0445": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0445+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0445M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0446": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0447": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0448": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0448M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0449": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0449+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0450": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0450+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0451": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0452": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0453": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0453+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0453-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0453-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0454": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0454+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0454-00-00-01": [
+   "caught",
+   "m"
+  ],
+  "0454-00-00-01+F": [
+   "caught",
+   "f"
+  ],
+  "0455": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0456": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0456+F": [
+   "caught",
+   "f"
+  ],
+  "0457": [
+   "caught",
+   "m",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0457+F": [
+   "caught",
+   "f"
+  ],
+  "0458": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0459": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0459+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0460": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0460+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0460M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0461": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0461+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny"
+  ],
+  "0462": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0463": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0464": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0464+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0465": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0465+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0466": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0466-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0467": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0468": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0468-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0469": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0470": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0470-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0470-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0470-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0470-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0471": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0471-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0471-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0471-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0471-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0471-00-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0472": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0473": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0473+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified"
+  ],
+  "0474": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0475": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0475M": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0476": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0477": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0477-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0478": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0479": [
+   "caught",
+   "n",
+   "xxl",
+   "lucky"
+  ],
+  "0479-00-01": [
+   "caught",
+   "n"
+  ],
+  "0479-00-02": [
+   "caught",
+   "n"
+  ],
+  "0480": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0481": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0482": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0483": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0483-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0484": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0484-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0485": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0486": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0487-00-01": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0487-00-02": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0488": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0491": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "perfect"
+  ],
+  "0492-00-01": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl"
+  ],
+  "0492-00-02": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0494": [
+   "caught",
+   "n"
+  ],
+  "0495": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0496": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0497": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0498": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0499": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0500": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0501": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0502": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0503": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0503-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0504": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0505": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0506": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0507": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0508": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0509": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0510": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0511": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0512": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky"
+  ],
+  "0513": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0514": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0515": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0516": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0517": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0518": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0519": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0520": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0521": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0521+F": [
+   "caught",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax"
+  ],
+  "0522": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0522-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0523": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0524": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0525": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0526": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0527": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0528": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0529": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0530": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0531": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0531M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0532": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0533": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0534": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0535": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0536": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0537": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0538": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0539": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0540": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0541": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0542": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0543": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0544": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0545": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0546": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0546-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0547": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0547-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0548": [
+   "caught",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0549": [
+   "caught",
+   "f",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0549-01": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0550-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0550-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0550-01-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0551": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0552": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0553": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0554": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0554-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0555": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0555-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0556": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0557": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0558": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0559": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0560": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0561": [
+   "caught",
+   "f",
+   "lucky"
+  ],
+  "0562": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0562-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0563": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0564": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0565": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0566": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0567": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0568": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0569": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0569G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0570": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0570-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0571": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0571-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0572": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0572-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0573": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0573-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0574": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0575": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0576": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0577": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0578": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0579": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0580": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0581": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0582": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0583": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0584": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0585-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0585-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0585-00-03": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0585-00-04": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0586-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0586-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0586-00-03": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0586-00-04": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0587": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0588": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0589": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0590": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0591": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0592": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0592+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0593": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0593+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0594": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0595": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0596": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0597": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0598": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0599": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0600": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0601": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0602": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0603": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0604": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0605": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0606": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0607": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0608": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0609": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0610": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0611": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0612": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0613": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0613-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0614": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0614-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0615": [
+   "caught",
+   "n",
+   "shiny",
+   "dmax",
+   "dmaxShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0616": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0617": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0618": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0618-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0619": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0620": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0621": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0622": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0623": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0624": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0625": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0626": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0627": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0628": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0628-01": [
+   "caught",
+   "m"
+  ],
+  "0629": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0630": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0631": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0632": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0633": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0634": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0635": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0636": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0637": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0638": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0639": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0640": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0641-00-01": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0641-00-02": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0642-00-01": [
+   "caught",
+   "m",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0642-00-02": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0643": [
+   "caught",
+   "n",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0644": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0645-00-01": [
+   "caught",
+   "m",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky",
+   "perfect"
+  ],
+  "0645-00-02": [
+   "caught",
+   "m"
+  ],
+  "0646": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0646-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0646-00-02": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0647": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex"
+  ],
+  "0647-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0648": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex"
+  ],
+  "0649": [
+   "caught",
+   "n",
+   "shinyDex"
+  ],
+  "0649-00-01": [
+   "caught",
+   "n"
+  ],
+  "0649-00-02": [
+   "caught",
+   "n"
+  ],
+  "0649-00-03": [
+   "caught",
+   "n"
+  ],
+  "0649-00-04": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0650": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0651": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0652": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0653": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0654": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0655": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0656": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0656-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0657": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0657-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0658": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0658-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0659": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0660": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0661": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0662": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0663": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0664-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0664-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-06": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-07": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-08": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-09": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-10": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-11": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-12": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-13": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-14": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-15": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0664-00-16": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-17": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0664-00-18": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0665-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-06": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-07": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-08": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-09": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-10": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-11": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-12": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-13": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-14": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-15": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0665-00-16": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-17": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0665-00-18": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0666-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0666-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-04": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0666-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-06": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-07": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0666-00-08": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-09": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-10": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-11": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-12": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-13": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-14": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-15": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0666-00-16": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-17": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0666-00-18": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0667": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0668": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0668+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0669-00-01": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0669-00-02": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0669-00-03": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0669-00-04": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0669-00-05": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0670-00-01": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0670-00-02": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0670-00-03": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0670-00-04": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0670-00-05": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0671-00-01": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0671-00-02": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0671-00-03": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0671-00-04": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0671-00-05": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0672": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0673": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0674": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0675": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0676": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0676-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0676-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0676-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0676-00-04": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0676-00-05": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0676-00-06": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0676-00-07": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0676-00-08": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0676-00-09": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0677": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0678": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0678+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0679": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0680": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0681-00-01": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0681-00-02": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0682": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0683": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0684": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0685": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0686": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0687": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0687M": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0688": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0689": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0690": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0691": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0692": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0693": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0694": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0695": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0696": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0697": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0698": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0699": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0700": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0700-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0700-00-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0700-00-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0700-00-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0701": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0702": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0702-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0703": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0704": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0705": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0706": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0707": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0708": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0709": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0710-00-01": [
+   "caught"
+  ],
+  "0710-00-01-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0710-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0710-00-02-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0710-00-03": [
+   "caught"
+  ],
+  "0710-00-03-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0710-00-04": [
+   "caught"
+  ],
+  "0710-00-04-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0711-00-01": [
+   "caught"
+  ],
+  "0711-00-01-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0711-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0711-00-02-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0711-00-03": [
+   "caught"
+  ],
+  "0711-00-03-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0711-00-04": [
+   "caught"
+  ],
+  "0711-00-04-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0712": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0713": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0713-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0714": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0714-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0715": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0715-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0716": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0717": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0718-00-01": [
+   "caught",
+   "n"
+  ],
+  "0718-00-02": [
+   "caught",
+   "n",
+   "xxs",
+   "xxl"
+  ],
+  "0718-00-03": [
+   "caught",
+   "n"
+  ],
+  "0719": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex"
+  ],
+  "0719M": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0720-00-01": [
+   "caught",
+   "n",
+   "xxs",
+   "xxl"
+  ],
+  "0720-00-02": [
+   "caught"
+  ],
+  "0721": [
+   "caught",
+   "n"
+  ],
+  "0722": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0722-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0723": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0723-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0724": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0724-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0724-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0725": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0726": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0727": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0728": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0729": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0730": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0731": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0732": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0733": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0734": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0735": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0736": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0737": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0737-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0738": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0738-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0739": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0740": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0741-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0741-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0741-00-03": [
+   "caught",
+   "m",
+   "f",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0741-00-04": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0742": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0743": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0744": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0744-00-01": [
+   "caught"
+  ],
+  "0745-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0745-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0745-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0747": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0748": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0749": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0750": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0751": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0752": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0753": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0754": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0755": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0756": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0757": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0758": [
+   "caught",
+   "f",
+   "lucky"
+  ],
+  "0759": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0760": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0760-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0761": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0762": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0763": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0764": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0765": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0766": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0767": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0768": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0769": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0770": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0775": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0776": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0777": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0778-00-01": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0778-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0779": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0780": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0781": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0782": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0783": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0784": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0785": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0786": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0787": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0788": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky",
+   "perfect"
+  ],
+  "0789": [
+   "caught",
+   "n",
+   "lucky"
+  ],
+  "0790": [
+   "caught",
+   "n",
+   "lucky"
+  ],
+  "0791": [
+   "caught",
+   "n",
+   "xxl",
+   "lucky"
+  ],
+  "0792": [
+   "caught",
+   "n",
+   "xxl",
+   "lucky"
+  ],
+  "0793": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0794": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0795": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0796": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0797": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0798": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0799": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0800": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0800-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0800-00-02": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0802": [
+   "caught",
+   "n"
+  ],
+  "0803": [
+   "caught",
+   "n",
+   "lucky",
+   "perfect"
+  ],
+  "0804": [
+   "caught",
+   "n",
+   "lucky"
+  ],
+  "0805": [
+   "caught",
+   "n",
+   "lucky"
+  ],
+  "0806": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0807": [
+   "caught",
+   "n"
+  ],
+  "0808": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0809": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0810": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0811": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0812": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0812G": [
+   "caught",
+   "m"
+  ],
+  "0813": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0814": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0815": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0815G": [
+   "caught",
+   "m"
+  ],
+  "0816": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0817": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0818": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0818G": [
+   "caught",
+   "m"
+  ],
+  "0819": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0820": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0821": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0822": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0823": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0824": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0825": [
+   "caught",
+   "f",
+   "lucky"
+  ],
+  "0826": [
+   "caught",
+   "f",
+   "lucky"
+  ],
+  "0827": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0828": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0829": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0830": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0831": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0831-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0832": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0832-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0835": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0836": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0837": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0838": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0839": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0840": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0841": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky"
+  ],
+  "0842": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0845": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0845-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0845-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0846": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0847": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0848": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0849-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0849-00-02": [
+   "caught",
+   "m",
+   "f",
+   "dmax"
+  ],
+  "0849G": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0850": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0851": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0852": [
+   "caught",
+   "m",
+   "f",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0853": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0854-00-01": [
+   "caught",
+   "n"
+  ],
+  "0854-00-02": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0855-00-01": [
+   "caught",
+   "n"
+  ],
+  "0855-00-02": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0856": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0857": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0858": [
+   "caught",
+   "f",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0859": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0860": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0861": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0861G": [
+   "caught",
+   "m",
+   "shiny"
+  ],
+  "0862": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0863": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0864": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0865": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0866": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0867": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0870": [
+   "caught",
+   "n",
+   "shiny",
+   "dmax",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0870-00-00-01": [
+   "caught",
+   "n"
+  ],
+  "0870M": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0872": [
+   "caught",
+   "m",
+   "f",
+   "lucky",
+   "perfect"
+  ],
+  "0873": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0874": [
+   "caught",
+   "f",
+   "lucky"
+  ],
+  "0876": [
+   "caught",
+   "m",
+   "xxl",
+   "lucky"
+  ],
+  "0876+F": [
+   "caught",
+   "f"
+  ],
+  "0877-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0877-00-02": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0884": [
+   "caught",
+   "m",
+   "f",
+   "dmax",
+   "lucky"
+  ],
+  "0885": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0886": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0887": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0888": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0888-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0889": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0889-00-01": [
+   "caught",
+   "n",
+   "shiny"
+  ],
+  "0890": [
+   "caught",
+   "n"
+  ],
+  "0891": [
+   "caught",
+   "m",
+   "f",
+   "dmax",
+   "lucky"
+  ],
+  "0892-00-01": [
+   "caught",
+   "m",
+   "dmax",
+   "lucky"
+  ],
+  "0893": [
+   "caught",
+   "n"
+  ],
+  "0894": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0895": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0899": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0900": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky",
+   "perfect"
+  ],
+  "0901": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shadowShiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0901-00-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny"
+  ],
+  "0903": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "lucky"
+  ],
+  "0904": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0905-00-01": [
+   "caught",
+   "f",
+   "xxl",
+   "lucky"
+  ],
+  "0905-00-02": [
+   "caught",
+   "f"
+  ],
+  "0906": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0907": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0907-00-00-01": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0908": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0909": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0910": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0911": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0912": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0913": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0914": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0915": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0916": [
+   "caught",
+   "m",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0916+F": [
+   "caught",
+   "f",
+   "shiny"
+  ],
+  "0917": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0918": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0919": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0920": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0921": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0922": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0923": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0924": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0925-00-01": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0925-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0926": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0927": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0928": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0929": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0930": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0931-00-01": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0931-00-02": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0931-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0932": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0933": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0934": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0935": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "lucky"
+  ],
+  "0936": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky"
+  ],
+  "0937": [
+   "caught",
+   "m",
+   "f",
+   "xxl",
+   "lucky"
+  ],
+  "0938": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0939": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0940": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0941": [
+   "caught",
+   "m",
+   "xxl",
+   "lucky"
+  ],
+  "0944": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0945": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0948": [
+   "caught",
+   "m",
+   "f",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0949": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0950": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0955": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0956": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0957": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0958": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0959": [
+   "caught",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky",
+   "perfect"
+  ],
+  "0960": [
+   "caught",
+   "f",
+   "lucky"
+  ],
+  "0961": [
+   "caught",
+   "f",
+   "lucky"
+  ],
+  "0962": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0965": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0966": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky",
+   "perfect"
+  ],
+  "0968": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0969": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0970": [
+   "caught",
+   "m",
+   "xxl",
+   "lucky"
+  ],
+  "0971": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky"
+  ],
+  "0972": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky"
+  ],
+  "0973": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky"
+  ],
+  "0974": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0975": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0977": [
+   "caught",
+   "m",
+   "f",
+   "lucky"
+  ],
+  "0978-00-01": [
+   "caught",
+   "m",
+   "lucky"
+  ],
+  "0978-00-02": [
+   "caught",
+   "m"
+  ],
+  "0978-00-03": [
+   "caught",
+   "m",
+   "f"
+  ],
+  "0979": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shadow",
+   "purified",
+   "shinyDex",
+   "xxl",
+   "lucky"
+  ],
+  "0980": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0982-00-01": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0982-00-02": [
+   "caught",
+   "m"
+  ],
+  "0983": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "lucky"
+  ],
+  "0996": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0997": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0998": [
+   "caught",
+   "m",
+   "f",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0999-00-01": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "0999-00-01-01": [
+   "caught",
+   "n"
+  ],
+  "0999-00-01-02": [
+   "caught",
+   "n"
+  ],
+  "1000": [
+   "caught",
+   "n",
+   "shiny",
+   "shinyDex",
+   "xxs",
+   "xxl",
+   "lucky"
+  ],
+  "1011": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "lucky"
+  ],
+  "1012-00-02": [
+   "caught",
+   "n",
+   "xxl",
+   "lucky"
+  ],
+  "1013-00-02": [
+   "caught",
+   "n",
+   "xxl",
+   "lucky"
+  ],
+  "1019": [
+   "caught",
+   "m",
+   "f",
+   "xxs",
+   "xxl",
+   "lucky"
+  ]
+ },
+ "customTiers": [],
+ "customMarks": {}
+}

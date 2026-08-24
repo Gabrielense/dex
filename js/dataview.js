@@ -68,6 +68,30 @@ const DataPanel = {
     blankRow.append(el("span", "small dim", t("data.blankHint")), blank);
     p.appendChild(blankRow);
 
+    /* dados de exemplo: pra experimentar o site sem precisar de planilha
+       nenhuma — carrega um save real (o do Gabriel), público pra qualquer
+       visitante usar. */
+    const sampleRow = el("div", "row");
+    sampleRow.style.marginTop = "6px";
+    const sample = el("button", "btn");
+    sample.append(Icons.svg("ball", 15), el("span", null, t("data.sample")));
+    sample.addEventListener("click", async () => {
+      if (!Store.isEmpty() && !confirm(t("data.overwrite"))) return;
+      try {
+        const res = await fetch("data/sample.json");
+        if (!res.ok) throw new Error("sample.json HTTP " + res.status);
+        const text = await res.text();
+        const parsed = XlsxIO.readJson(text, Agg.skeleton);
+        Store.replaceAll(parsed.rows);
+        App.rerender();
+        toast(t("data.sampleDone"));
+      } catch (err) {
+        this.say(t("data.err") + ": " + err.message, "err");
+      }
+    });
+    sampleRow.append(el("span", "small dim", t("data.sampleHint")), sample);
+    p.appendChild(sampleRow);
+
     /* ---- estado atual ---- */
     const st = el("div");
     st.style.marginTop = "14px";

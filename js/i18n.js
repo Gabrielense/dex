@@ -19,7 +19,7 @@ const I18N = {
     "dash.noData": "Importe sua planilha para ver seu progresso.",
     "dash.groupDex": "Pokédex", "dash.groupSpecial": "Formas especiais",
     "dash.groupVariant": "Variantes e fantasias",
-    "dash.missing": "faltam", "dash.complete": "completo!",
+    "dash.missing": "faltam", "dash.missing1": "falta", "dash.complete": "completo!",
     "dash.region": "Região", "dash.total": "Total", "dash.released": "lançados",
 
     "gender.title": "Macho e fêmea",
@@ -39,6 +39,8 @@ const I18N = {
     "lists.busca": "Cole isto na busca do jogo:",
     "lists.copy": "Copiar", "lists.copied": "Copiado!",
     "lists.showUnreleased": "Mostrar não lançados",
+    "lists.showRegistered": "Mostrar registrados",
+    "lists.registeredCount": "{n} registrados",
     "lists.done": "Categoria completa!",
     "lists.doneSub": "Você tem tudo que já foi lançado aqui.",
     "lists.needData": "Importe sua planilha para ver suas listas de faltantes.",
@@ -62,6 +64,9 @@ const I18N = {
     "tl.yearTotal": "{n} estreias em {y}",
     "tl.search": "Buscar espécie…",
     "tl.monPath": "Linha do tempo de {name}",
+    "tl.seeAlso": "Veja também",
+    "tl.pogorewindDesc": "Galeria de sprites do Pokémon GO — a fonte das imagens usadas aqui.",
+    "tl.pikachugoDesc": "Todas as fantasias e formas do Pikachu, num só lugar.",
 
     "data.title": "Meus dados",
     "data.sub": "Sua planilha é lida aqui no navegador. Nada sai do seu computador.",
@@ -131,6 +136,10 @@ const I18N = {
     "data.blank": "Baixar planilha em branco (.xlsx)",
     "data.blankHint": "Prefere começar pelo Excel? Baixe o esqueleto sem nenhuma marca.",
 
+    "data.sample": "Carregar dados de exemplo",
+    "data.sampleHint": "Só quer experimentar o site? Carregue uma coleção de exemplo real (a do Gabrielense).",
+    "data.sampleDone": "Dados de exemplo carregados!",
+
     "data.fresh": "Começar do zero",
     "data.freshHint": "Não tem planilha? Comece um dataset vazio e marque tudo por aqui.",
     "data.freshConfirm": "Isto substitui as marcas já salvas neste navegador por um dataset vazio. Continuar?",
@@ -182,6 +191,8 @@ const I18N = {
     "lists.busca": "Paste this into the in-game search:",
     "lists.copy": "Copy", "lists.copied": "Copied!",
     "lists.showUnreleased": "Show unreleased",
+    "lists.showRegistered": "Show registered",
+    "lists.registeredCount": "{n} registered",
     "lists.done": "Category complete!",
     "lists.doneSub": "You have everything released here.",
     "lists.needData": "Import your spreadsheet to see your missing lists.",
@@ -205,6 +216,9 @@ const I18N = {
     "tl.yearTotal": "{n} debuts in {y}",
     "tl.search": "Search species…",
     "tl.monPath": "{name} timeline",
+    "tl.seeAlso": "See also",
+    "tl.pogorewindDesc": "Pokémon GO sprite gallery — the source of the images used here.",
+    "tl.pikachugoDesc": "Every Pikachu costume and form, in one place.",
 
     "data.title": "My data",
     "data.sub": "Your spreadsheet is read here in the browser. Nothing leaves your computer.",
@@ -273,6 +287,10 @@ const I18N = {
 
     "data.blank": "Download a blank spreadsheet (.xlsx)",
     "data.blankHint": "Prefer starting in Excel? Download the skeleton with no marks.",
+
+    "data.sample": "Load sample data",
+    "data.sampleHint": "Just want to try the site? Load a real example collection (Gabrielense's).",
+    "data.sampleDone": "Sample data loaded!",
 
     "data.fresh": "Start from scratch",
     "data.freshHint": "No spreadsheet? Start an empty dataset and mark everything here.",

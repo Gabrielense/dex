@@ -153,7 +153,16 @@ const Icons = (() => {
           '<path d="M12 9.5v4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
           '<circle cx="12" cy="17" r="1.2" fill="currentColor"/>',
     calendar: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>' +
-              '<path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>'
+              '<path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>',
+
+    /* Grade de fotos 2x2 — galeria de sprites (PogoRewind) */
+    gallery: '<rect x="3" y="3" width="8" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="2"/>' +
+             '<rect x="13" y="3" width="8" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="2"/>' +
+             '<rect x="3" y="13" width="8" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="2"/>' +
+             '<rect x="13" y="13" width="8" height="8" rx="1.6" fill="none" stroke="currentColor" stroke-width="2"/>',
+
+    /* Raio — Pikachu (PikachuGO) */
+    bolt: '<path d="M13 2 4 14h6l-1 8 9-12h-6Z" fill="currentColor"/>'
   };
 
   /* Ícones do próprio jogo (assets/icons/, baixados do wiki do GO).

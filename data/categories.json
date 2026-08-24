@@ -86,7 +86,7 @@
       "key": "dmaxShiny", "icon": "dmaxSparkle", "group": "special", "color": "#DB5397",
       "labelPt": "Dinamax brilhante", "labelEn": "Shiny Dynamax",
       "shortPt": "Dinamax ✦", "shortEn": "Shiny Dmax",
-      "scope": "entry", "gate": "dmax", "mark": "dmaxShiny",
+      "scope": "entry", "gate": "dmaxShiny", "mark": "dmaxShiny",
       "resumo": { "caught": 25, "released": 26 }
     },
     {
@@ -112,7 +112,7 @@
       "key": "gmaxShiny", "icon": "gmaxSparkle", "group": "special", "color": "#CE4189",
       "labelPt": "Gigamax brilhante", "labelEn": "Shiny Gigantamax",
       "shortPt": "Gigamax ✦", "shortEn": "Shiny Gmax",
-      "scope": "entry", "gate": "base", "mark": "shiny",
+      "scope": "entry", "gate": "shiny", "mark": "shiny",
       "subset": { "flag": "gmax" },
       "resumo": { "caught": 36, "released": 37 }
     },
@@ -197,6 +197,18 @@
         "regions": ["Hisui", "Paldea"],
         "fields": ["caught", "released"],
         "why": "As linhas Hisui e Paldea do Resumo nao tem as formulas de Fantasia (colunas AW-AZ vazias), entao 4 entradas com traje nunca foram contadas."
+      },
+      {
+        "category": "dmaxShiny",
+        "regions": ["Galar"],
+        "fields": ["released"],
+        "why": "A formula do Resumo para Dinamax brilhante usava a data de Dinamax normal (coluna V) em vez da de Dinamax brilhante (W) — contava Scorbunny/Raboot/Cinderace/Kubfu/Urshifu (as duas formas) como lancados mesmo sem brilhante ainda. O site usa a data certa (categories.json: gate 'dmaxShiny')."
+      },
+      {
+        "category": "gmaxShiny",
+        "regions": ["Galar"],
+        "fields": ["released"],
+        "why": "Mesma causa do Dinamax brilhante: a formula do Resumo para Gigamax brilhante usava a data do Gigamax normal em vez da do Gigamax brilhante — contava Cinderace-Gmax e Inteleon-Gmax como lancados mesmo sem brilhante ainda. O site usa a data certa (categories.json: gate 'shiny')."
       }
     ]
   },
