@@ -7,7 +7,7 @@
     "mark": "marca pessoal que conta como feito",
     "color": "cor da categoria, tirada das abas do Pokedex do jogo",
     "icon": "chave do icone em js/icons.js",
-    "searchKeyword": "opcional - palavra-chave real da busca do jogo pra essa categoria (verificada no app, nao inventada); vira prefixo 'palavra&' antes dos numeros, igual XXL&/XXS&. So preencher quando confirmado - sem isso a busca fica so com os numeros, como sempre foi.",
+    "searchKeyword": "opcional - palavra-chave real da busca do jogo pra essa categoria (verificada no app, nao inventada); vira prefixo 'palavra&' antes dos numeros, igual XXL&/XXS&. Pra categorias combinadas (ex.: fantasia sombrosa) o valor ja vem com o & embutido, tipo 'traje&sombroso' - o jogo aceita varias palavras-chave encadeadas com &. So preencher quando confirmado - sem isso a busca fica so com os numeros, como sempre foi.",
     "resumo": "colunas da aba Resumo usadas so para conferencia / Resumo columns, for reconciliation only"
   },
   "categories": [
@@ -52,6 +52,7 @@
       "labelPt": "100%", "labelEn": "100%",
       "shortPt": "100%", "shortEn": "100%",
       "scope": "dex", "gate": "base", "mark": "perfect",
+      "searchKeyword": { "pt": "4*", "en": "4*" },
       "resumo": { "caught": 23, "released": 15 }
     },
     {
@@ -82,6 +83,7 @@
       "labelPt": "Dinamax", "labelEn": "Dynamax",
       "shortPt": "Dinamax", "shortEn": "Dynamax",
       "scope": "entry", "gate": "dmax", "mark": "dmax",
+      "searchKeyword": { "pt": "dinamax", "en": "dynamax" },
       "resumo": { "caught": 24, "released": 26 }
     },
     {
@@ -100,6 +102,7 @@
         { "flag": "mega" },
         { "equals": { "field": "altFormPt", "value": "Primitivo" } }
       ] },
+      "searchKeyword": { "pt": "megaevolui", "en": "megaevolve" },
       "resumo": { "caught": 32, "released": 33, "total": 34 }
     },
     {
@@ -118,6 +121,7 @@
       "shortPt": "Gigamax", "shortEn": "Gmax",
       "scope": "entry", "gate": "base", "mark": "caught",
       "subset": { "flag": "gmax" },
+      "searchKeyword": { "pt": "gigamax", "en": "gigantamax" },
       "resumo": { "caught": 35, "released": 37, "total": 38 }
     },
     {
@@ -197,6 +201,7 @@
       "shortPt": "Fant. 🔥", "shortEn": "Shadow cost.",
       "scope": "entry", "gate": "shadow", "mark": "shadow",
       "subset": { "nonempty": "costumePt" },
+      "searchKeyword": { "pt": "traje&sombroso", "en": "costume&shadow" },
       "resumo": { "caught": 51, "released": 52 }
     }
   ],
