@@ -32,16 +32,24 @@ Como funciona / How it works:
      species + costume/form (ci=), with a fuzzy fallback (normalize and
      compare by substring) when the wiki text doesn't exactly match
      costumeEn/regFormEn/altFormEn.
-  4. Para entradas SEM fantasia, expande a lista seguindo data/evolutions.json
-     PARA FRENTE (o background acompanha o Pokemon quando ele evolui),
-     respeitando a forma do no. Fantasias ficam de fora da expansao -
-     evoluir a especie lisa nao garante a fantasia (mesma regra do item 1
-     de PLANS.md).
-     For entries WITHOUT a costume, expands the list FORWARD through
-     data/evolutions.json (the background follows the Pokemon when it
-     evolves), respecting node form. Costumes are excluded from expansion -
-     evolving the plain species doesn't guarantee the costume (same rule as
-     PLANS.md item 1).
+  4. Expande a lista seguindo data/evolutions.json PARA FRENTE (o background
+     acompanha o Pokemon quando ele evolui), respeitando a forma do no.
+     Entradas SEM fantasia expandem livremente (mesma regra do item 1 de
+     PLANS.md). Entradas COM fantasia só continuam a cadeia enquanto a
+     MESMA fantasia existir na proxima etapa (ex.: Eevee "Explorer" evolui
+     pras 8 eeveelutions "Explorer" - isso existe de verdade no jogo,
+     confirmado olhando data/skeleton.json) - na maioria dos casos a
+     fantasia simplesmente nao existe la e a cadeia para, que e o
+     comportamento default esperado (ver build_costume_index).
+     Expands the list FORWARD through data/evolutions.json (the background
+     follows the Pokemon when it evolves), respecting node form. Entries
+     WITHOUT a costume expand freely (same rule as PLANS.md item 1).
+     Entries WITH a costume only continue the chain while the SAME costume
+     exists at the next stage (e.g. Eevee "Explorer" evolves into all 8
+     eeveelutions "Explorer" - this really exists in the game, confirmed by
+     checking data/skeleton.json) - in most cases the costume simply
+     doesn't exist there and the chain stops, which is the expected default
+     (see build_costume_index).
 
   5. `namePt` vem de um dicionario curado a mao (NAME_PT); `debut` e a
      primeira data reconhecida no texto dos eventos (ISO, ordena a lista);
@@ -333,6 +341,60 @@ def build_evo_index(evo_data):
     for n in evo_data.get("chains", []):
         idx[(n["num"], n["form"])] = n
     return idx
+
+
+def build_costume_index(entries):
+    """texto do costumeEn -> {(num, form): [entradas]}. Uma fantasia como
+    "Explorer" existe em varias especies (Eevee E TODAS AS EEVEELUTIONS,
+    por exemplo) - isso e o que permite reconhecer "esta fantasia continua
+    depois da evolucao" sem precisar de uma lista escrita a mao por
+    especie. Lista (nao entrada unica) porque um par M/F pode compartilhar
+    o mesmo (num, form).
+    costumeEn text -> {(num, form): [entries]}. A costume like "Explorer"
+    exists across several species (Eevee AND ALL its eeveelutions, for
+    example) - that's what lets us recognize "this costume survives the
+    evolution" without a hand-written per-species list. List (not a single
+    entry) because an M/F pair can share the same (num, form)."""
+    idx = {}
+    for e in entries:
+        c = e.get("costumeEn")
+        if not c:
+            continue
+        key = (e["num"], e.get("regFormEn") or e.get("altFormEn") or "")
+        idx.setdefault(c, {}).setdefault(key, []).append(e)
+    return idx
+
+
+def expand_forward_costume(num, form, costume_en, evo_idx, costume_idx):
+    """Igual expand_forward, mas só segue uma aresta quando o alvo da
+    evolução tem uma entrada com a MESMA fantasia (costumeEn idêntico) -
+    a fantasia é o que autoriza continuar a cadeia (Sylveon com fantasia
+    "Explorer" resolvida checa se Eevee "Explorer" -> Sylveon "Explorer"
+    existe; se a próxima etapa não tiver a fantasia, a cadeia para ali,
+    igual à regra geral de que fantasia não garante fantasia).
+    Same as expand_forward, but only follows an edge when the evolution
+    target has an entry with the SAME costume (identical costumeEn) - the
+    costume is what authorizes continuing the chain (checks whether Eevee
+    "Explorer" -> Sylveon "Explorer" exists; if the next stage doesn't
+    have the costume, the chain stops there, same general rule that a
+    costume isn't guaranteed to survive evolution)."""
+    by_key = costume_idx.get(costume_en, {})
+    seen = {(num, form)}
+    out = []
+    stack = [(num, form)]
+    while stack:
+        n, f = stack.pop()
+        node = evo_idx.get((n, f))
+        if not node:
+            continue
+        for t in node.get("evolvesTo", []):
+            k2 = (t["num"], t.get("form", ""))
+            if k2 in seen or k2 not in by_key:
+                continue
+            seen.add(k2)
+            out.append(k2)
+            stack.append(k2)
+    return out
 
 
 # Apelidos do Fandom para o texto de costumeEn/altFormEn/regFormEn da
@@ -630,7 +692,7 @@ NAME_PT = {
     "special-background-gowildarea2024": "Pokémon GO Área Selvagem 2024",
     "special-background-instinct": "Equipe Instinto",
     "special-background-mystic": "Equipe Sabedoria",
-    "special-background-valor": "Equipe Coragem",
+    "special-background-valor": "Equipe Valor",
     "special-background-9th-anniversary": "9º Aniversário",
     "special-background-blackversion": "Versão Preta",
     "special-background-greyversion": "Fusão Preto e Branco",
@@ -698,6 +760,20 @@ MANUAL_OVERRIDES = {
         "name": "Road of Legends",
         "namePt": "Caminho das Lendas",
     },
+    # A imagem do Fandom pra esse background nao presta (card generico).
+    # Usa a arte real de serebii.net/pokemongo/locationcard/th/communityday2026.jpg,
+    # recortada uma vez (abaixo do "X" de marca d'agua, acima da barra
+    # preta inferior) e commitada em assets/backgrounds/ - um hotlink
+    # sempre serviria a imagem INTEIRA, sem o recorte. Pedido pelo Gabriel
+    # em 2026-08-24.
+    # Fandom's image for this background isn't good (generic card). Uses
+    # the real art from serebii.net/pokemongo/locationcard/th/communityday2026.jpg,
+    # cropped once (below the watermark "X", above the bottom black bar)
+    # and committed to assets/backgrounds/ - a hotlink would always serve
+    # the FULL image, without the crop. Requested by Gabriel on 2026-08-24.
+    "special-background-community-2026": {
+        "image": "assets/backgrounds/community-day-2026.jpg",
+    },
 }
 
 # Backgrounds "Special" que na pratica so saem em evento presencial de uma
@@ -715,6 +791,47 @@ REGION_EXCLUSIVE_IDS = {
     "special-background-observatory-exhibition-tour",
 }
 
+# O Fandom lista Bulbasaur/Charmander/Squirtle SEM ci= na linha "Ultra
+# Unlock: 10th Anniversary Edition" dos 3 backgrounds de time, junto com
+# Raticate/Nidorino/Grimer/Gengar/Wobbuffet que TEM ci=...party (a mesma
+# linha, o mesmo evento "chapeu de festa"). Confirmado pelo Gabriel: os
+# 3 iniciais de Kanto tambem saem de Chapeu de Festa ali - o wiki so
+# esqueceu o ci= deles. (bg_id, nome no wiki) -> ci forcado.
+# Fandom lists Bulbasaur/Charmander/Squirtle with NO ci= on the "Ultra
+# Unlock: 10th Anniversary Edition" row of the 3 team backgrounds,
+# alongside Raticate/Nidorino/Grimer/Gengar/Wobbuffet which DO have
+# ci=...party (the same row, the same "party hat" event). Confirmed by
+# Gabriel: the 3 Kanto starters also come in Party Hat there - the wiki
+# just forgot their ci=. (bg_id, wiki name) -> forced ci.
+CI_OVERRIDES = {}
+for _bg in ("special-background-valor", "special-background-mystic", "special-background-instinct"):
+    for _species in ("Bulbasaur", "Charmander", "Squirtle"):
+        CI_OVERRIDES[(_bg, _species)] = "%s party hat" % _species
+
+# Confirmado pelo Gabriel: na mesma linha "Ultra Unlock: 10th Anniversary
+# Edition" dos 3 backgrounds de time, os iniciais de Kanto (Agua/Fogo/
+# Grama) E os de Hoenn tambem saiam SOMBROSOS - as outras geracoes de
+# inicial (Johto, Sinnoh, Unova, Kalos, Alola, Galar, Paldea) nunca
+# tiveram versao sombrosa no jogo. So um sinal visual (ver bg-sprite
+# shadow no site); nao afeta contagem, so exibicao.
+# Confirmed by Gabriel: on that same "Ultra Unlock: 10th Anniversary
+# Edition" row of the 3 team backgrounds, the Kanto (Water/Fire/Grass) AND
+# Hoenn starters also came as Shadow - the other starter generations
+# (Johto, Sinnoh, Unova, Kalos, Alola, Galar, Paldea) have never had a
+# Shadow release in the game. Display-only signal (see the site's
+# bg-sprite shadow badge); doesn't affect counting.
+SHADOW_ELIGIBLE_BG_IDS = {
+    "special-background-valor", "special-background-mystic", "special-background-instinct",
+}
+SHADOW_ELIGIBLE_NUMS = {
+    1, 2, 3,          # Bulbasaur, Ivysaur, Venusaur
+    4, 5, 6,          # Charmander, Charmeleon, Charizard
+    7, 8, 9,          # Squirtle, Wartortle, Blastoise
+    252, 253, 254,    # Treecko, Grovyle, Sceptile
+    255, 256, 257,    # Torchic, Combusken, Blaziken
+    258, 259, 260,    # Mudkip, Marshtomp, Swampert
+}
+
 
 # ------------------------------------------------------------------ main
 def main():
@@ -724,6 +841,7 @@ def main():
     entries = skeleton["entries"]
     by_species = build_species_index(entries)
     numform_idx = build_numform_index(entries)
+    costume_idx = build_costume_index(entries)
     evo_idx = build_evo_index(load_evolutions())
 
     try:
@@ -769,7 +887,8 @@ def main():
                         bg["events"].append(event_text)
 
                     for pk_name, ci in POKEMON_TPL_RE.findall(pokemon_cell or ""):
-                        entries, err = match_pokemon(pk_name, ci.strip(), by_species)
+                        ci = CI_OVERRIDES.get((bg_id, pk_name), ci.strip())
+                        entries, err = match_pokemon(pk_name, ci, by_species)
                         if not entries:
                             unmatched.append((bg_id, pk_name, ci, err))
                             continue
@@ -778,20 +897,36 @@ def main():
                                 bg["pokemon"][entry["id"]] = {
                                     "id": entry["id"], "num": entry["num"], "viaEvolution": False
                                 }
-                            if not entry.get("costumeEn"):
-                                form = entry.get("regFormEn") or entry.get("altFormEn") or ""
-                                for (tnum, tform) in expand_forward(entry["num"], form, evo_idx):
-                                    for te in numform_idx.get((tnum, tform), []):
-                                        if te["id"] not in bg["pokemon"]:
-                                            bg["pokemon"][te["id"]] = {
-                                                "id": te["id"], "num": te["num"], "viaEvolution": True
-                                            }
+                            costume = entry.get("costumeEn")
+                            form = entry.get("regFormEn") or entry.get("altFormEn") or ""
+                            if not costume:
+                                targets = expand_forward(entry["num"], form, evo_idx)
+                                target_pool = numform_idx
+                            else:
+                                # só continua a cadeia enquanto a MESMA fantasia
+                                # existir na proxima etapa (ex.: Eevee "Explorer"
+                                # -> as 8 eeveelutions "Explorer" - a maioria das
+                                # fantasias NAO faz isso, e por isso o default
+                                # continua sendo parar; ver build_costume_index).
+                                targets = expand_forward_costume(
+                                    entry["num"], form, costume, evo_idx, costume_idx)
+                                target_pool = costume_idx.get(costume, {})
+                            for (tnum, tform) in targets:
+                                for te in target_pool.get((tnum, tform), []):
+                                    if te["id"] not in bg["pokemon"]:
+                                        bg["pokemon"][te["id"]] = {
+                                            "id": te["id"], "num": te["num"], "viaEvolution": True
+                                        }
 
     out_list = []
     untranslated = []
     for bg in backgrounds.values():
         b2 = dict(bg)
         b2["pokemon"] = sorted(bg["pokemon"].values(), key=lambda p: p["num"])
+        if bg["id"] in SHADOW_ELIGIBLE_BG_IDS:
+            for p in b2["pokemon"]:
+                if p["num"] in SHADOW_ELIGIBLE_NUMS:
+                    p["viaShadow"] = True
         b2["debut"] = earliest_debut(bg["events"], bg["year"])
 
         override = MANUAL_OVERRIDES.get(bg["id"], {})
@@ -827,15 +962,19 @@ def main():
                   "significa que a entrada nao apareceu na tabela do Fandom - "
                   "foi adicionada porque uma entrada listada evolui pra ela "
                   "(data/evolutions.json), respeitando a forma. Fantasias "
-                  "(costumeEn preenchido) nunca geram expansao por evolucao.",
+                  "(costumeEn preenchido) so expandem quando a MESMA fantasia "
+                  "existe na proxima etapa da evolucao (ver build_costume_index) "
+                  "- na maioria dos casos isso nao existe e a cadeia para ali.",
             "en": "Pokemon GO's collectible summary-page backgrounds. id = the "
                   "Fandom image filename, normalized (the stable identifier - "
                   "the displayed text sometimes repeats across different "
                   "backgrounds). pokemon[].viaEvolution=true means the entry "
                   "wasn't in the Fandom table - it was added because a listed "
                   "entry evolves into it (data/evolutions.json), respecting "
-                  "form. Costumes (costumeEn set) never trigger evolution "
-                  "expansion.",
+                  "form. Costumes (costumeEn set) only expand when the SAME "
+                  "costume exists at the next evolution stage (see "
+                  "build_costume_index) - in most cases it doesn't and the "
+                  "chain stops there.",
         },
         "backgrounds": out_list,
     }

@@ -231,7 +231,56 @@ principal, que já tem 51 colunas.
   (Presencial), mesmas cores dos cards-resumo da Dex de Fundos. Dia com
   os dois tipos: o que tiver mais Pokémon elegíveis no total decide a
   cor. Sem legenda (não faria sentido pra uma escolha categórica).
-  inteira).
+
+**Quarta rodada (mesmo dia, mais ajustes/bugs pedidos pelo Gabriel):**
+
+- Painel: a linha "Total" das matrizes por região virou "Registrado" (é o
+  que ela sempre mostrou — pegos, não o universo). Formas especiais e
+  Variantes e fantasias ganharam uma linha "Total" NOVA, hierarquia menor
+  (`.total-possible-row`, cinza/menor), mostrando o universo de verdade
+  por categoria — Pokédex fica de fora (o card já mostra "N não
+  lançados").
+- Faltantes: "Marcar tudo"/"Desmarcar tudo" (`Lists.bulkMarkChip`) —
+  aplica a marca da categoria em todo mundo visível de uma vez (com
+  `confirm()`), tanto na seção de faltando quanto em "Mostrar
+  registrados". Ao contrário do ✓ individual, aqui um `App.rerender()`
+  completo é o certo (a lista muda de composição mesmo).
+  - Backgrounds tab: Eevee com fantasia (ex. "Explorer") agora expande
+  pra TODAS as eeveelutions com a MESMA fantasia via evolução —
+  confirmado que isso existe de verdade no jogo (`data/skeleton.json` tem
+  "Explorer Vaporeon/Jolteon/.../Sylveon"). `expand_forward_costume` +
+  `build_costume_index` em `tools/build_backgrounds.py`: fantasia só
+  continua a cadeia enquanto a MESMA fantasia existir na próxima etapa —
+  não é mais um "nunca" fixo, é checado etapa a etapa.
+- Pikachu (número 25) sempre aparece na ordem do `DEX_ORDER` do
+  pikachugo (não alfabética nem por ID) — copiada pra `PIKACHU_ORDER` em
+  `js/aggregate.js`, aplicada via `reorderPikachu()` (reordena só o
+  Pikachu dentro de uma lista maior, sem mexer na posição das outras
+  espécies) em `Agg.items()`, `livingItems()`, `genderStats()`,
+  `backgroundItems()`, e ordenando o grupo `byNum.get(25)` direto no
+  `init()` (afeta a ficha/"outras entradas deste número").
+- Consertos pontuais no `.xlsx` mestre confirmados pelo Gabriel:
+  "Equipe Coragem" → "Equipe Valor" (Valor já é português, não traduz no
+  jogo); West Sea Gastrodon sem data de brilhante (adicionado 2023-08-04,
+  igual East Sea); Squawkabilly com data de brilhante prematura (removida
+  — Gabriel confirmou que ainda não saiu).
+- Sprite da Sunglasses Absol brilhante nunca aparecia brilhante: o
+  arquivo existia mas com nome errado (`_S` em vez de `+S`) no repositório
+  `pogorewind` — não é bug do pokeagenda, corrigido direto lá
+  (`git mv` + push, conteúdo já era o brilhante certo).
+- Backgrounds "Ultra Unlock: 10th Anniversary Edition" (as 3 abas de
+  time): Bulbasaur/Charmander/Squirtle estavam sem `ci=` no wiki mas
+  saíam de Chapéu de Festa de verdade (confirmado pelo Gabriel) —
+  `CI_OVERRIDES` força a fantasia certa pra esses 3 nessas 3 linhas. Os 6
+  iniciais de Kanto+Hoenn (e evoluções) também saíam Sombrosos ali —
+  `SHADOW_ELIGIBLE_NUMS`/`SHADOW_ELIGIBLE_BG_IDS` marca `viaShadow:true`
+  nesses pares (background, Pokémon) especificamente, mostrado como o
+  mesmo selo de canto sombroso do Faltantes (`.bg-sprite-badge`).
+- Imagem do fundo "2026 Community Days" trocada pela arte real de
+  serebii.net (a do Fandom era genérica), recortada uma vez (abaixo da
+  marca d'água "X", acima da barra preta) e commitada em
+  `assets/backgrounds/community-day-2026.jpg` — hotlink sempre serviria a
+  imagem inteira sem o recorte.
 
 <details>
 <summary>Plano original (histórico, antes da implementação)</summary>

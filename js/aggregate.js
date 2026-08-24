@@ -7,6 +7,52 @@
    conta para o Unown. A coluna "Dex"/canônica da planilha existe só porque o
    Excel precisava de uma linha única; aqui ela não é usada em nenhuma conta. */
 
+/* Ordem de exibição das formas/fantasias do Pikachu (número 25) - copiada
+   do DEX_ORDER do pikachugo (mesmo ID de sprite, mesma fonte de verdade
+   dos três sites) porque não é nem alfabética nem pela ordem do ID: é a
+   ordem de lançamento que o Gabriel já curou lá. Aplicada em qualquer
+   lugar que liste várias entradas do Pikachu juntas (ver reorderPikachu).
+   Display order for Pikachu's (number 25) forms/costumes - copied from
+   pikachugo's DEX_ORDER (same sprite ID, same source of truth across all
+   three sites) because it's neither alphabetical nor ID order: it's the
+   release order Gabriel already curated there. Applied everywhere
+   multiple Pikachu entries get listed together (see reorderPikachu). */
+const PIKACHU_ORDER = [
+  "0025-00-00-01", "0025-00-00-02", "0025-00-00-03", "0025-00-00-04", "0025-00-00-05", "0025-00-00-06",
+  "0025-00-00-07", "0025-00-00-11", "0025-00-00-08", "0025-00-00-09", "0025-00-00-12",
+  "0025-00-00-15", "0025-00-00-14", "0025-00-00-16", "0025-00-00-17", "0025-00-00-18", "0025-00-00-19",
+  "0025-00-00-21", "0025-00-00-24", "0025-00-00-26", "0025-00-00-29", "0025-00-00-33", "0025-00-00-32",
+  "0025-00-00-34", "0025-00-00-41", "0025-00-00-42", "0025-00-00-43", "0025-00-00-44", "0025-00-00-53", "0025-00-00-54",
+  "0025-00-00-55", "0025-00-00-79", "0025-00-00-10", "0025-00-02-13", "0025-00-01", "0025-00-00-20",
+  "0025-00-00-22", "0025-00-00-23", "0025-00-00-30", "0025-00-02-27", "0025-00-02-28", "0025-00-00-25",
+  "0025-00-00-31", "0025-00-00-36", "0025-00-00-35", "0025-00-00-46", "0025-00-00-38", "0025-00-00-40",
+  "0025-00-00-37", "0025-00-00-39", "0025-00-00-56", "0025-00-00-58", "0025-00-00-57", "0025-00-00-59",
+  "0025-00-00-62", "0025-00-00-61", "0025-00-00-63", "0025-00-00-64", "0025-00-00-65", "0025-00-00-67",
+  "0025-00-00-68", "0025-00-00-71", "0025-00-00-69", "0025-00-00-70", "0025-00-00-72", "0025-00-00-78",
+  "0025-00-00-77", "0025-00-00-76", "0025-00-00-75", "0025-00-00-74", "0025-00-00-73", "0025-00-00-50",
+  "0025-00-00-49", "0025-00-00-52", "0025-00-00-51", "0025-00-00-47", "0025-00-00-45", "0025-00-02-60",
+  "0025-00-00-48", "0025-00-00-66", "0025-00-00-80", "0025-00-00-83", "0025-00-00-84", "0025-00-00-85",
+  "0025-00-00-86", "0025-00-00-81", "0025-00-00-82", "0025-00-00-87", "0025-00-00-88", "0025-00-00-90",
+  "0025-00-00-91", "0025-00-00-92", "0025-00-00-89", "0025-00-00-93"
+];
+const PIKACHU_RANK = new Map(PIKACHU_ORDER.map((id, i) => [id, i]));
+/* +F (fêmea) segue o mesmo posto do macho - mesmo rank, o par fica junto */
+function pikachuRank(id) {
+  const r = PIKACHU_RANK.get(id.replace(/\+F$/, ""));
+  return r === undefined ? PIKACHU_ORDER.length : r;
+}
+/* Reordena SÓ o Pikachu (num 25) dentro de uma lista maior, sem mexer na
+   posição relativa das outras espécies - troca os valores nos índices
+   onde há Pikachu, mantendo os índices em si (partial in-place sort). */
+function reorderPikachu(list, numOf, idOf) {
+  const idxs = [];
+  for (let i = 0; i < list.length; i++) if (numOf(list[i]) === 25) idxs.push(i);
+  if (idxs.length < 2) return list;
+  const vals = idxs.map(i => list[i]).sort((a, b) => pikachuRank(idOf(a)) - pikachuRank(idOf(b)));
+  idxs.forEach((i, k) => { list[i] = vals[k]; });
+  return list;
+}
+
 const Agg = {
   skeleton: null,
   categories: [],
@@ -52,6 +98,11 @@ const Agg = {
       if (!g) { g = []; this.byNum.set(e.num, g); }
       g.push(e);
     }
+    /* Pikachu (25) na ordem do pikachugo, não na ordem que a planilha
+       tinha - afeta a ficha ("outras entradas deste número") e qualquer
+       tela que liste o grupo inteiro do número 25. */
+    const pika = this.byNum.get(25);
+    if (pika) pika.sort((a, b) => pikachuRank(a.id) - pikachuRank(b.id));
 
     /* Regiões que já entraram no Pokédex do jogo: alguma entrada lançada.
        O total do jogo (1025 hoje) é menor que o total da planilha (1028)
@@ -113,7 +164,7 @@ const Agg = {
           got: rel && Store.has(e.id, cat.mark)
         });
       }
-      return out;
+      return reorderPikachu(out, it => it.num, it => it.display.id);
     }
 
     // escopo dex: agrupa por número
@@ -384,6 +435,11 @@ const Agg = {
       (isCostume ? halfC : half).push(item);
     }
 
+    reorderPikachu(diffHalf, it => it.num, it => it.display.id);
+    reorderPikachu(diffNone, it => it.num, it => it.display.id);
+    reorderPikachu(diffCHalf, it => it.num, it => it.display.id);
+    reorderPikachu(diffCNone, it => it.num, it => it.display.id);
+
     return {
       dual, onlyM, onlyF, neither,
       dualTotal: dual.length,
@@ -483,7 +539,7 @@ const Agg = {
         got: rel && Store.has(e.id, tier.mark)
       });
     }
-    return out;
+    return reorderPikachu(out, it => it.num, it => it.display.id);
   },
 
   livingStats(tierKey) {
@@ -596,7 +652,11 @@ const Agg = {
   backgroundItems(type) {
     return this.backgrounds
       .filter(b => b.type === type)
-      .map(b => ({ ...b, caught: b.pokemon.filter(p => Store.hasBackgroundMark(b.id, p.id)).length }))
+      .map(b => ({
+        ...b,
+        pokemon: reorderPikachu(b.pokemon.slice(), p => p.num, p => p.id),
+        caught: b.pokemon.filter(p => Store.hasBackgroundMark(b.id, p.id)).length
+      }))
       /* mais novo primeiro; sem data reconhecida (ver tools/build_backgrounds.py)
          cai por ano+nome, no fim do próprio ano. */
       .sort((a, b) => (b.debut || b.year + "-00-00").localeCompare(a.debut || a.year + "-00-00")

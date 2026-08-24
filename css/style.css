@@ -294,6 +294,12 @@ table.matrix tbody tr:hover td{background:var(--panel2)}
 table.matrix tbody tr:hover td:first-child{background:var(--panel2)}
 table.matrix tr.total-row td{border-top:2px solid var(--line-strong);font-weight:800;
   background:var(--panel2)}
+/* Linha extra do universo total (Formas especiais/Variantes) - contexto,
+   não progresso, por isso menor e mais apagada que a linha Registrado. */
+table.matrix tr.total-possible-row td{
+  font-size:11px;font-weight:500;color:var(--faint);background:var(--panel2);
+}
+table.matrix tr.total-possible-row td:first-child{font-weight:500;color:var(--faint)}
 .cell{display:inline-flex;flex-direction:column;align-items:center;gap:3px;min-width:42px}
 .cell b{font-variant-numeric:tabular-nums;font-weight:700}
 .cell .minibar{width:36px;height:3px;border-radius:99px;background:var(--line);overflow:hidden}
@@ -536,7 +542,7 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 .bg-events{padding:0 12px 6px;line-height:1.35}
 .bg-sprites{display:flex;flex-wrap:wrap;gap:5px;padding:0 10px 11px}
 .bg-sprite{
-  width:34px;height:34px;border-radius:8px;overflow:hidden;
+  position:relative;width:34px;height:34px;border-radius:8px;overflow:hidden;
   background:var(--panel2);border:1.5px solid var(--line);
   display:flex;align-items:center;justify-content:center;cursor:pointer;
   filter:grayscale(.9);opacity:.55;transition:filter .12s,opacity .12s,border-color .12s;
@@ -544,6 +550,9 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 .bg-sprite:hover{border-color:var(--dex-red)}
 .bg-sprite.got{filter:none;opacity:1;border-color:var(--ok)}
 .bg-sprite .sprite{width:26px;height:26px}
+/* dentro dos limites (bg-sprite tem overflow:hidden pro sprite arredondado -
+   um offset negativo como o .mon-variant-badge normal seria cortado). */
+.bg-sprite-badge{position:absolute;bottom:1px;right:1px;width:14px;height:14px;box-shadow:none;border:none}
 
 /* =========================== responsivo =========================== */
 @media(max-width:600px){

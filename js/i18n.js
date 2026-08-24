@@ -21,6 +21,7 @@ const I18N = {
     "dash.groupVariant": "Variantes e fantasias",
     "dash.missing": "faltam", "dash.missing1": "falta", "dash.complete": "completo!",
     "dash.region": "Região", "dash.total": "Total", "dash.released": "lançados",
+    "dash.registered": "Registrado",
 
     "gender.title": "Macho e fêmea",
     "gender.dexLabel": "Algum gênero faltando na dex",
@@ -52,6 +53,12 @@ const I18N = {
     "lists.blocked": "{n} dependem de registrar o Pokémon na dex primeiro",
     "lists.tapHint": "Clique no ✓ do canto para marcar como {mark} direto, ou no card para abrir a ficha.",
     "lists.quickTip": "Marcar {mark}",
+    "lists.selectAll": "Marcar tudo",
+    "lists.selectAllConfirm": "Marcar estes {n} como {mark}?",
+    "lists.selectAllDone": "{n} marcados",
+    "lists.deselectAll": "Desmarcar tudo",
+    "lists.deselectAllConfirm": "Desmarcar estes {n} como {mark}?",
+    "lists.deselectAllDone": "{n} desmarcados",
 
     "tl.title": "Linha do tempo de lançamentos",
     "tl.sub": "Cada quadrado é um dia. Quanto mais forte, mais estreias.",
@@ -192,6 +199,7 @@ const I18N = {
     "dash.groupVariant": "Variants & costumes",
     "dash.missing": "missing", "dash.complete": "complete!",
     "dash.region": "Region", "dash.total": "Total", "dash.released": "released",
+    "dash.registered": "Registered",
 
     "gender.title": "Male and female",
     "gender.dexLabel": "Missing a gender in the dex",
@@ -223,6 +231,12 @@ const I18N = {
     "lists.blocked": "{n} need the Pokémon registered in the dex first",
     "lists.tapHint": "Click the ✓ in the corner to mark it as {mark} directly, or the card for full details.",
     "lists.quickTip": "Mark {mark}",
+    "lists.selectAll": "Select all",
+    "lists.selectAllConfirm": "Mark these {n} as {mark}?",
+    "lists.selectAllDone": "{n} marked",
+    "lists.deselectAll": "Deselect all",
+    "lists.deselectAllConfirm": "Unmark these {n} as {mark}?",
+    "lists.deselectAllDone": "{n} unmarked",
 
     "tl.title": "Release timeline",
     "tl.sub": "Each square is a day. Darker means more debuts.",

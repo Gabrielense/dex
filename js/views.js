@@ -145,7 +145,7 @@ const Dashboard = {
     for (const [g, label] of groups) {
       const cats = Agg.categories.filter(c => c.group === g);
       if (!cats.length) continue;
-      root.appendChild(this.matrix(all, cats, label));
+      root.appendChild(this.matrix(all, cats, label, g));
     }
   },
 
@@ -286,7 +286,7 @@ const Dashboard = {
     return p;
   },
 
-  matrix(all, cats, label) {
+  matrix(all, cats, label, group) {
     const p = el("div", "panel");
     p.appendChild(sectionHead(t("dash.matrix") + " · " + label, null, cats[0].color));
 
@@ -321,10 +321,28 @@ const Dashboard = {
       for (const c of cats) tr.appendChild(this.cell(all[c.key].byRegion[r], c, r));
       tbody.appendChild(tr);
     }
+    /* Linha "Registrado": some as colunas por região reduzidas a um só
+       total — mas o número em cada célula é quanto você TEM, não quanto
+       existe (ver cell()); "Total" enganava, o valor mostrado é registro. */
     const tr = el("tr", "total-row");
-    tr.appendChild(el("td", null, t("dash.total")));
+    tr.appendChild(el("td", null, t("dash.registered")));
     for (const c of cats) tr.appendChild(this.cell(all[c.key].total, c, null));
     tbody.appendChild(tr);
+
+    /* Linha extra só em Formas especiais/Variantes: "quantos existem no
+       total" (o universo, sem contar se você tem ou não) — hierarquia
+       menor de propósito, é contexto de fundo, não progresso. A Pokédex
+       em si fica de fora porque o card já mostra "N não lançados" ali. */
+    if (group !== "dex") {
+      const trTotal = el("tr", "total-possible-row");
+      trTotal.appendChild(el("td", null, t("dash.total")));
+      for (const c of cats) {
+        const td = el("td");
+        td.appendChild(el("span", null, String(all[c.key].total.total)));
+        trTotal.appendChild(td);
+      }
+      tbody.appendChild(trTotal);
+    }
 
     table.appendChild(tbody);
     wrap.appendChild(table);
@@ -489,7 +507,12 @@ const Lists = {
                el("div", "small dim", t("lists.doneSub")));
       body.appendChild(e);
     } else {
-      body.appendChild(el("div", "small dim", t("lists.count", { n: todo.length })));
+      const countRow = el("div", "row");
+      countRow.appendChild(el("div", "small dim", t("lists.count", { n: todo.length })));
+      if (!Store.isEmpty()) {
+        countRow.appendChild(this.bulkMarkChip(todo, cat, true));
+      }
+      body.appendChild(countRow);
       body.appendChild(el("div", "small dim",
         t("lists.tapHint", { mark: t("e." + cat.mark).toLowerCase() })));
       body.appendChild(this.grid(todo, cat, false));
@@ -516,9 +539,10 @@ const Lists = {
     if (this.state.showRegistered) {
       const reg = filt(Agg.registered(this.state.cat, region));
       if (reg.length) {
-        const h = el("div", "small dim");
+        const h = el("div", "row");
         h.style.marginTop = "18px";
-        h.textContent = t("lists.registeredCount", { n: reg.length });
+        h.appendChild(el("div", "small dim", t("lists.registeredCount", { n: reg.length })));
+        h.appendChild(this.bulkMarkChip(reg, cat, false));
         body.append(h, this.grid(reg, cat, false));
       }
     }
@@ -529,6 +553,36 @@ const Lists = {
     return pagedGrid(items, it => monCard(it, cat, {
       shiny: shinyLook, unreleased, dim, quick: !unreleased
     }));
+  },
+
+  /* Mesmo alvo que o ✓ de cada card decide individualmente (ver monCard) -
+     escopo "dex" marca a entrada base do número, escopo "entry" marca a
+     entrada em si. */
+  bulkTarget(it, cat) {
+    return cat.scope === "dex" ? Agg.baseEntry(it.num, it.entries) : it.entries[0];
+  },
+
+  /* "Marcar tudo"/"Desmarcar tudo": aplica a marca da categoria em todo
+     mundo que está sendo mostrado agora (já filtrado por região/busca) de
+     uma vez. Ao contrário do ✓ individual, isso troca a composição da
+     tela inteira (item marcado sai de "faltando"), então um re-render
+     completo aqui é o comportamento certo, não um custo a evitar. */
+  bulkMarkChip(items, cat, markOn) {
+    const label = markOn ? t("lists.selectAll") : t("lists.deselectAll");
+    const chip = el("button", "chip bulk", label);
+    chip.type = "button";
+    chip.addEventListener("click", () => {
+      const msg = markOn
+        ? t("lists.selectAllConfirm", { n: items.length, mark: t("e." + cat.mark).toLowerCase() })
+        : t("lists.deselectAllConfirm", { n: items.length, mark: t("e." + cat.mark).toLowerCase() });
+      if (!confirm(msg)) return;
+      for (const it of items) Store.set(this.bulkTarget(it, cat).id, cat.mark, markOn);
+      App.markDirty();
+      App.rerender();
+      toast(markOn ? t("lists.selectAllDone", { n: items.length })
+                   : t("lists.deselectAllDone", { n: items.length }));
+    });
+    return chip;
   }
 };
 
@@ -1311,8 +1365,17 @@ const Backgrounds = {
       const got = Store.hasBackgroundMark(bg.id, p.id);
       const s = el("div", "bg-sprite" + (got ? " got" : ""));
       s.title = nameOf(entry) + (p.viaEvolution ? " (" + t("bg.viaEvolution") + ")" : "") +
+        (p.viaShadow ? " (" + t("e.shadow") + ")" : "") +
         (canMark ? " — " + t("bg.tapHint") : "");
       s.appendChild(Sprites.img(entry, false));
+      /* alguns backgrounds tambem valiam pra captura sombrosa da mesma
+         especie (confirmado caso a caso - ver SHADOW_ELIGIBLE_* em
+         tools/build_backgrounds.py) - mesmo selo de canto do Faltantes. */
+      if (p.viaShadow) {
+        const shadowBadge = Icons.badge(Agg.byCat.shadow, 14);
+        shadowBadge.classList.add("mon-variant-badge", "bg-sprite-badge");
+        s.appendChild(shadowBadge);
+      }
       /* marcacao rapida: clique liga/desliga o par (background, Pokemon) -
          mesmo espirito do botao ✓ quick nas outras telas. De propósito NÃO
          reconstroi o card inteiro, só o que mudou (ver monCard). */
