@@ -64,6 +64,12 @@ const Icons = (() => {
     mega: '<path d="M12 2 20 12l-8 10-8-10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>' +
           '<path d="M12 7.5 16 12l-4 4.5L8 12Z" fill="currentColor"/>',
 
+    /* Losango encolhido + brilho — megaevolução brilhante */
+    megaSparkle: '<path d="M9 2 15.5 9.5 9 17 2.5 9.5Z" fill="none" stroke="currentColor" ' +
+                 'stroke-width="1.8" stroke-linejoin="round"/>' +
+                 '<path d="M9 5.8 11.8 9.5 9 13.2 6.2 9.5Z" fill="currentColor"/>' +
+                 '<path d="M18.6 14.2l.9 2.3 2.3.9-2.3.9-.9 2.3-.9-2.3-2.3-.9 2.3-.9Z" fill="currentColor"/>',
+
     /* Pokébola inflada com raios — gigamax */
     gmax: '<circle cx="12" cy="13" r="7" fill="none" stroke="currentColor" stroke-width="2"/>' +
           '<path d="M5 13h4.2M14.8 13H19" stroke="currentColor" stroke-width="2"/>' +

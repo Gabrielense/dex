@@ -101,6 +101,16 @@
       "resumo": { "caught": 32, "released": 33, "total": 34 }
     },
     {
+      "key": "megaShiny", "icon": "megaSparkle", "group": "special", "color": "#F16B92",
+      "labelPt": "Megaevolução brilhante", "labelEn": "Shiny Mega",
+      "shortPt": "Mega ✦", "shortEn": "Shiny Mega",
+      "scope": "entry", "gate": "shiny", "mark": "shiny",
+      "subset": { "any": [
+        { "flag": "mega" },
+        { "equals": { "field": "altFormPt", "value": "Primitivo" } }
+      ] }
+    },
+    {
       "key": "gmax", "icon": "gmax", "group": "special", "color": "#B32A70",
       "labelPt": "Gigamax", "labelEn": "Gigantamax",
       "shortPt": "Gigamax", "shortEn": "Gmax",
