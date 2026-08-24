@@ -46,7 +46,7 @@ const XlsxIO = (() => {
   /* ------------------------------------------------------------ read
      opts.requireName: quando true, so aceita a aba de nome EXATO
      preferSheetName - lanca SHEET_NOT_FOUND em vez de cair pra sheets[0].
-     Usado pra ler a aba opcional "Backgrounds" sem confundir com os dados
+     Usado pra ler a aba opcional "Fundos" sem confundir com os dados
      principais quando a planilha e antiga e nao tem essa aba ainda. */
   async function readSheet(arrayBuffer, preferSheetName, opts) {
     const files = await Zip.read(arrayBuffer);
@@ -168,15 +168,15 @@ const XlsxIO = (() => {
     return { rows: out, report };
   }
 
-  /* Cabecalhos da aba "Backgrounds" -> indice de coluna. */
+  /* Cabecalhos da aba "Fundos" -> indice de coluna. */
   const BG_SHEET_COLUMNS = [
-    ["ID do Background", "bgId"], ["Nome do Background", "bgName"],
+    ["ID do Fundo", "bgId"], ["Nome do Fundo", "bgName"],
     ["Tipo", "bgType"], ["ID do Pokémon", "pokemonId"],
     ["Nome do Pokémon", "pokemonName"], ["Via evolução", "viaEvolution"],
     ["Marcado", "marked"]
   ];
 
-  /* rows: saida crua de readSheet(arrayBuffer, "Backgrounds", {requireName:true}).
+  /* rows: saida crua de readSheet(arrayBuffer, "Fundos", {requireName:true}).
      -> { bgId: { pokemonId: 1 } }, só os pares marcados com "x". */
   function backgroundRowsToMarks(rows) {
     if (!rows.length) return {};
@@ -457,7 +457,7 @@ const XlsxIO = (() => {
     skip();
     add([[0, "Salve o arquivo e importe pela aba \"Meus dados\" do site — suas marcas substituem as que já estavam salvas neste navegador."]]);
     skip();
-    add([[0, "A aba \"Backgrounds\" é separada: cada linha é um Pokémon elegível para um background de evento. Marque a coluna \"Marcado\" para o Pokémon que você pegou COM aquele background especificamente — o mesmo Pokémon pode aparecer marcado numa linha e não marcado em outra, já que o registro normal (\"Registro\") não distingue de qual captura veio."]]);
+    add([[0, "A aba \"Fundos\" é separada: cada linha é um Pokémon elegível para um fundo de evento. Marque a coluna \"Marcado\" para o Pokémon que você pegou COM aquele fundo especificamente — o mesmo Pokémon pode aparecer marcado numa linha e não marcado em outra, já que o registro normal (\"Registro\") não distingue de qual captura veio."]]);
 
     return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
@@ -467,7 +467,7 @@ const XlsxIO = (() => {
 </worksheet>`;
   }
 
-  /* Aba "Backgrounds": uma linha por PAR (background, Pokémon elegível) -
+  /* Aba "Fundos": uma linha por PAR (background, Pokémon elegível) -
      é N-pra-N, não cabe como coluna na aba principal (ver PLANS.md item 2).
      blank=true (planilha em branco) gera a aba com a coluna Marcado vazia. */
   function backgroundsSheetXml(styles, blank) {
@@ -528,11 +528,11 @@ const XlsxIO = (() => {
   /* "Instruções" aparece primeiro (é a aba que abre), mas o arquivo físico
      sheet1.xml continua sendo o de dados — mantém o fallback de leitura
      (readSheet cai em sheet1.xml se não conseguir resolver pelo nome).
-     "Backgrounds" vem por último, como aba opcional (arquivos antigos
+     "Fundos" vem por último, como aba opcional (arquivos antigos
      simplesmente não têm o rId4/sheet3.xml). */
   const WORKBOOK = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-<sheets><sheet name="Instruções" sheetId="2" r:id="rId2"/><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/><sheet name="Backgrounds" sheetId="3" r:id="rId4"/></sheets>
+<sheets><sheet name="Instruções" sheetId="2" r:id="rId2"/><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/><sheet name="Fundos" sheetId="3" r:id="rId4"/></sheets>
 </workbook>`;
 
   const WB_RELS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>

@@ -2,7 +2,7 @@
 const I18N = {
   pt: {
     "nav.dashboard": "Painel", "nav.lists": "Faltantes",
-    "nav.living": "Dex Viva", "nav.backgrounds": "Backgrounds",
+    "nav.living": "Dex Viva", "nav.backgrounds": "Fundos",
     "nav.timeline": "Lançamentos", "nav.data": "Meus dados",
     "ui.showMore": "Mostrar mais ({n} restantes)",
     "loading": "Carregando…",
@@ -61,6 +61,7 @@ const I18N = {
     "tl.dmaxShiny": "Dinamax brilhante",
     "tl.onlyMissing": "Só o que me falta",
     "tl.showCostumes": "Incluir fantasias",
+    "tl.backgrounds": "Fundos",
     "tl.less": "menos", "tl.more": "mais",
     "tl.debuts": "{n} estreias", "tl.debut1": "1 estreia",
     "tl.nothing": "Nada estreou neste dia.",
@@ -90,7 +91,7 @@ const I18N = {
     "data.unmatched": "{n} linhas da planilha não têm par no esqueleto",
     "data.newRows": "Provavelmente são entradas novas: atualize o esqueleto (tools/export_skeleton.py).",
     "data.marksFound": "{n} marcas lidas",
-    "data.bgMarksFound": "{n} marcas de background lidas",
+    "data.bgMarksFound": "{n} marcas de fundo lidas",
     "data.done": "Pronto!",
     "data.err": "Não consegui ler o arquivo",
     "data.skeleton": "Esqueleto", "data.entries": "entradas",
@@ -156,16 +157,19 @@ const I18N = {
     "health.sub": "{n} marcas suas caem em entradas sem a data de estreia correspondente, então nenhuma conta entra nelas — nem aqui, nem na sua planilha.",
     "health.hint": "Ou a marca está errada, ou falta preencher a data de estreia na planilha. Depois de preencher, rode tools/export_skeleton.py e publique de novo.",
 
-    "bg.title": "Dex de Backgrounds",
-    "bg.sub": "Os planos de fundo colecionáveis de eventos. Um background conta como seu assim que você registra qualquer Pokémon elegível — inclusive quem chegou lá evoluindo de um deles.",
+    "bg.title": "Dex de Fundos",
+    "bg.sub": "Os fundos colecionáveis de eventos. Um fundo conta como seu assim que você marca qualquer Pokémon elegível — inclusive quem chegou lá evoluindo de um deles.",
     "bg.special": "Especiais", "bg.location": "Presenciais",
     "bg.pokemonCount": "{c} / {n} Pokémon",
     "bg.locationNote": "Presenciais dependem de ter ido ao evento — a maioria é praticamente impossível de completar à distância. Aqui é só pra acompanhar o que você já tem.",
-    "bg.unavailable": "Lista de backgrounds indisponível no momento.",
+    "bg.unavailable": "Lista de fundos indisponível no momento.",
     "bg.viaEvolution": "via evolução",
-    "bg.noneYet": "Nenhum background aqui ainda.",
-    "bg.count": "{n} backgrounds",
-    "bg.tapHint": "clique para marcar que você tem este Pokémon com este background"
+    "bg.noneYet": "Nenhum fundo aqui ainda.",
+    "bg.count": "{n} fundos",
+    "bg.tapHint": "clique para marcar que você tem este Pokémon com este fundo",
+    "bg.regionExclusive": "Regional",
+    "bg.regionExclusiveHint": "Mesmo listado como especial, este fundo só saiu presencialmente numa região específica — praticamente impossível de completar à distância.",
+    "bg.monthRange": "de {a} a {b}"
   },
   en: {
     "nav.dashboard": "Dashboard", "nav.lists": "Missing",
@@ -228,6 +232,7 @@ const I18N = {
     "tl.dmaxShiny": "Shiny Dynamax",
     "tl.onlyMissing": "Only what I'm missing",
     "tl.showCostumes": "Include costumes",
+    "tl.backgrounds": "Backgrounds",
     "tl.less": "less", "tl.more": "more",
     "tl.debuts": "{n} debuts", "tl.debut1": "1 debut",
     "tl.nothing": "Nothing debuted on this day.",
@@ -332,7 +337,10 @@ const I18N = {
     "bg.viaEvolution": "via evolution",
     "bg.noneYet": "No backgrounds here yet.",
     "bg.count": "{n} backgrounds",
-    "bg.tapHint": "click to mark that you have this Pokémon with this background"
+    "bg.tapHint": "click to mark that you have this Pokémon with this background",
+    "bg.regionExclusive": "Regional",
+    "bg.regionExclusiveHint": "Even though it's listed as special, this background was only available in person in one specific region — practically impossible to complete remotely.",
+    "bg.monthRange": "from {a} to {b}"
   }
 };
 

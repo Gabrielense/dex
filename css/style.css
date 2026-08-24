@@ -515,6 +515,12 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
   padding:9px 12px 3px;
 }
 .bg-name{font-size:13px;font-weight:700;line-height:1.25}
+.bg-tag{
+  display:inline-block;margin-left:6px;padding:1px 6px;border-radius:99px;
+  font-size:9.5px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;
+  background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn);
+  vertical-align:middle;cursor:help;
+}
 .bg-progress{
   flex:none;font-size:12px;font-weight:800;color:var(--dim);
   font-variant-numeric:tabular-nums;

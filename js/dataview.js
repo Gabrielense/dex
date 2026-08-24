@@ -221,11 +221,11 @@ const DataPanel = {
         const buf = await file.arrayBuffer();
         const rows = await XlsxIO.readSheet(buf, "PokéAgenda");
         res = XlsxIO.rowsToMarks(rows, Agg.skeleton);
-        /* aba "Backgrounds" e opcional - planilhas exportadas antes dela
+        /* aba "Fundos" e opcional - planilhas exportadas antes dela
            existir simplesmente nao tem essa aba, e a importacao segue
            normal sem mexer nas marcas de background ja salvas. */
         try {
-          const bgRows = await XlsxIO.readSheet(buf, "Backgrounds", { requireName: true });
+          const bgRows = await XlsxIO.readSheet(buf, "Fundos", { requireName: true });
           bgMarks = XlsxIO.backgroundRowsToMarks(bgRows);
         } catch (bgErr) {
           if (bgErr.message !== "SHEET_NOT_FOUND") throw bgErr;

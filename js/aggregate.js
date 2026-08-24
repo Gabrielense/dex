@@ -597,7 +597,26 @@ const Agg = {
     return this.backgrounds
       .filter(b => b.type === type)
       .map(b => ({ ...b, caught: b.pokemon.filter(p => Store.hasBackgroundMark(b.id, p.id)).length }))
-      .sort((a, b) => (b.year - a.year) || a.name.localeCompare(b.name));
+      /* mais novo primeiro; sem data reconhecida (ver tools/build_backgrounds.py)
+         cai por ano+nome, no fim do próprio ano. */
+      .sort((a, b) => (b.debut || b.year + "-00-00").localeCompare(a.debut || a.year + "-00-00")
+        || a.name.localeCompare(b.name));
+  },
+
+  /* Mapa data -> [backgrounds] para a Linha do Tempo — mesmo formato de
+     debutsByDate(), pra reaproveitar o calendário. Só entram os que têm
+     data reconhecida (ver build_backgrounds.py); onlyMissing filtra pros
+     que ainda não têm nenhum Pokémon marcado (Store.hasBackgroundMark). */
+  debutsByDateBackgrounds(onlyMissing) {
+    const map = new Map();
+    for (const b of this.backgrounds) {
+      if (!b.debut) continue;
+      if (onlyMissing && b.pokemon.some(p => Store.hasBackgroundMark(b.id, p.id))) continue;
+      let a = map.get(b.debut);
+      if (!a) { a = []; map.set(b.debut, a); }
+      a.push(b);
+    }
+    return map;
   },
 
   entryTimeline(entry) {

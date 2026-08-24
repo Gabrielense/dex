@@ -14,6 +14,39 @@ const pct = (a, b) => {
 };
 const nameOf = e => (LANG === "en" ? (e.nameEn || e.namePt) : e.namePt);
 const speciesOf = e => (LANG === "en" ? (e.speciesEn || e.speciesPt) : e.speciesPt);
+const bgNameOf = bg => (LANG === "en" ? bg.name : (bg.namePt || bg.name));
+/* Temporadas e Dias Comunitários duram semanas/meses — vale mostrar o
+   intervalo de meses. Eventos pontuais (a maioria) só mostram o nome:
+   o dia exato já não cabe na dex de qualquer forma (ver Lançamentos pra
+   isso). Seasons and Community Days run for weeks/months — worth showing
+   the month range. One-off events (most of them) only show the name: the
+   exact day doesn't belong here anyway (see the Timeline tab for that). */
+const bgIsSeasonOrCD = bg => /season|community day/i.test(bg.name);
+const MONTH_NAMES_EN = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+const MONTH_PT = { January: "janeiro", February: "fevereiro", March: "março",
+  April: "abril", May: "maio", June: "junho", July: "julho", August: "agosto",
+  September: "setembro", October: "outubro", November: "novembro", December: "dezembro" };
+const MONTH_RE = new RegExp("\\b(" + MONTH_NAMES_EN.join("|") + ")\\b", "g");
+function bgMonthRange(bg) {
+  const text = (bg.events || []).join(" ");
+  const months = [...text.matchAll(MONTH_RE)].map(m => m[1]);
+  if (!months.length) return null;
+  const label = m => (LANG === "en" ? m : MONTH_PT[m]);
+  const first = months[0], last = months[months.length - 1];
+  return first === last ? label(first) : t("bg.monthRange", { a: label(first), b: label(last) });
+}
+/* Só o nome do evento, sem data (o texto vem "Nome · Data" de
+   tools/build_backgrounds.py) - datas exatas ficam pra Linha do Tempo. */
+function bgEventNames(bg) {
+  const seen = new Set();
+  const out = [];
+  for (const ev of (bg.events || [])) {
+    const title = ev.split(" · ")[0].trim();
+    if (title && !seen.has(title)) { seen.add(title); out.push(title); }
+  }
+  return out.join(" · ");
+}
 const catLabel = c => (LANG === "en" ? c.labelEn : c.labelPt);
 const catShort = c => (LANG === "en" ? (c.shortEn || c.labelEn) : (c.shortPt || c.labelPt));
 const labelFor = (it, cat) =>
@@ -548,10 +581,12 @@ const Timeline = {
   },
   GATE_COLOR: {
     base: "#1E9BD7", shiny: "#E0A21B", shadow: "#7A4CC0",
-    shadowShiny: "#9B55CC", dmax: "#C6317B", dmaxShiny: "#DB5397"
+    shadowShiny: "#9B55CC", dmax: "#C6317B", dmaxShiny: "#DB5397",
+    backgrounds: "#2e9c6c"
   },
 
   render(root) {
+    const isBg = this.state.gate === "backgrounds";
     const color = this.GATE_COLOR[this.state.gate] || "#1E9BD7";
     const p = el("div", "panel");
     p.style.setProperty("--c", color);
@@ -571,6 +606,17 @@ const Timeline = {
       c.addEventListener("click", () => { this.state.gate = g; App.rerender(); });
       chips.appendChild(c);
     }
+    /* backgrounds nao e um "portao" de Pokemon como os outros - fica
+       separado dos chips de dateKeys, mas usa o mesmo mecanismo de
+       calendario (Agg.debutsByDateBackgrounds tem o mesmo formato de
+       Agg.debutsByDate). */
+    if (Agg.backgrounds && Agg.backgrounds.length) {
+      const bgChip = el("button", "chip" + (isBg ? " is-on" : ""));
+      if (isBg) { bgChip.style.background = color; bgChip.style.borderColor = color; }
+      bgChip.append(Icons.svg("gallery", 13), el("span", null, t("tl.backgrounds")));
+      bgChip.addEventListener("click", () => { this.state.gate = "backgrounds"; App.rerender(); });
+      chips.appendChild(bgChip);
+    }
     controls.appendChild(chips);
     controls.appendChild(el("span", "spacer"));
 
@@ -582,15 +628,20 @@ const Timeline = {
       });
       controls.appendChild(om);
     }
-    const cc = el("button", "chip" + (this.state.showCostumes ? " is-on" : ""),
-                  t("tl.showCostumes"));
-    cc.addEventListener("click", () => {
-      this.state.showCostumes = !this.state.showCostumes; App.rerender();
-    });
-    controls.appendChild(cc);
+    /* "incluir fantasias" so faz sentido pro calendario de Pokemon */
+    if (!isBg) {
+      const cc = el("button", "chip" + (this.state.showCostumes ? " is-on" : ""),
+                    t("tl.showCostumes"));
+      cc.addEventListener("click", () => {
+        this.state.showCostumes = !this.state.showCostumes; App.rerender();
+      });
+      controls.appendChild(cc);
+    }
     p.appendChild(controls);
 
-    const map = Agg.debutsByDate(this.state.gate, this.state.onlyMissing, this.state.showCostumes);
+    const map = isBg
+      ? Agg.debutsByDateBackgrounds(this.state.onlyMissing)
+      : Agg.debutsByDate(this.state.gate, this.state.onlyMissing, this.state.showCostumes);
     let maxN = 1;
     for (const [, arr] of map) if (arr.length > maxN) maxN = arr.length;
 
@@ -607,16 +658,21 @@ const Timeline = {
 
     const holder = el("div");
     holder.style.setProperty("--c", color);
-    for (const y of years) holder.appendChild(this.year(y, map, maxN));
+    for (const y of years) holder.appendChild(this.year(y, map, maxN, isBg ? this.bgDayColor : null));
     p.appendChild(holder);
 
-    const lg = el("div", "legend");
-    lg.style.marginTop = "6px";
-    lg.style.setProperty("--c", color);
-    lg.append(el("span", null, t("tl.less")));
-    for (const c of ["", "l1", "l2", "l3", "l4"]) lg.appendChild(el("span", "day " + c));
-    lg.append(el("span", null, t("tl.more")));
-    p.appendChild(lg);
+    /* No gate de fundos a cor de cada dia já diz especial/presencial (ver
+       bgDayColor) - uma legenda de intensidade um-tom-só ficaria enganosa
+       e não pedida. */
+    if (!isBg) {
+      const lg = el("div", "legend");
+      lg.style.marginTop = "6px";
+      lg.style.setProperty("--c", color);
+      lg.append(el("span", null, t("tl.less")));
+      for (const c of ["", "l1", "l2", "l3", "l4"]) lg.appendChild(el("span", "day " + c));
+      lg.append(el("span", null, t("tl.more")));
+      p.appendChild(lg);
+    }
 
     root.appendChild(p);
     root.appendChild(this.seeAlso());
@@ -646,7 +702,21 @@ const Timeline = {
     return p;
   },
 
-  year(y, map, maxN) {
+  /* Especial vs presencial por cor, só no gate de fundos - mesmas cores
+     dos cards-resumo da Dex de Fundos (âmbar/azul), pra ficar reconhecível.
+     Dia com os dois tipos: o que tem mais Pokémon elegíveis manda na cor
+     (>= deixa empate ir pro especial, sem viés visível na prática). */
+  BG_TYPE_COLOR: { special: "#E0A21B", location: "#3A6FB0" },
+  bgDayColor(arr) {
+    let special = 0, location = 0;
+    for (const bg of arr) {
+      if (bg.type === "special") special += bg.pokemon.length;
+      else location += bg.pokemon.length;
+    }
+    return Timeline.BG_TYPE_COLOR[special >= location ? "special" : "location"];
+  },
+
+  year(y, map, maxN, dayColor) {
     const box = el("div", "year");
     let total = 0;
     for (const [d, a] of map) if (d.slice(0, 4) === String(y)) total += a.length;
@@ -677,6 +747,7 @@ const Timeline = {
         const b = el("button", "day " + lvl + (this.state.sel === iso ? " sel" : ""));
         b.type = "button";
         if (n) {
+          if (dayColor) b.style.setProperty("--c", dayColor(arr));
           b.dataset.n = n;
           b.title = fmtDate(iso) + " · " + (n === 1 ? t("tl.debut1") : t("tl.debuts", { n }));
           b.addEventListener("click", () => {
@@ -735,6 +806,20 @@ const DayPanel = {
                 Timeline.GATE_COLOR[gate]);
       sheet.appendChild(el("div", "small dim",
         entries.length === 1 ? t("tl.debut1") : t("tl.debuts", { n: entries.length })));
+
+      if (gate === "backgrounds") {
+        /* mesmo card da Dex de Fundos, com contagem ja calculada -
+           reaproveita o clique-pra-marcar direto daqui. */
+        const g = el("div", "bg-grid");
+        g.style.marginTop = "10px";
+        for (const bg of entries.slice().sort((a, b) => bgNameOf(a).localeCompare(bgNameOf(b)))) {
+          const caught = bg.pokemon.filter(p => Store.hasBackgroundMark(bg.id, p.id)).length;
+          g.appendChild(Backgrounds.card({ ...bg, caught }));
+        }
+        sheet.appendChild(g);
+        return;
+      }
+
       const g = el("div", "grid");
       g.style.marginTop = "10px";
       const shiny = gate.indexOf("hiny") !== -1 || gate === "shiny";
@@ -1180,12 +1265,24 @@ const Backgrounds = {
     const allCaught = bg.pokemon.length > 0 && bg.caught === bg.pokemon.length;
     const progress = el("div", "bg-progress" + (allCaught ? " done" : ""),
       `${bg.caught} / ${bg.pokemon.length}`);
+    const nameBox = el("div", "bg-name");
+    nameBox.appendChild(document.createTextNode(bgNameOf(bg)));
+    if (bg.regionExclusive) {
+      const tag = el("span", "bg-tag", t("bg.regionExclusive"));
+      tag.title = t("bg.regionExclusiveHint");
+      nameBox.appendChild(tag);
+    }
     const info = el("div", "bg-info");
-    info.append(el("div", "bg-name", bg.name), progress);
+    info.append(nameBox, progress);
     card.appendChild(info);
 
     if (bg.events && bg.events.length) {
-      card.appendChild(el("div", "small dim bg-events", bg.events.join(" · ")));
+      let text = bgEventNames(bg);
+      if (bgIsSeasonOrCD(bg)) {
+        const range = bgMonthRange(bg);
+        if (range) text += (text ? " · " : "") + range;
+      }
+      if (text) card.appendChild(el("div", "small dim bg-events", text));
     }
 
     const canMark = !Store.isEmpty();

@@ -141,7 +141,7 @@ principal, que já tem 51 colunas.
   marcado. `data/backgrounds.json` é opcional no boot — se faltar ou vier
   quebrado, o resto do site continua funcionando normalmente.
 - Exportação/importação em [js/xlsxio.js](js/xlsxio.js): terceira aba do
-  `.xlsx` ("Backgrounds", uma linha por par background×Pokémon elegível,
+  `.xlsx` ("Fundos", uma linha por par background×Pokémon elegível,
   coluna "Marcado"), lida de volta por `backgroundRowsToMarks` — planilhas
   antigas sem essa aba (`SHEET_NOT_FOUND`) simplesmente não mexem nas
   marcas já salvas, em vez de confundir com a aba principal. O backup
@@ -150,6 +150,87 @@ principal, que já tem 51 colunas.
 - `update.bat` ganhou um passo `tools\build_backgrounds.py` (não
   bloqueante — se o Fandom estiver fora do ar, publica com o
   `backgrounds.json` que já existia em vez de travar a atualização
+
+**Refinamentos de 2026-08-24 (segunda rodada, pedidos pelo Gabriel):**
+
+- Ordenação por data real de lançamento, não só ano: `parse_event_date`
+  em `tools/build_backgrounds.py` lê a primeira data reconhecida no texto
+  de cada evento (mês+dia, ano explícito quando presente, senão o ano da
+  seção `===YYYY===` de origem) e grava `debut` (ISO) em cada background —
+  campo usado tanto pra ordenar (`Agg.backgroundItems`, mais novo primeiro)
+  quanto pra alimentar o calendário da Linha do Tempo (abaixo).
+- Tradução em PT: `nav.backgrounds`/`bg.*` viraram "Fundos" em vez de
+  "Backgrounds" em todo o PT. Cada um dos 150 backgrounds catalogados
+  ganhou um `namePt` curado à mão (`NAME_PT` em `tools/build_backgrounds.py`
+  — nome de time/versão/temporada não tem tradução automática confiável).
+  `bgNameOf(bg)` em `js/views.js` escolhe `name`/`namePt` conforme `LANG`,
+  igual `nameOf`/`speciesOf`. A aba "Backgrounds" do `.xlsx` também virou
+  "Fundos" (cabeçalhos "ID do Fundo"/"Nome do Fundo") — a planilha inteira
+  já era só em português, então ficou consistente.
+- `regionExclusive`: 4 backgrounds "Special" que na prática só saíram
+  presencialmente numa região (Arraiá, Festival of Colors 2026, LEGO,
+  Pokémon Astronomical Observatory) ganharam a flag `regionExclusive` em
+  `REGION_EXCLUSIVE_IDS` — mostram uma tag "Regional" no card, mesma lógica
+  do aviso de presenciais mas sem sair da aba Especiais (é assim que o
+  Fandom classifica).
+- `MANUAL_OVERRIDES`: o fundo do Mewtwo durante o GO Fest 2026: Global
+  tinha nome cru (a legenda da própria imagem no Fandom, não um nome de
+  verdade) e a arte hospedada lá ainda não era a final — renomeado pra
+  "GO Fest Global DNA" nos dois idiomas e a imagem trocada pela oficial de
+  leekduck.com/gofest/special-backgrounds. Mesmo mecanismo corrigiu o
+  fundo "Road of Legends" (nome cru parecido).
+- Consertos de parser encontrados no caminho: `rowspan = "N"|` com espaço
+  ao redor do `=` (o Fandom não é 100% consistente) não batia com o regex
+  antigo — pelo menos uma linha (Tóquio, GO Fest 2026) vazava o texto cru
+  `rowspan = "4"|` pro nome do evento. E `bg_display_name` pegava só o
+  primeiro pedaço antes de " · ", que podia ser um "-" solto (sobra de
+  `|-` de tabela aninhada achatada em texto, ex. o mega-quadro dos 47
+  fundos "Poké Lid" do Japão) — agora pula pedaços vazios/só-hífen.
+- Nova sub-aba "Fundos" em Lançamentos ([js/views.js](js/views.js),
+  `Agg.debutsByDateBackgrounds`): mesmo calendário ano/mês/dia de sempre,
+  alimentado pelos `debut` dos backgrounds em vez das datas de estreia dos
+  Pokémon. Clicar num dia abre os cards de fundo daquele dia reaproveitando
+  `Backgrounds.card` — os sprites continuam clicáveis pra marcar dali
+  mesmo, sem precisar trocar de aba.
+
+**Terceira rodada (mesmo dia, ajustes finos pedidos pelo Gabriel):**
+
+- Bug real achado ao investigar "por que só o Pikachu macho e o Raichu os
+  dois gêneros": `match_pokemon()` só devolvia a linha "canônica" do
+  esqueleto quando o wiki não especifica gênero (`{{I|Pikachu||70px}}`
+  sem `ci=`) — para espécies com linha M/F separada (Pikachu 0025 x
+  0025+F), isso perdia a fêmea na correspondência DIRETA, enquanto a
+  expansão por evolução (Raichu) já incluía as duas por buscar tudo que
+  bate num número+forma. Agora `match_pokemon` devolve uma LISTA de
+  entradas em vez de uma só, incluindo o par inteiro quando existir. No
+  mesmo lugar, achado e corrigido um vazamento parecido de Mega/Gigamax
+  na correspondência DIRETA (só a expansão por evolução já excluía).
+- Dois consertos de dados no `.xlsx` mestre, por cirurgia de XML (mesmo
+  método de 2026-08-24 registrado na memória do projeto; backups mantidos
+  como `PokéAgenda 2026 (backup 2026-08-24-pikachu-cosplay-sprites).xlsx`
+  e `...-pikachu-excavator-willow-swap.xlsx`):
+  - Pikachu Cosplay (Libre/Pop Star/Rock Star/Ph.D.) apontava pra IDs de
+    sprite (`...-13/-27/-28/-60`) que não existem em `pogorewind/sprites/`
+    — a imagem caía no fallback pro Pikachu comum. Trocado pros arquivos
+    reais (`...-01/-02/-03/-04`), casados por conteúdo da imagem e
+    confirmados pela própria tabela de remapeamento que o pikachugo já
+    usa internamente pra esses 4 IDs.
+  - Pikachu Excavador e Assistente do Professor Willow tinham as marcas
+    de nome/data certas, mas apontando pro ID de sprite um do outro —
+    confirmado pelo Gabriel e trocado (Excavador agora usa `...-89`,
+    Assistente do Willow usa `...-93`).
+  - Depois de cada conserto: `export_skeleton.py` + `check_resumo.py`
+    (100% ok, sem stale novo) + `build_backgrounds.py`.
+- Dex de Fundos: cards não mostram mais data, só o(s) nome(s) do evento
+  (`bgEventNames`, tira o texto depois do primeiro " · "). Temporadas e
+  Dias Comunitários (nome em inglês contém "Season"/"Community Day") são
+  exceção — ganham um "de Mês a Mês" (`bgMonthRange`, meses extraídos do
+  texto original do evento).
+- Lançamentos, sub-aba Fundos: cada dia é colorido por tipo em vez de
+  intensidade única — âmbar `#E0A21B` (Especial) ou azul `#3A6FB0`
+  (Presencial), mesmas cores dos cards-resumo da Dex de Fundos. Dia com
+  os dois tipos: o que tiver mais Pokémon elegíveis no total decide a
+  cor. Sem legenda (não faria sentido pra uma escolha categórica).
   inteira).
 
 <details>

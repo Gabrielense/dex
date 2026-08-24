@@ -43,6 +43,17 @@ Como funciona / How it works:
      evolving the plain species doesn't guarantee the costume (same rule as
      PLANS.md item 1).
 
+  5. `namePt` vem de um dicionario curado a mao (NAME_PT); `debut` e a
+     primeira data reconhecida no texto dos eventos (ISO, ordena a lista);
+     `regionExclusive` marca "Special" que na pratica so saem numa regiao.
+     MANUAL_OVERRIDES corrige nome/imagem pontuais quando o Fandom tem
+     texto cru ou arte errada/provisoria.
+     `namePt` comes from a hand-curated dictionary (NAME_PT); `debut` is
+     the first recognized date in the event text (ISO, sorts the list);
+     `regionExclusive` flags "Special" backgrounds that in practice only
+     came from one region. MANUAL_OVERRIDES fixes one-off name/image
+     issues when Fandom has raw placeholder text or wrong/provisional art.
+
 Uso / Usage:
     python tools/build_backgrounds.py [--test]
     --test: mostra um resumo e near-misses, mas NAO grava backgrounds.json.
@@ -66,7 +77,7 @@ API_URL = ("https://pokemongo.fandom.com/api.php"
            "?action=parse&page=Backgrounds&prop=wikitext&format=json")
 FILEPATH_BASE = "https://pokemongo.fandom.com/wiki/Special:FilePath/"
 
-ROWSPAN_RE = re.compile(r'^rowspan="(\d+)"\s*\|(.*)$', re.DOTALL)
+ROWSPAN_RE = re.compile(r'^rowspan\s*=\s*"(\d+)"\s*\|(.*)$', re.DOTALL)
 FILE_RE = re.compile(r'\[\[File:([^|\]]+)')
 POKEMON_TPL_RE = re.compile(r'\{\{I\|([^|}]+)\|\|(?:ci=([^|}]+)\|)?[^}]*\}\}')
 
@@ -118,8 +129,15 @@ def name_from_filename(filename):
 def bg_display_name(bg_cell, filename):
     without_file = re.sub(r"\[\[File:[^\]]*\]\]", "", bg_cell)
     cleaned = clean_wikitext(without_file)
-    first = cleaned.split(" · ")[0].strip()
-    return first or cleaned or name_from_filename(filename)
+    # pula pedacos vazios ou so-hifen (sobra de linhas "|-" de tabelas
+    # aninhadas achatadas em texto - ver parse_table) ate achar algo real.
+    # skips empty or dash-only pieces (leftover from nested-table "|-" row
+    # separators flattened into text - see parse_table) until something real.
+    for piece in cleaned.split(" · "):
+        piece = piece.strip()
+        if piece and not re.fullmatch(r"[-–—\s]*", piece):
+            return piece
+    return name_from_filename(filename)
 
 
 def slugify(filename):
@@ -362,6 +380,18 @@ def match_costume(species_name, ci_raw, candidates):
 
 
 def match_pokemon(name, ci_raw, by_species):
+    """-> (lista de entradas, erro). A lista tem mais de um item quando o
+    Fandom nao especifica genero (ci_raw vazio) e a especie tem um par
+    macho/femea com diferenca visual como entradas BASE separadas (ex.:
+    Pikachu 0025 x 0025+F) - o template {{I|Pikachu||70px}} nao diz qual
+    dos dois, entao os dois contam (mesma logica ja usada pra alvo de
+    evolucao em build_numform_index/expand_forward).
+    -> (list of entries, error). The list has more than one item when
+    Fandom doesn't specify gender (empty ci_raw) and the species has a
+    visually-different male/female pair as separate BASE entries (e.g.
+    Pikachu 0025 vs 0025+F) - the {{I|Pikachu||70px}} template doesn't say
+    which one, so both count (same logic already used for evolution
+    targets in build_numform_index/expand_forward)."""
     candidates = by_species.get(name)
     if not candidates:
         # Fandom as vezes cola o prefixo regional no NOME em vez do ci=
@@ -381,17 +411,32 @@ def match_pokemon(name, ci_raw, by_species):
     if ci_raw:
         m = match_costume(name, ci_raw, candidates)
         if m:
-            return m, None
+            return [m], None
         return None, "costume-not-found:%s" % ci_raw
-    base = [e for e in candidates
+    # Um "{{I|Pikachu||70px}}" sem ci= nunca quer dizer Mega/Gigamax -
+    # mesma regra de build_numform_index (nao e resultado de evolucao,
+    # nem de uma captura comum; estado a parte, sem "debut" de linhagem).
+    # A plain "{{I|Pikachu||70px}}" with no ci= never means Mega/Gigantamax
+    # - same rule as build_numform_index (not an evolution outcome, nor a
+    # regular catch; a separate state with no lineage "debut").
+    plain = [e for e in candidates
+             if "mega" not in (e.get("flags") or []) and "gmax" not in (e.get("flags") or [])]
+    base = [e for e in plain
             if not e.get("costumeEn") and not e.get("regFormEn") and not e.get("altFormEn")]
     if base:
         canon = [e for e in base if e.get("dexCanon")]
-        return (canon[0] if canon else base[0]), None
-    canon = [e for e in candidates if e.get("dexCanon")]
+        if canon:
+            # o resto do par (ex. a linha +F, que normalmente nao e
+            # dexCanon) tambem entra quando existir.
+            rest = [e for e in base if e not in canon]
+            return canon + rest, None
+        return base, None
+    canon = [e for e in plain if e.get("dexCanon")]
     if canon:
-        return canon[0], None
-    return candidates[0], None
+        return canon, None
+    if plain:
+        return [plain[0]], None
+    return [candidates[0]], None
 
 
 def expand_forward(num, form, evo_idx):
@@ -412,6 +457,263 @@ def expand_forward(num, form, evo_idx):
             out.append(k2)
             stack.append(k2)
     return out
+
+
+# ---------------------------------------------------------------- datas
+# Extrai a primeira data (mes+dia, ano opcional) de um texto de evento ja
+# limpo por clean_wikitext, ex. "Triumph Together · August 23 - 30" ou
+# "Road to Kalos · February 23 - February 27, 2026". Quando o texto nao
+# tem ano explicito, usa o ano da secao (===YYYY=== de onde a linha veio).
+# Extracts the first date (month+day, optional year) from an event text
+# already cleaned by clean_wikitext, e.g. "Triumph Together · August 23 -
+# 30" or "Road to Kalos · February 23 - February 27, 2026". When the text
+# has no explicit year, uses the section year (===YYYY=== the row came from).
+MONTH_NUM = {
+    "January": 1, "February": 2, "March": 3, "April": 4, "May": 5, "June": 6,
+    "July": 7, "August": 8, "September": 9, "October": 10, "November": 11,
+    "December": 12,
+}
+_MONTHS_ALT = "|".join(MONTH_NUM)
+EVENT_DATE_RE = re.compile(
+    r"(?P<month>" + _MONTHS_ALT + r")\s+(?P<day>\d{1,2})"
+    r"(?:\s*-\s*(?:(?:" + _MONTHS_ALT + r")\s+)?\d{1,2})?"
+    r"(?:,\s*(?P<year>\d{4}))?"
+)
+
+
+def parse_event_date(event_text, fallback_year):
+    m = EVENT_DATE_RE.search(event_text or "")
+    if not m:
+        return None
+    year = int(m.group("year")) if m.group("year") else fallback_year
+    month = MONTH_NUM[m.group("month")]
+    day = int(m.group("day"))
+    try:
+        return "%04d-%02d-%02d" % (year, month, day)
+    except ValueError:
+        return None
+
+
+def earliest_debut(events, fallback_year):
+    dates = [d for d in (parse_event_date(e, fallback_year) for e in events) if d]
+    return min(dates) if dates else None
+
+
+# --------------------------------------------------------- curadoria manual
+# Traducoes em PT, curadas a mao (o texto em ingles vem direto da tabela do
+# Fandom - nomes proprios de time/versao/temporada nao tem traducao
+# automatica confiavel). Cobre os 150 backgrounds catalogados em 2026-08-24;
+# o que faltar cai no fallback (mesmo nome em ingles) e aparece no aviso
+# final do script, pra curar quando sair background novo.
+# PT translations, hand-curated (the English text comes straight from
+# Fandom's table - team/version/season proper names don't have a reliable
+# automatic translation). Covers the 150 backgrounds catalogued as of
+# 2026-08-24; anything missing falls back to the English name and shows up
+# in the script's final warning, to curate when a new background appears.
+NAME_PT = {
+    # ---- location ----
+    "location-card-barcelona": "Barcelona, Espanha",
+    "location-card-jeju": "Ilha de Jeju, Coreia do Sul",
+    "location-card-las-vegas": "Las Vegas, EUA",
+    "location-card-london": "Londres, Reino Unido",
+    "location-card-mexico-city": "Cidade do México, México",
+    "location-card-nyc": "Nova York, EUA",
+    "location-card-osaka": "Osaka, Japão",
+    "location-card-seoul": "Seul, Coreia do Sul",
+    "location-card-bali": "Bali, Indonésia",
+    "location-background-fukuoka": "Fukuoka, Japão",
+    "location-background-hong-kong": "Hong Kong, China",
+    "location-background-honolulu": "Honolulu, Havaí, EUA",
+    "location-background-incheon": "Incheon, Coreia do Sul",
+    "location-background-jakarta": "Jacarta, Indonésia",
+    "location-background-mlb-miami-marlins": "LoanDepot Park, Miami, Flórida, EUA",
+    "location-card-los-angeles": "Los Angeles, Califórnia",
+    "location-card-madrid": "Madri, Espanha",
+    "location-card-nyc-2024": "Nova York, EUA",
+    "location-card-sendai": "Sendai, Japão",
+    "location-card-surabaya": "Surabaya, Indonésia",
+    "location-background-s-o-paulo": "São Paulo, Brasil",
+    "location-background-mlb-seattle-mariners": "T-Mobile Park, Seattle, Washington, EUA",
+    "location-card-tainan": "Tainan, Taiwan",
+    "location-card-yogyakarta": "Yogyakarta, Indonésia",
+    "location-background-pokelid-fukuoka": "Fukuoka, Japão",
+    "location-background-mlb-milwaukee-brewers": "American Family Field, Milwaukee, Wisconsin, EUA",
+    "location-background-city-safari-amsterdam": "Amsterdã, Holanda",
+    "location-background-anaheim": "Anaheim, Califórnia, EUA",
+    "location-background-city-safari-bangkok": "Bangkok, Tailândia",
+    "location-background-road-trip-2025-berlin": "Berlim, Alemanha",
+    "location-background-city-safari-buenos-aires": "Buenos Aires, Argentina",
+    "location-background-city-safari-cancun": "Cancún, Quintana Roo, México",
+    "location-background-mlb-arizona-diamondbacks": "Chase Field, Phoenix, Arizona, EUA",
+    "location-background-mlb-new-york-mets": "Citi Field, Nova York, EUA",
+    "location-background-road-trip-2025-cologne": "Colônia, Alemanha",
+    "location-background-mlb-boston-red-sox": "Fenway Park, Boston, Massachusetts, EUA",
+    "location-background-mlb-texas-rangers": "Globe Life Field, Arlington, Texas, EUA",
+    "location-background-jangheung-water-festival": "Condado de Jangheung, Coreia do Sul",
+    "location-background-jeju-island-stamp-rally": "Ilha de Jeju, Coreia do Sul",
+    "location-background-jersey-city": "Jersey City, Nova Jersey, EUA",
+    "location-background-road-trip-2025-london": "Londres, Reino Unido",
+    "location-background-los-angeles": "Los Angeles, Califórnia",
+    "location-background-road-trip-2025-manchester": "Manchester, Inglaterra",
+    "location-background-city-safari-miami": "Miami, Flórida, EUA",
+    "location-background-milan": "Milão, Itália",
+    "location-background-mumbai": "Mumbai, Índia",
+    "location-background-wild-area-nagasaki": "Nagasaki, Kyushu, Japão",
+    "location-background-mlb-washington-nationals": "Nationals Park, Washington, D.C., EUA",
+    "location-background-new-taipei-city": "Nova Taipé, Taiwan",
+    "location-background-mlb-san-francisco-giants": "Oracle Park, São Francisco, Califórnia, EUA",
+    "location-background-mlb-baltimore-orioles": "Oriole Park at Camden Yards, Baltimore, Maryland, EUA",
+    "location-background-osaka-gofest-2025": "Osaka, Japão",
+    "location-background-expo2025-starters": "Osaka, Kansai, Japão",
+    "location-background-expo2025-pikachu": "Osaka, Kansai, Japão",
+    "location-background-paris": "Paris, França",
+    "location-background-road-trip-2025-paris": "Paris, França",
+    "location-background-paris-2025": "Paris, França",
+    "location-background-paris-2025-2": "Paris, França",
+    "location-background-mlb-cleveland-guardians": "Progressive Field, Cleveland, Ohio, EUA",
+    "location-background-mlb-chicago-white-sox": "Rate Field, Chicago, Illinois, EUA",
+    "location-background-sajik-baseball-stadium": "Estádio de Beisebol de Sajik, Busan, Coreia do Sul",
+    "location-background-santiago": "Santiago, Chile",
+    "location-background-singapore": "Singapura",
+    "location-background-springblossom2025": "Coreia do Sul",
+    "location-background-nfl-arizona-cardinals": "State Farm Stadium, Glendale, Arizona, EUA",
+    "location-background-mlb-tampa-bay-rays": "Steinbrenner Field, Tampa, Flórida, EUA",
+    "location-background-osaka-2025": "Suita, Osaka, Japão",
+    "location-background-city-safari-sydney": "Sydney, Austrália",
+    "location-background-taipei-childrens-amusement-park":
+        "Parque de Diversões Infantil Municipal de Taipé, Taiwan",
+    "location-background-mlb-minnesota-twins": "Target Field, Minneapolis, Minnesota, EUA",
+    "location-background-road-trip-2025-hague": "Haia, Holanda",
+    "location-background-road-trip-2025-valencia": "Valência, Espanha",
+    "location-background-city-safari-valencia": "Valência, Espanha",
+    "location-background-city-safari-vancouver": "Vancouver, Colúmbia Britânica, Canadá",
+    "location-background-pokelid-aichi": "Aichi, Japão",
+    "location-background-national-trust-anglesey-abbey": "Anglesey Abbey, Cambridgeshire, Reino Unido",
+    "location-background-go-fest-2026-chicago": "Chicago, Illinois, EUA",
+    "location-background-national-trust-cliveden": "Cliveden, Buckinghamshire, Reino Unido",
+    "location-background-cologne": "Colônia, Alemanha",
+    "location-background-go-fest-2026-copenhagen": "Copenhague, Dinamarca",
+    "location-background-national-trust-dunham-massey": "Dunham Massey, Grande Manchester, Reino Unido",
+    "location-background-id-car-free-day": "Jacarta, Indonésia",
+    "location-background-national-trust-killerton": "Killerton, Devon, Reino Unido",
+    "location-background-los-angeles-2026": "Los Angeles, Califórnia, EUA",
+    "location-background-npb-2026-chunichi-dragons": "NPB 2026 Chunichi Dragons",
+    "location-background-npb-2026-hiroshima-carp": "NPB 2026 Hiroshima Carp",
+    "location-background-npb-2026-hokkaido-fighters": "NPB 2026 Hokkaido Fighters",
+    "location-background-npb-2026-koshien-hanshin-tigers": "NPB 2026 Koshien Hanshin Tigers",
+    "location-background-npb-2026-softbank-hawks": "NPB 2026 Softbank Hawks",
+    "location-background-pokemon-park":
+        "PokéPark KANTO no Parque de Diversões Yomiuriland, em Inagi, Tóquio, Japão",
+    "location-background-pokemoncenter-golab": "Laboratório Pokémon GO",
+    "location-background-pyeongchang-winter-festival": "Pyeongchang, Coreia do Sul",
+    "location-background-npb-2026-rakuten-eagles": "Rakuten Mobile Park Miyagi, Sendai, Japão",
+    "location-background-rio-de-janeiro": "Rio de Janeiro, Brasil",
+    "location-background-san-francisco": "São Francisco, Califórnia, EUA",
+    "location-background-mlb-tampa-bay-rays-2": "Steinbrenner Field, Tampa, Flórida, EUA",
+    "location-background-tainan-2026": "Tainan, Taiwan",
+    "location-background-taipei-floral-picnic-2026": "Taipé, Taiwan",
+    "location-background-nyc-2026": "Times Square, Nova York, EUA",
+    "location-background-tokmun-koto": "TokMun Koto",
+    "location-background-tokmun-minato": "TokMun Minato",
+    "location-background-tokmun-shinagawa": "TokMun Shinagawa",
+    "location-background-npb-2026-yomiuri-giants": "Tokyo Dome, Tóquio, Japão",
+    "location-background-go-fest-2026-tokyo": "Tóquio, Japão",
+    "location-background-npb-2026-yokohama-stadium": "Estádio de Yokohama, Naka-ku, Yokohama, Japão",
+    "location-background-npb-2026-zozo-marine": "ZOZO Marine Stadium, Chiba, Japão",
+    # ---- special ----
+    "special-background-deccd2024": "Dia Comunitário de Dezembro de 2024",
+    "special-background-gofest2024-radiance": "Pokémon GO Fest 2024: Radiância",
+    "special-background-gofest2024-umbra": "Pokémon GO Fest 2024: Umbra",
+    "special-background-gofest2024-wormhole": "Pokémon GO Fest 2024: Buraco de Minhoca",
+    "special-background-gofest2024-wormhole-moon": "Pokémon GO Fest 2024: Buraco de Minhoca da Lua",
+    "special-background-gofest2024-wormhole-sun": "Pokémon GO Fest 2024: Buraco de Minhoca do Sol",
+    "special-background-gowildarea2024": "Pokémon GO Área Selvagem 2024",
+    "special-background-instinct": "Equipe Instinto",
+    "special-background-mystic": "Equipe Sabedoria",
+    "special-background-valor": "Equipe Coragem",
+    "special-background-9th-anniversary": "9º Aniversário",
+    "special-background-blackversion": "Versão Preta",
+    "special-background-greyversion": "Fusão Preto e Branco",
+    "special-background-delightfuldays": "Temporada de Dias Encantadores",
+    "special-background-dualdestiny": "Temporada Destino Duplo",
+    "special-background-enigma": "Enigma",
+    "special-background-mightandmastery": "Temporada Força e Maestria",
+    "special-background-observatory-exhibition-tour": "Observatório Astronômico Pokémon",
+    "special-background-concierge": "Pokémon Concierge",
+    "special-background-gofest-2025": "Pokémon GO Fest 2025: Antigos Recuperados",
+    "special-background-max-finale": "Pokémon GO Fest 2025: Final Max",
+    "special-background-wild-area-global-2025": "Pokémon GO Área Selvagem 2025",
+    "special-background-gofest-2025-shield": "Versão Escudo",
+    "special-background-gofest-2025-sword": "Versão Espada",
+    "special-background-tales-of-transformation": "Temporada Contos de Transformação",
+    "special-background-whiteversion": "Versão Branca",
+    "special-background-10th-anniversary": "10º Aniversário",
+    "special-background-10th-anniversary-mewtwo": "10º Aniversário",
+    "special-background-community-2026": "Dias Comunitários de 2026",
+    "special-background-arraia-2026": "Arraiá 2026",
+    "special-background-diamond": "Versão Diamante",
+    "special-background-festival-of-colors-2026": "Festival das Cores 2026",
+    "special-background-gold": "Versão Ouro",
+    "special-background-lego": "LEGO",
+    "special-background-mega": "Mega Evolução",
+    "special-background-pearl": "Versão Pérola",
+    "special-background-pokopia": "Pokémon Pokopia",
+    "special-background-ruby": "Versão Rubi",
+    "special-background-sapphire": "Versão Safira",
+    "special-background-silver": "Versão Prata",
+    "special-background-x": "Versão X",
+    "special-background-y": "Versão Y",
+}
+
+# Sobrescreve nome (as vezes nos dois idiomas) e/ou imagem quando o texto
+# ou a imagem que o Fandom tem no momento nao servem - curado a mao, caso a
+# caso, com a fonte da correcao anotada.
+# Overrides name (sometimes in both languages) and/or image when what
+# Fandom currently has isn't good enough - hand-curated, case by case, with
+# the source of the fix noted.
+MANUAL_OVERRIDES = {
+    # A celula do Fandom so tem "Special Background for Mewtwo during
+    # Pokémon GO Fest 2026: Global" (o proprio texto de referencia da
+    # imagem, nao um nome de verdade) e a imagem hospedada la ainda nao e
+    # a arte final. leekduck.com/gofest/special-backgrounds confirma a
+    # arte correta. Pedido pelo Gabriel em 2026-08-24.
+    # The Fandom cell only has "Special Background for Mewtwo during
+    # Pokémon GO Fest 2026: Global" (the image's own placeholder caption,
+    # not a real name) and the image hosted there isn't the final art yet.
+    # leekduck.com/gofest/special-backgrounds confirms the correct art.
+    # Requested by Gabriel on 2026-08-24.
+    "special-background-go-fest-2026-mewtwo": {
+        "name": "GO Fest Global DNA",
+        "namePt": "GO Fest Global DNA",
+        "image": "https://cdn.leekduck.com/assets/img/events/article-images/"
+                  "2026/2026-07-11-pokemon-go-fest-2026-global/mewtwo-special-background.jpg",
+    },
+    # Mesmo problema de nome cru (o texto da celula e literalmente
+    # "[[Pokémon GO Fest 2026: Global]]: Raid Background") - a linha
+    # inteira linka pro evento "Road of Legends", que e o nome de verdade.
+    # Same raw-name problem (the cell text is literally "[[Pokémon GO Fest
+    # 2026: Global]]: Raid Background") - the row links to the "Road of
+    # Legends" event, which is the actual name.
+    "special-background-road-of-legends": {
+        "name": "Road of Legends",
+        "namePt": "Caminho das Lendas",
+    },
+}
+
+# Backgrounds "Special" que na pratica so saem em evento presencial de uma
+# regiao especifica (mesmo classificados como "Special" pelo Fandom, nao
+# "Location") - marcados a pedido do Gabriel em 2026-08-24, pra distinguir
+# de especiais realmente globais na interface.
+# "Special" backgrounds that in practice only came from an in-person event
+# in one specific region (even though Fandom classifies them as "Special",
+# not "Location") - flagged at Gabriel's request on 2026-08-24, to tell
+# them apart from truly global specials in the UI.
+REGION_EXCLUSIVE_IDS = {
+    "special-background-arraia-2026",
+    "special-background-festival-of-colors-2026",
+    "special-background-lego",
+    "special-background-observatory-exhibition-tour",
+}
 
 
 # ------------------------------------------------------------------ main
@@ -467,29 +769,52 @@ def main():
                         bg["events"].append(event_text)
 
                     for pk_name, ci in POKEMON_TPL_RE.findall(pokemon_cell or ""):
-                        entry, err = match_pokemon(pk_name, ci.strip(), by_species)
-                        if not entry:
+                        entries, err = match_pokemon(pk_name, ci.strip(), by_species)
+                        if not entries:
                             unmatched.append((bg_id, pk_name, ci, err))
                             continue
-                        if entry["id"] not in bg["pokemon"]:
-                            bg["pokemon"][entry["id"]] = {
-                                "id": entry["id"], "num": entry["num"], "viaEvolution": False
-                            }
-                        if not entry.get("costumeEn"):
-                            form = entry.get("regFormEn") or entry.get("altFormEn") or ""
-                            for (tnum, tform) in expand_forward(entry["num"], form, evo_idx):
-                                for te in numform_idx.get((tnum, tform), []):
-                                    if te["id"] not in bg["pokemon"]:
-                                        bg["pokemon"][te["id"]] = {
-                                            "id": te["id"], "num": te["num"], "viaEvolution": True
-                                        }
+                        for entry in entries:
+                            if entry["id"] not in bg["pokemon"]:
+                                bg["pokemon"][entry["id"]] = {
+                                    "id": entry["id"], "num": entry["num"], "viaEvolution": False
+                                }
+                            if not entry.get("costumeEn"):
+                                form = entry.get("regFormEn") or entry.get("altFormEn") or ""
+                                for (tnum, tform) in expand_forward(entry["num"], form, evo_idx):
+                                    for te in numform_idx.get((tnum, tform), []):
+                                        if te["id"] not in bg["pokemon"]:
+                                            bg["pokemon"][te["id"]] = {
+                                                "id": te["id"], "num": te["num"], "viaEvolution": True
+                                            }
 
     out_list = []
+    untranslated = []
     for bg in backgrounds.values():
         b2 = dict(bg)
         b2["pokemon"] = sorted(bg["pokemon"].values(), key=lambda p: p["num"])
+        b2["debut"] = earliest_debut(bg["events"], bg["year"])
+
+        override = MANUAL_OVERRIDES.get(bg["id"], {})
+        if "name" in override:
+            b2["name"] = override["name"]
+        if "image" in override:
+            b2["image"] = override["image"]
+        if "namePt" in override:
+            b2["namePt"] = override["namePt"]
+        elif bg["id"] in NAME_PT:
+            b2["namePt"] = NAME_PT[bg["id"]]
+        else:
+            b2["namePt"] = b2["name"]
+            untranslated.append(bg["id"])
+
+        b2["regionExclusive"] = bg["id"] in REGION_EXCLUSIVE_IDS
         out_list.append(b2)
-    out_list.sort(key=lambda b: (b["type"], b["year"], b["name"]))
+
+    # Mais novo primeiro (mesma ordem da Linha do Tempo); sem data
+    # reconhecida cai por ultimo dentro do proprio ano, pelo nome.
+    # Newest first (same order as the Timeline); anything without a
+    # recognized date sorts last within its own year, by name.
+    out_list.sort(key=lambda b: (b["debut"] or "%04d-00-00" % b["year"], b["name"]), reverse=True)
 
     out = {
         "generated": datetime.now().replace(microsecond=0).isoformat(),
@@ -518,8 +843,23 @@ def main():
     total_pokemon = sum(len(b["pokemon"]) for b in out_list)
     n_special = sum(1 for b in out_list if b["type"] == "special")
     n_location = sum(1 for b in out_list if b["type"] == "location")
+    n_no_debut = sum(1 for b in out_list if not b["debut"])
     print("Backgrounds: %d especiais/special, %d de local/location, %d vinculos pokemon/pokemon links"
           % (n_special, n_location, total_pokemon))
+    if n_no_debut:
+        print("AVISO: %d background(s) sem data de estreia reconhecida no texto do evento "
+              "(entraram so pelo ano da secao) / background(s) with no recognized debut date "
+              "in the event text (only the section year was used):"
+              % n_no_debut)
+        for b in out_list:
+            if not b["debut"]:
+                print("  %s — %s" % (b["id"], b["events"]))
+    if untranslated:
+        print("\nAVISO: %d background(s) sem traducao em PT em NAME_PT (usando o nome em "
+              "ingles) / background(s) without a PT translation in NAME_PT (using the "
+              "English name):" % len(untranslated))
+        for bid in untranslated:
+            print("  " + bid)
 
     if unmatched:
         by_reason = {}
