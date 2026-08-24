@@ -1,0 +1,206 @@
+{
+  "_doc": {
+    "pt": "Definicao unica de cada categoria. Lida pelo site (js/aggregate.js) e pelo verificador (tools/check_resumo.py). Mudou uma regra? Mude AQUI e os dois seguem juntos.",
+    "en": "Single definition of every category. Read by the site (js/aggregate.js) and by the checker (tools/check_resumo.py). Change a rule HERE and both stay in sync.",
+    "scope": "dex = conta numeros da Pokedex (qualquer entrada do numero vale) | entry = conta entradas individuais",
+    "gate": "campo de data de estreia que libera o item (lancado = data <= hoje)",
+    "mark": "marca pessoal que conta como feito",
+    "color": "cor da categoria, tirada das abas do Pokedex do jogo",
+    "icon": "chave do icone em js/icons.js",
+    "resumo": "colunas da aba Resumo usadas so para conferencia / Resumo columns, for reconciliation only"
+  },
+  "categories": [
+    {
+      "key": "pokemon", "icon": "ball", "group": "dex", "color": "#1E9BD7",
+      "labelPt": "Pokémon", "labelEn": "Pokémon",
+      "shortPt": "Dex", "shortEn": "Dex",
+      "scope": "dex", "gate": "base", "mark": "caught",
+      "resumo": { "caught": 14, "released": 15, "total": 16 }
+    },
+    {
+      "key": "shiny", "icon": "sparkle", "group": "dex", "color": "#E0A21B",
+      "labelPt": "Brilhante", "labelEn": "Shiny",
+      "shortPt": "Brilh.", "shortEn": "Shiny",
+      "scope": "dex", "gate": "shiny", "mark": "shinyDex",
+      "resumo": { "caught": 17, "released": 18 }
+    },
+    {
+      "key": "lucky", "icon": "clover", "group": "dex", "color": "#EE7B22",
+      "labelPt": "Sortudo", "labelEn": "Lucky",
+      "shortPt": "Sortudo", "shortEn": "Lucky",
+      "scope": "dex", "gate": "base", "mark": "lucky",
+      "denomExcludeFlag": "notrade",
+      "resumo": { "caught": 19, "released": 20 }
+    },
+    {
+      "key": "xxl", "icon": "xxl", "group": "dex", "color": "#3A6FB0",
+      "labelPt": "XXL", "labelEn": "XXL",
+      "shortPt": "XXL", "shortEn": "XXL",
+      "scope": "dex", "gate": "base", "mark": "xxl",
+      "resumo": { "caught": 21, "released": 15 }
+    },
+    {
+      "key": "xxs", "icon": "xxs", "group": "dex", "color": "#8659C5",
+      "labelPt": "XXS", "labelEn": "XXS",
+      "shortPt": "XXS", "shortEn": "XXS",
+      "scope": "dex", "gate": "base", "mark": "xxs",
+      "resumo": { "caught": 22, "released": 15 }
+    },
+    {
+      "key": "perfect", "icon": "star", "group": "dex", "color": "#E14B62",
+      "labelPt": "100%", "labelEn": "100%",
+      "shortPt": "100%", "shortEn": "100%",
+      "scope": "dex", "gate": "base", "mark": "perfect",
+      "resumo": { "caught": 23, "released": 15 }
+    },
+    {
+      "key": "shadow", "icon": "flame", "group": "dex", "color": "#7A4CC0",
+      "labelPt": "Sombroso", "labelEn": "Shadow",
+      "shortPt": "Sombr.", "shortEn": "Shadow",
+      "scope": "dex", "gate": "shadow", "mark": "shadow",
+      "resumo": { "caught": 27, "released": 31 }
+    },
+    {
+      "key": "purified", "icon": "purify", "group": "dex", "color": "#22AEBC",
+      "labelPt": "Purificado", "labelEn": "Purified",
+      "shortPt": "Purif.", "shortEn": "Purified",
+      "scope": "dex", "gate": "shadow", "mark": "purified",
+      "resumo": { "caught": 30, "released": 31 }
+    },
+    {
+      "key": "shadowShiny", "icon": "flameSparkle", "group": "dex", "color": "#9B55CC",
+      "labelPt": "Sombroso brilhante", "labelEn": "Shiny shadow",
+      "shortPt": "Sombr. ✦", "shortEn": "Shiny shad.",
+      "scope": "dex", "gate": "shadowShiny", "mark": "shadowShiny",
+      "resumo": { "caught": 28, "released": 29 }
+    },
+
+    {
+      "key": "dmax", "icon": "dmax", "group": "special", "color": "#C6317B",
+      "labelPt": "Dinamax", "labelEn": "Dynamax",
+      "shortPt": "Dinamax", "shortEn": "Dynamax",
+      "scope": "entry", "gate": "dmax", "mark": "dmax",
+      "resumo": { "caught": 24, "released": 26 }
+    },
+    {
+      "key": "dmaxShiny", "icon": "dmaxSparkle", "group": "special", "color": "#DB5397",
+      "labelPt": "Dinamax brilhante", "labelEn": "Shiny Dynamax",
+      "shortPt": "Dinamax ✦", "shortEn": "Shiny Dmax",
+      "scope": "entry", "gate": "dmax", "mark": "dmaxShiny",
+      "resumo": { "caught": 25, "released": 26 }
+    },
+    {
+      "key": "mega", "icon": "mega", "group": "special", "color": "#DE4189",
+      "labelPt": "Megaevolução", "labelEn": "Mega",
+      "shortPt": "Mega", "shortEn": "Mega",
+      "scope": "entry", "gate": "base", "mark": "caught",
+      "subset": { "any": [
+        { "flag": "mega" },
+        { "equals": { "field": "altFormPt", "value": "Primitivo" } }
+      ] },
+      "resumo": { "caught": 32, "released": 33, "total": 34 }
+    },
+    {
+      "key": "gmax", "icon": "gmax", "group": "special", "color": "#B32A70",
+      "labelPt": "Gigamax", "labelEn": "Gigantamax",
+      "shortPt": "Gigamax", "shortEn": "Gmax",
+      "scope": "entry", "gate": "base", "mark": "caught",
+      "subset": { "flag": "gmax" },
+      "resumo": { "caught": 35, "released": 37, "total": 38 }
+    },
+    {
+      "key": "gmaxShiny", "icon": "gmaxSparkle", "group": "special", "color": "#CE4189",
+      "labelPt": "Gigamax brilhante", "labelEn": "Shiny Gigantamax",
+      "shortPt": "Gigamax ✦", "shortEn": "Shiny Gmax",
+      "scope": "entry", "gate": "base", "mark": "shiny",
+      "subset": { "flag": "gmax" },
+      "resumo": { "caught": 36, "released": 37 }
+    },
+
+    {
+      "key": "variant", "icon": "globe", "group": "variant", "color": "#2E9C6C",
+      "labelPt": "Variante regional", "labelEn": "Regional variant",
+      "shortPt": "Variante", "shortEn": "Variant",
+      "scope": "entry", "gate": "base", "mark": "caught",
+      "subset": { "nonempty": "regFormPt" },
+      "resumo": { "caught": 39, "released": 40, "total": 41 }
+    },
+    {
+      "key": "variantShadow", "icon": "globeFlame", "group": "variant", "color": "#6E8C46",
+      "labelPt": "Variante sombrosa", "labelEn": "Shadow variant",
+      "shortPt": "Var. 🔥", "shortEn": "Shadow var.",
+      "scope": "entry", "gate": "shadow", "mark": "shadow",
+      "subset": { "nonempty": "regFormPt" },
+      "resumo": { "caught": 42, "released": 43 }
+    },
+    {
+      "key": "variantShadowShiny", "icon": "globeFlameSparkle", "group": "variant", "color": "#8CA544",
+      "labelPt": "Variante sombrosa brilhante", "labelEn": "Shiny shadow variant",
+      "shortPt": "Var. 🔥✦", "shortEn": "Shiny sh. var.",
+      "scope": "entry", "gate": "shadowShiny", "mark": "shadowShiny",
+      "subset": { "nonempty": "regFormPt" },
+      "resumo": { "caught": 44, "released": 45 }
+    },
+    {
+      "key": "form", "icon": "form", "group": "variant", "color": "#4F79C4",
+      "labelPt": "Forma alternativa", "labelEn": "Alternate form",
+      "shortPt": "Formas", "shortEn": "Forms",
+      "scope": "entry", "gate": "base", "mark": "caught",
+      "subset": { "nonempty": "altFormPt" },
+      "resumo": { "caught": 46, "released": 47, "total": 48 }
+    },
+    {
+      "key": "costume", "icon": "hat", "group": "variant", "color": "#C4772B",
+      "labelPt": "Fantasia", "labelEn": "Costume",
+      "shortPt": "Fantasia", "shortEn": "Costume",
+      "scope": "entry", "gate": "base", "mark": "caught",
+      "subset": { "nonempty": "costumePt" },
+      "resumo": { "caught": 49, "released": 50 }
+    },
+    {
+      "key": "costumeShadow", "icon": "hatFlame", "group": "variant", "color": "#9A5C3C",
+      "labelPt": "Fantasia sombrosa", "labelEn": "Shadow costume",
+      "shortPt": "Fant. 🔥", "shortEn": "Shadow cost.",
+      "scope": "entry", "gate": "shadow", "mark": "shadow",
+      "subset": { "nonempty": "costumePt" },
+      "resumo": { "caught": 51, "released": 52 }
+    }
+  ],
+
+  "_knownSheetGaps": {
+    "pt": "Casos em que a planilha esta errada e o site esta certo. O verificador ignora estes e os lista como 'corrigido'.",
+    "en": "Cases where the spreadsheet is wrong and the site is right. The checker skips these and lists them as 'fixed'.",
+    "gaps": [
+      {
+        "category": "costume",
+        "regions": ["Hisui", "Paldea"],
+        "fields": ["caught", "released"],
+        "why": "As linhas Hisui e Paldea do Resumo nao tem as formulas de Fantasia (colunas AW-AZ vazias), entao 4 entradas com traje nunca foram contadas."
+      }
+    ]
+  },
+
+  "_dataFixes": {
+    "pt": "Buracos nos DADOS da planilha (nao nas formulas). Corrija a planilha e rode o export de novo.",
+    "en": "Holes in the spreadsheet DATA (not the formulas). Fix the sheet and re-run the export.",
+    "items": []
+  },
+
+  "_staleUntilRecalc": {
+    "pt": "Celulas do Resumo que ficaram velhas depois dos consertos de 24/08/2026 (Zigzagoon/Linoone: sombroso movido para as formas de Galar). Somem sozinhas quando a planilha for aberta e salva no Excel — dai esta secao pode ser apagada.",
+    "en": "Resumo cells gone stale after the 2026-08-24 fixes (Zigzagoon/Linoone shadow moved to the Galar forms). They clear themselves once the sheet is opened and saved in Excel — then this section can be deleted.",
+    "gaps": [
+      { "category": "shadow", "regions": ["Hoenn"], "fields": ["caught", "released"] },
+      { "category": "purified", "regions": ["Hoenn"], "fields": ["caught", "released"] },
+      { "category": "shadowShiny", "regions": ["Hoenn"], "fields": ["released"] },
+      { "category": "variantShadow", "regions": ["Galar"], "fields": ["caught", "released"] },
+      { "category": "variantShadowShiny", "regions": ["Galar"], "fields": ["released"] }
+    ]
+  },
+
+  "_orphanIgnore": {
+    "pt": "Numeros ignorados pelo aviso 'marcas que nao estao contando'. As fantasias de Pikachu tem marcas sombrosas intencionais sem data de estreia; o Gabriel pediu para ignorar.",
+    "en": "Dex numbers ignored by the 'marks that aren't counting' warning. Pikachu costumes carry intentional shadow marks with no debut date; Gabriel asked to ignore them.",
+    "nums": [25]
+  }
+}

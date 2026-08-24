@@ -1,0 +1,513 @@
+/* ============================================================
+   PokéAgenda — visual de Pokédex
+   Casca do aparelho (vermelho, lente azul, LEDs) + área de dados
+   tratada como "tela". As cores de cada categoria saem das abas do
+   Pokédex do jogo, que são as mesmas da aba Resumo da planilha.
+   ============================================================ */
+
+:root{
+  /* --- corpo do aparelho --- */
+  --dex-red:#d8232f;
+  --dex-red-dk:#a8121d;
+  --dex-red-lt:#f2454f;
+  --lens-blue:#3aa5e8;
+  --lens-blue-dk:#1b6fa8;
+  --led-red:#ff4d4d;
+  --led-yellow:#ffd23f;
+  --led-green:#3fd464;
+
+  /* --- tela / conteúdo --- */
+  --bg:#e9edf3;
+  --screen:#f7f9fc;
+  --panel:#ffffff;
+  --panel2:#eef1f7;
+  --line:#d3dae7;
+  --line-strong:#b9c3d6;
+  --ink:#161c2b;
+  --dim:#5a6580;
+  --faint:#8e99b2;
+
+  --accent:var(--dex-red);
+  --accent-ink:#fff;
+  --ok:#12924f;
+  --warn:#c97d09;
+  --miss:#cf3030;
+
+  --radius:14px;
+  --radius-sm:9px;
+  --shadow-1:0 1px 2px rgba(18,24,40,.06),0 4px 14px rgba(18,24,40,.07);
+  --shadow-2:0 2px 6px rgba(18,24,40,.10),0 14px 34px rgba(18,24,40,.12);
+  --bezel:inset 0 2px 0 rgba(255,255,255,.7),inset 0 -2px 0 rgba(0,0,0,.06);
+}
+
+/* Tema escuro: superfícies em carvão NEUTRO, levemente quente.
+   O problema da primeira versão era temperatura de cor: painéis azul-ardósia
+   (frios) brigando com a casca vermelha (quente e saturada). Regra 60-30-10:
+   o fundo dominante fica neutro e deixa o vermelho do aparelho ser a
+   identidade; o azul sobrevive só na lente, onde é parte do Pokédex. */
+:root[data-theme="dark"]{
+  --dex-red:#c01f2a;
+  --dex-red-dk:#7d0d16;
+  --dex-red-lt:#e0343f;
+  --bg:#131114;
+  --screen:#181518;
+  --panel:#1e1a1d;
+  --panel2:#282327;
+  --line:#373036;
+  --line-strong:#4a4148;
+  --ink:#f2edee;
+  --dim:#b1a6ab;
+  --faint:#847a80;
+  --ok:#35cf78;
+  --warn:#e9ab3c;
+  --miss:#ff6b6b;
+  --shadow-1:0 1px 2px rgba(0,0,0,.35),0 6px 18px rgba(0,0,0,.3);
+  --shadow-2:0 2px 8px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.45);
+  --bezel:inset 0 1px 0 rgba(255,255,255,.06),inset 0 -2px 0 rgba(0,0,0,.3);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --dex-red:#c01f2a; --dex-red-dk:#7d0d16; --dex-red-lt:#e0343f;
+    --bg:#131114; --screen:#181518; --panel:#1e1a1d; --panel2:#282327;
+    --line:#373036; --line-strong:#4a4148;
+    --ink:#f2edee; --dim:#b1a6ab; --faint:#847a80;
+    --ok:#35cf78; --warn:#e9ab3c; --miss:#ff6b6b;
+    --shadow-1:0 1px 2px rgba(0,0,0,.35),0 6px 18px rgba(0,0,0,.3);
+    --shadow-2:0 2px 8px rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.45);
+    --bezel:inset 0 1px 0 rgba(255,255,255,.06),inset 0 -2px 0 rgba(0,0,0,.3);
+  }
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  -webkit-text-size-adjust:100%;
+}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.015em}
+a{color:var(--lens-blue-dk)}
+/* No escuro o link azul brigava com a casca; um rosa-salmão puxado do
+   vermelho do aparelho harmoniza e continua legível sobre carvão. */
+:root[data-theme="dark"] a{color:#f0938e}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) a{color:#f0938e}
+}
+button{font:inherit;color:inherit;cursor:pointer}
+.dim{color:var(--dim)} .small{font-size:12.5px}
+.is-hidden{display:none !important}
+.ico{display:block;flex:none}
+
+/* =========================== casca do Pokédex =========================== */
+.topbar{
+  position:sticky; top:0; z-index:30;
+  background:linear-gradient(180deg,var(--dex-red-lt),var(--dex-red) 42%,var(--dex-red-dk));
+  border-bottom:4px solid rgba(0,0,0,.28);
+  padding:10px 16px 0;
+  box-shadow:0 4px 16px rgba(0,0,0,.22);
+}
+.topbar-in{
+  max-width:1180px;margin:0 auto;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:11px;color:#fff}
+.brand h1{font-size:18px;text-shadow:0 1px 2px rgba(0,0,0,.35)}
+.brand .tag{font-size:11px;opacity:.8;letter-spacing:.09em;text-transform:uppercase}
+
+/* a lente grande + os três LEDs */
+.lens{
+  width:34px;height:34px;border-radius:50%;flex:none;position:relative;
+  background:radial-gradient(circle at 32% 28%,#bfe6ff 0 14%,var(--lens-blue) 42%,var(--lens-blue-dk) 100%);
+  border:3px solid #fff;
+  box-shadow:0 2px 5px rgba(0,0,0,.4),inset 0 -2px 6px rgba(0,0,0,.3);
+}
+.lens::after{
+  content:"";position:absolute;top:5px;left:6px;width:9px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.85);transform:rotate(-18deg);
+}
+.leds{display:flex;gap:5px;align-items:center}
+.led{
+  width:10px;height:10px;border-radius:50%;
+  border:1.5px solid rgba(0,0,0,.28);
+  box-shadow:inset 0 -1px 2px rgba(0,0,0,.35),inset 0 1px 1px rgba(255,255,255,.6);
+}
+.led.r{background:var(--led-red)} .led.y{background:var(--led-yellow)} .led.g{background:var(--led-green)}
+
+.topbar-right{display:flex;gap:6px;margin-left:auto}
+.chrome-btn{
+  border:1.5px solid rgba(0,0,0,.25);
+  background:rgba(255,255,255,.16);
+  color:#fff;border-radius:8px;padding:5px 10px;font-size:13px;font-weight:700;
+  min-width:40px;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.28);
+}
+.chrome-btn:hover{background:rgba(255,255,255,.3)}
+
+/* abas encaixadas na borda inferior da casca */
+.tabs{
+  max-width:1180px;margin:10px auto 0;
+  display:flex;gap:3px;overflow-x:auto;padding-bottom:0;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  border:0;background:rgba(0,0,0,.22);color:rgba(255,255,255,.82);
+  padding:9px 15px;border-radius:10px 10px 0 0;white-space:nowrap;
+  font-size:13.5px;font-weight:650;display:flex;align-items:center;gap:7px;
+}
+.tab:hover{background:rgba(0,0,0,.12);color:#fff}
+.tab.is-active{background:var(--bg);color:var(--ink)}
+
+/* =========================== avisos =========================== */
+.banner{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:11px 16px;background:var(--dex-red-dk);color:#fff;font-size:14px;
+  border-bottom:1px solid rgba(0,0,0,.3);
+}
+.banner-in{max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:12px;
+  flex-wrap:wrap;width:100%}
+.banner-cta{
+  border:0;border-radius:8px;padding:6px 13px;font-weight:700;
+  background:#fff;color:var(--dex-red-dk);
+}
+.banner-x{margin-left:auto;background:none;border:0;font-size:21px;line-height:1;
+  color:#fff;opacity:.75}
+
+/* =========================== layout =========================== */
+main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+.loading{color:var(--dim);padding:50px 0;text-align:center}
+
+.panel{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+  padding:16px;box-shadow:var(--shadow-1);margin-bottom:16px;
+}
+.panel > h2{font-size:15.5px;display:flex;align-items:center;gap:8px}
+.panel > .sub{color:var(--dim);font-size:13px;margin:3px 0 14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+
+/* cabeçalho de seção com faixa colorida à esquerda */
+.section-head{
+  display:flex;align-items:center;gap:9px;margin:0 0 12px;
+  padding-left:11px;border-left:5px solid var(--dex-red);border-radius:2px;
+}
+.section-head h2{font-size:14px;text-transform:uppercase;letter-spacing:.07em}
+.section-head .n{margin-left:auto;font-size:12.5px;color:var(--dim);
+  font-variant-numeric:tabular-nums}
+
+/* ============== distintivos de categoria (ícones do jogo) ============== */
+/* Glifos brancos do próprio GO dentro de um círculo na cor da categoria —
+   o mesmo desenho das abas do Pokédex do jogo. O filtro força QUALQUER
+   glifo (alguns vêm lilás/teal) para branco puro, mantendo o alfa. */
+.catbadge{
+  position:relative;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:50%;flex:none;
+  box-shadow:inset 0 -1.5px 2px rgba(0,0,0,.28),inset 0 1px 1px rgba(255,255,255,.28),
+             0 1px 2px rgba(0,0,0,.18);
+}
+.catbadge img,.catbadge svg{width:62%;height:62%;object-fit:contain;display:block}
+.catbadge img{filter:grayscale(1) brightness(100)}
+.catbadge svg{color:#fff}
+.catbadge .ovl{
+  position:absolute;right:-10%;bottom:-10%;width:58%;height:58%;
+  filter:grayscale(1) brightness(100)
+         drop-shadow(0 0 1.5px rgba(0,0,0,.75)) drop-shadow(0 0 1px rgba(0,0,0,.6));
+}
+
+/* ============== régua rápida na ordem das abas do jogo ============== */
+.gostrip{
+  display:flex;gap:7px;overflow-x:auto;margin-top:12px;padding-bottom:4px;
+  -webkit-overflow-scrolling:touch;
+}
+.gochip{
+  --c:var(--dex-red);
+  flex:none;min-width:92px;text-align:left;
+  border:1px solid color-mix(in srgb,var(--c) 40%,var(--line));
+  background:color-mix(in srgb,var(--c) 9%,var(--panel));
+  border-radius:12px;padding:7px 10px 6px;
+  transition:transform .12s,border-color .12s;
+}
+.gochip:hover{transform:translateY(-2px);border-color:var(--c)}
+.gochip-head{
+  display:flex;align-items:center;gap:6px;
+  font-size:9.5px;font-weight:800;letter-spacing:.05em;color:var(--c);
+  white-space:nowrap;
+}
+.gochip-n{
+  font-size:19px;font-weight:800;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;margin-top:3px;
+}
+
+/* =========================== cards de categoria =========================== */
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(184px,1fr));gap:10px}
+.kpi{
+  --c:var(--dex-red);
+  position:relative;overflow:hidden;
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius-sm);padding:11px 12px 12px 14px;
+  box-shadow:var(--shadow-1);text-align:left;width:100%;display:block;
+  transition:transform .12s,box-shadow .12s,border-color .12s;
+}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--c)}
+.kpi:hover{transform:translateY(-2px);box-shadow:var(--shadow-2);border-color:var(--c)}
+.kpi-top{display:flex;align-items:center;gap:7px;color:var(--c)}
+.kpi-name{font-size:12.5px;font-weight:700;letter-spacing:.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--c)}
+.kpi-num{font-size:23px;font-weight:800;margin:6px 0 0;font-variant-numeric:tabular-nums;
+  line-height:1.1;letter-spacing:-.02em}
+.kpi-num .of{font-size:13px;color:var(--faint);font-weight:700}
+.kpi-sub{font-size:12px;color:var(--dim);display:flex;justify-content:space-between;
+  gap:8px;margin-top:2px}
+.kpi-miss{font-weight:700;color:var(--miss)}
+.kpi-miss.zero{color:var(--ok)}
+.kpi.done::after{
+  content:"";position:absolute;right:-16px;top:-16px;width:44px;height:44px;
+  border-radius:50%;background:var(--ok);opacity:.13;
+}
+
+.bar{height:6px;border-radius:99px;background:var(--panel2);overflow:hidden;margin:8px 0 5px}
+.bar > i{display:block;height:100%;border-radius:99px;background:var(--c,var(--accent));
+  transition:width .35s ease}
+.bar > i.full{background:var(--ok)}
+
+/* =========================== matriz por região =========================== */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--line);border-radius:var(--radius-sm)}
+table.matrix{border-collapse:separate;border-spacing:0;width:100%;font-size:13px}
+table.matrix th,table.matrix td{
+  padding:7px 9px;text-align:center;white-space:nowrap;
+  border-bottom:1px solid var(--line);
+}
+table.matrix thead th{
+  font-weight:700;font-size:11.5px;position:sticky;top:0;z-index:2;
+  background:var(--panel2);color:var(--ink);
+  border-bottom:2px solid var(--line-strong);
+}
+table.matrix thead th .th-in{display:flex;align-items:center;justify-content:center;gap:5px}
+table.matrix thead th .swatch{width:9px;height:9px;border-radius:3px;flex:none}
+table.matrix th:first-child,table.matrix td:first-child{
+  text-align:left;font-weight:650;position:sticky;left:0;z-index:1;
+  background:var(--panel);box-shadow:1px 0 0 var(--line);
+}
+table.matrix thead th:first-child{z-index:3;background:var(--panel2)}
+table.matrix tbody tr:hover td{background:var(--panel2)}
+table.matrix tbody tr:hover td:first-child{background:var(--panel2)}
+table.matrix tr.total-row td{border-top:2px solid var(--line-strong);font-weight:800;
+  background:var(--panel2)}
+.cell{display:inline-flex;flex-direction:column;align-items:center;gap:3px;min-width:42px}
+.cell b{font-variant-numeric:tabular-nums;font-weight:700}
+.cell .minibar{width:36px;height:3px;border-radius:99px;background:var(--line);overflow:hidden}
+.cell .minibar i{display:block;height:100%;background:var(--c,var(--accent))}
+.cell.done b{color:var(--ok)}
+.cell.done .minibar i{background:var(--ok)}
+.cell.empty{color:var(--faint)}
+
+/* =========================== controles =========================== */
+select,input[type=search],input[type=text]{
+  font:inherit;padding:8px 11px;border-radius:var(--radius-sm);
+  border:1px solid var(--line-strong);background:var(--panel);color:var(--ink);
+}
+select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
+.btn{
+  border:1px solid var(--line-strong);background:var(--panel);border-radius:var(--radius-sm);
+  padding:8px 14px;font-size:13.5px;font-weight:650;color:var(--ink);
+  display:inline-flex;align-items:center;gap:7px;
+}
+.btn:hover{border-color:var(--dex-red);color:var(--dex-red)}
+.btn.primary{background:var(--dex-red);color:#fff;border-color:var(--dex-red-dk);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+.btn.primary:hover{background:var(--dex-red-lt);color:#fff}
+.btn.ghost{background:none;border-style:dashed}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn:disabled:hover{border-color:var(--line-strong);color:var(--ink)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  border:1px solid var(--line-strong);background:var(--panel);border-radius:99px;
+  padding:6px 12px;font-size:13px;color:var(--dim);display:inline-flex;
+  align-items:center;gap:6px;
+}
+.chip:hover{border-color:var(--dex-red)}
+.chip.is-on{background:var(--dex-red);color:#fff;border-color:var(--dex-red-dk);font-weight:650}
+
+/* =========================== grade de sprites =========================== */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:9px}
+.mon{
+  position:relative;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius-sm);padding:9px 5px 8px;text-align:center;
+  transition:border-color .12s,transform .12s,box-shadow .12s;
+  /* fora da tela o navegador nem pinta nem mantém bitmap decodificado —
+     junto com a paginação, é o que segura a memória das grades grandes */
+  content-visibility:auto;
+  contain-intrinsic-size:110px 128px;
+  overflow:hidden;   /* sprites ampliados (correção de tamanho) não vazam */
+}
+.mon:hover{border-color:var(--dex-red);transform:translateY(-2px);box-shadow:var(--shadow-1)}
+.sprite{display:block;width:62px;height:62px;margin:0 auto}
+.sprite img{width:100%;height:100%;object-fit:contain;display:block}
+.sprite-ph{
+  width:100%;height:100%;border-radius:50%;background:var(--panel2);
+  display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:19px;
+}
+.mon .nm{font-size:11.5px;line-height:1.28;margin-top:5px;color:var(--dim);
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mon .dexno{position:absolute;top:5px;left:7px;font-size:10px;color:var(--faint);
+  font-variant-numeric:tabular-nums;font-weight:600}
+.mon.unreleased{opacity:.45;filter:grayscale(.85)}
+.mon.unreleased::after{
+  content:"";position:absolute;inset:0;border-radius:var(--radius-sm);pointer-events:none;
+  background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(128,128,128,.1) 6px 12px);
+}
+.mon.got{border-color:var(--ok)}
+
+/* botão de marcar rápido no canto do card */
+.mon .quick{
+  position:absolute;top:4px;right:4px;width:24px;height:24px;border-radius:50%;
+  border:1.5px solid var(--line-strong);background:var(--panel);
+  display:flex;align-items:center;justify-content:center;color:var(--faint);
+  padding:0;z-index:2;transition:background .12s,border-color .12s,color .12s;
+}
+.mon .quick:hover{border-color:var(--ok);color:var(--ok);transform:scale(1.12)}
+.mon .quick.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.mon .quick .ico{width:14px;height:14px}
+
+.empty-state{padding:36px 12px;text-align:center;color:var(--dim)}
+.empty-state .big{font-size:34px;display:block;margin-bottom:8px}
+.empty-state .ico{margin:0 auto 10px;width:38px;height:38px;color:var(--ok)}
+
+/* =========================== string de busca =========================== */
+.busca{
+  display:flex;gap:10px;align-items:flex-start;background:var(--panel2);
+  border:1px dashed var(--line-strong);border-radius:var(--radius-sm);
+  padding:11px;margin:12px 0;
+}
+.busca code{
+  display:block;flex:1;font:12.5px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace;
+  word-break:break-word;max-height:88px;overflow-y:auto;color:var(--ink);
+  margin-top:4px;
+}
+
+/* =========================== linha do tempo =========================== */
+.year{margin-bottom:15px;content-visibility:auto;contain-intrinsic-size:auto 140px}
+.year-head{display:flex;align-items:baseline;gap:9px;margin-bottom:5px}
+.year-head b{font-size:14.5px;font-variant-numeric:tabular-nums}
+.year-head span{font-size:12px;color:var(--dim)}
+.strip{display:flex;gap:3px;overflow-x:auto;padding-bottom:5px}
+.month{display:flex;flex-direction:column;gap:3px;flex:none}
+.month-lbl{font-size:9.5px;color:var(--faint);height:12px;padding-left:1px;font-weight:600}
+.days{display:grid;grid-template-rows:repeat(7,1fr);grid-auto-flow:column;gap:2px}
+.day{
+  width:11px;height:11px;border-radius:2.5px;background:var(--panel2);
+  border:0;padding:0;display:block;
+}
+.day[data-n]{cursor:pointer}
+.day[data-n]:hover{outline:1.5px solid var(--ink);outline-offset:1px}
+.day.l1{background:color-mix(in srgb,var(--c,var(--dex-red)) 28%,var(--panel2))}
+.day.l2{background:color-mix(in srgb,var(--c,var(--dex-red)) 50%,var(--panel2))}
+.day.l3{background:color-mix(in srgb,var(--c,var(--dex-red)) 74%,var(--panel2))}
+.day.l4{background:var(--c,var(--dex-red))}
+.day.sel{outline:2px solid var(--ink);outline-offset:1px}
+.legend{display:flex;align-items:center;gap:5px;font-size:11.5px;color:var(--dim)}
+.legend .day{cursor:default}
+
+/* =========================== painel deslizante =========================== */
+.sheet{
+  position:fixed;inset:auto 0 0 0;z-index:50;max-height:80vh;overflow:auto;
+  background:var(--panel);border-top:4px solid var(--dex-red);
+  border-radius:18px 18px 0 0;padding:15px 16px 24px;
+  box-shadow:0 -10px 40px rgba(0,0,0,.28);
+}
+@media(min-width:760px){
+  .sheet{inset:auto auto 18px 50%;transform:translateX(-50%);width:min(740px,94vw);
+    border-radius:16px;border:1px solid var(--line);border-top:4px solid var(--dex-red)}
+}
+.sheet-head{display:flex;align-items:center;gap:10px;margin-bottom:11px}
+.sheet-head h3{font-size:16px}
+.sheet-x{margin-left:auto;background:none;border:0;font-size:23px;color:var(--dim);line-height:1}
+.scrim{position:fixed;inset:0;z-index:45;background:rgba(8,11,20,.5)}
+
+/* =========================== ficha da entrada =========================== */
+.detail{display:flex;gap:15px;align-items:flex-start;flex-wrap:wrap}
+.detail .sprite{width:100px;height:100px;margin:0}
+.detail-side{flex:1;min-width:250px}
+.marks{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px}
+.mk{
+  display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:var(--radius-sm);
+  border:1px solid var(--line);background:var(--panel2);font-size:13px;text-align:left;
+}
+.mk:hover{border-color:var(--ok)}
+.mk.on{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 13%,var(--panel2));
+  font-weight:600}
+.mk .box{
+  width:17px;height:17px;border-radius:5px;border:1.6px solid var(--faint);flex:none;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+}
+.mk .box .ico{width:12px;height:12px}
+.mk.on .box{background:var(--ok);border-color:var(--ok)}
+.mk.locked{opacity:.4;cursor:not-allowed}
+.mk.locked:hover{border-color:var(--line)}
+.meta{font-size:12.5px;color:var(--dim);margin-top:10px}
+.datelist{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:12.5px;margin-top:8px}
+.datelist .k{color:var(--dim)}
+.datelist .v{font-variant-numeric:tabular-nums}
+
+/* =========================== tela de dados =========================== */
+.dropzone{
+  border:2px dashed var(--line-strong);border-radius:var(--radius);padding:28px 16px;
+  text-align:center;background:var(--panel2);transition:border-color .15s,background .15s;
+}
+.dropzone:hover,.dropzone.hot{border-color:var(--dex-red);
+  background:color-mix(in srgb,var(--dex-red) 7%,var(--panel2))}
+.dropzone .ico{margin:0 auto 8px;width:34px;height:34px;color:var(--dex-red)}
+.log{
+  font:12px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--panel2);
+  border:1px solid var(--line);border-radius:var(--radius-sm);padding:11px;margin-top:12px;
+  max-height:230px;overflow:auto;white-space:pre-wrap;
+}
+.log .err{color:var(--miss)} .log .ok{color:var(--ok)} .log .warn{color:var(--warn)}
+
+.foot{
+  max-width:1180px;margin:0 auto;padding:18px 16px 36px;color:var(--dim);
+  font-size:13px;border-top:1px solid var(--line);
+}
+.toast{
+  position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;
+  background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;
+  font-size:13.5px;font-weight:650;box-shadow:var(--shadow-2);
+  display:flex;align-items:center;gap:8px;
+}
+
+/* ================== construtor de dex personalizada ================== */
+.custom-builder{
+  margin-top:14px;padding:12px;border:1px dashed var(--line-strong);
+  border-radius:var(--radius-sm);background:var(--panel2);
+}
+.custom-builder .row{margin:8px 0 6px}
+.custom-builder .chip{background:var(--panel)}
+
+/* =========================== gênero =========================== */
+.gender-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.gcard{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:13px;box-shadow:var(--shadow-1);text-align:left;width:100%;display:block;
+  transition:transform .12s,border-color .12s;
+}
+.gcard:hover{transform:translateY(-2px);border-color:var(--c,var(--dex-red))}
+.gcard .gtop{display:flex;align-items:center;gap:8px;color:var(--c,var(--dex-red));
+  font-weight:700;font-size:12.5px}
+.gcard .gq{font-size:12px;color:var(--dim);margin:7px 0 8px;line-height:1.4}
+.gcard .gnum{font-size:22px;font-weight:800;font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em}
+.gcard .gnum .of{font-size:13px;color:var(--faint)}
+.gcard .gans{font-size:12.5px;font-weight:700;margin-top:3px}
+.gcard .gans.yes{color:var(--ok)} .gcard .gans.no{color:var(--miss)}
+
+/* =========================== responsivo =========================== */
+@media(max-width:600px){
+  .brand h1{font-size:16px}
+  .brand .tag{display:none}
+  .kpis{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(86px,1fr))}
+  .sprite{width:54px;height:54px}
+  main{padding:14px 11px 50px}
+  .panel{padding:13px}
+}
