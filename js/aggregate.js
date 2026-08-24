@@ -312,28 +312,41 @@ const Agg = {
     /* Três situações diferentes, que não devem virar um número só:
          full — tenho o par inteiro
          half — tenho um e falta o outro  <- a lacuna de gênero de verdade
-         none — não tenho nenhum dos dois <- é fantasia faltando, não gênero */
+         none — não tenho nenhum dos dois <- é fantasia faltando, não gênero
+       E cada par é OU de uma fantasia OU da espécie em si (nunca os dois) —
+       viram dois baldes separados: misturar "falta a Pikachu de evento X"
+       com "falta o Frillish fêmea" não ajuda ninguém a decidir o que caçar. */
     let diffTotal = 0, diffFull = 0;
     const diffHalf = [], diffNone = [];
+    let diffCTotal = 0, diffCFull = 0;
+    const diffCHalf = [], diffCNone = [];
     for (const [key, g] of pairs) {
       const rel = g.filter(e => this.released(e, "base"));
       if (!rel.length) continue;
-      diffTotal++;
+      const isCostume = !!rel[0].costumePt;
       const got = rel.filter(e => Store.has(e.id, "caught"));
-      if (got.length === rel.length) { diffFull++; continue; }
+      if (got.length === rel.length) {
+        if (isCostume) diffCTotal++, diffCFull++;
+        else diffTotal++, diffFull++;
+        continue;
+      }
+      if (isCostume) diffCTotal++; else diffTotal++;
       const item = {
         key, num: rel[0].num, region: rel[0].region,
         entries: rel, display: got[0] || rel[0], released: true, got: false,
         missingEntries: rel.filter(e => !Store.has(e.id, "caught"))
       };
-      (got.length ? diffHalf : diffNone).push(item);
+      const half = got.length ? diffHalf : diffNone;
+      const halfC = got.length ? diffCHalf : diffCNone;
+      (isCostume ? halfC : half).push(item);
     }
 
     return {
       dual, onlyM, onlyF, neither,
       dualTotal: dual.length,
       dualBoth: dual.length - onlyM.length - onlyF.length - neither.length,
-      diffTotal, diffFull, diffHalf, diffNone
+      diffTotal, diffFull, diffHalf, diffNone,
+      diffCTotal, diffCFull, diffCHalf, diffCNone
     };
   },
 

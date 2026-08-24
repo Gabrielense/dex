@@ -23,9 +23,9 @@ const I18N = {
     "dash.region": "Região", "dash.total": "Total", "dash.released": "lançados",
 
     "gender.title": "Macho e fêmea",
-    "gender.dexLabel": "Gêneros na dex",
+    "gender.dexLabel": "Algum gênero faltando na dex",
     "gender.diffLabel": "Diferença visual",
-    "gender.onlyLabel": "Só de um gênero",
+    "gender.diffCostumeLabel": "Diferença visual em fantasias",
     "gender.halfCount": "{n} pares pela metade",
     "gender.noneNote": "{n} sem nenhum dos dois (é a fantasia que falta)",
     "gender.tagMissing": "falta {g}",
@@ -65,7 +65,7 @@ const I18N = {
     "tl.search": "Buscar espécie…",
     "tl.monPath": "Linha do tempo de {name}",
     "tl.seeAlso": "Veja também",
-    "tl.pogorewindDesc": "Galeria de sprites do Pokémon GO — a fonte das imagens usadas aqui.",
+    "tl.pogorewindDesc": "Reviva cada lançamento, relembre marcos do jogo em cada dia do ano.",
     "tl.pikachugoDesc": "Todas as fantasias e formas do Pikachu, num só lugar.",
 
     "data.title": "Meus dados",
@@ -175,9 +175,9 @@ const I18N = {
     "dash.region": "Region", "dash.total": "Total", "dash.released": "released",
 
     "gender.title": "Male and female",
-    "gender.dexLabel": "Genders in the dex",
+    "gender.dexLabel": "Missing a gender in the dex",
     "gender.diffLabel": "Visually different",
-    "gender.onlyLabel": "Only one gender",
+    "gender.diffCostumeLabel": "Visually different (costumes)",
     "gender.halfCount": "{n} half pairs",
     "gender.noneNote": "{n} with neither (that's a missing costume, not a gender gap)",
     "gender.tagMissing": "missing {g}",

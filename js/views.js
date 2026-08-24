@@ -224,24 +224,30 @@ const Dashboard = {
       return b;
     };
 
-    /* 1 — macho e fêmea marcados na dex */
-    const gap1 = g.dualTotal - g.dualBoth;
-    grid.appendChild(mk("genders", "#7c5cd6", t("gender.dexLabel"),
-      g.dualBoth, g.dualTotal, gap1, gap1 ? () => GenderList.open("all") : null));
+    /* 1 — só de um gênero: quem já tem UM registrado e falta o outro. Não
+       tem um "total" natural (não é "de quantos"), fica sem barra. Espécies
+       sem nenhum dos dois registrados não entram aqui — isso é dex faltando,
+       não gênero faltando. */
+    const onlyN = g.onlyM.length + g.onlyF.length;
+    const only = mk("male", "#3a6fb0", t("gender.dexLabel"), onlyN, null, onlyN,
+      onlyN ? () => GenderList.open("only") : null);
+    only.appendChild(el("div", "kpi-sub", t("gender.onlyBreak", { m: g.onlyF.length, f: g.onlyM.length })));
+    grid.appendChild(only);
 
-    /* 2 — pares com diferença visual (♂/♀ de fato diferentes). "Faltam" aqui
-       inclui os dois jeitos de faltar (metade e nenhum); a distinção entre
-       eles vira uma nota abaixo, não fica embutida no cartão. */
+    /* 2 — pares com diferença visual FORA de fantasia (a espécie em si tem
+       ♂/♀ diferentes, tipo Frillish/Pyroar). "Faltam" inclui os dois jeitos
+       de faltar (metade e nenhum); a distinção vira nota abaixo. */
     const missDiff = g.diffTotal - g.diffFull;
     grid.appendChild(mk("form", "#2e9c6c", t("gender.diffLabel"),
       g.diffFull, g.diffTotal, missDiff, missDiff ? () => GenderList.open("diff") : null));
 
-    /* 3 — só de um gênero: não tem um "total" natural, fica sem barra */
-    const onlyN = g.onlyM.length + g.onlyF.length;
-    const only = mk("male", "#3a6fb0", t("gender.onlyLabel"), onlyN, null, onlyN,
-      onlyN ? () => GenderList.open("only") : null);
-    only.appendChild(el("div", "kpi-sub", t("gender.onlyBreak", { m: g.onlyF.length, f: g.onlyM.length })));
-    grid.appendChild(only);
+    /* 3 — mesma pergunta, mas só entre fantasias (a diferença visual é da
+       fantasia, tipo os pares de Pikachu de evento) — listas bem diferentes
+       na prática, não faz sentido somar num número só. */
+    const missDiffC = g.diffCTotal - g.diffCFull;
+    grid.appendChild(mk("hat", "#2e9c6c", t("gender.diffCostumeLabel"),
+      g.diffCFull, g.diffCTotal, missDiffC,
+      missDiffC ? () => GenderList.open("diffCostume") : null));
 
     p.appendChild(grid);
     return p;
@@ -744,7 +750,7 @@ const GenderList = {
       let items, title, note;
       if (kind === "only") {
         items = g.onlyM.concat(g.onlyF);
-        title = t("gender.onlyLabel");
+        title = t("gender.dexLabel");
         note = t("gender.onlyBreak", { m: g.onlyF.length, f: g.onlyM.length });
       } else if (kind === "diff") {
         items = g.diffHalf.concat(g.diffNone);
@@ -754,10 +760,12 @@ const GenderList = {
         if (g.diffNone.length) parts.push(t("gender.noneNote", { n: g.diffNone.length }));
         note = parts.join(" · ");
       } else {
-        items = g.onlyM.concat(g.onlyF, g.neither);
-        title = t("gender.dexLabel");
-        const missN = g.dualTotal - g.dualBoth;
-        note = missN <= 0 ? t("dash.complete") : missingLabel(missN);
+        items = g.diffCHalf.concat(g.diffCNone);
+        title = t("gender.diffCostumeLabel");
+        const parts = [];
+        if (g.diffCHalf.length) parts.push(t("gender.halfCount", { n: g.diffCHalf.length }));
+        if (g.diffCNone.length) parts.push(t("gender.noneNote", { n: g.diffCNone.length }));
+        note = parts.join(" · ");
       }
       sheetHead(sheet, title, "#7c5cd6");
       sheet.appendChild(el("div", "small dim", note));
