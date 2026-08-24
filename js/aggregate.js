@@ -16,12 +16,25 @@ const Agg = {
   byNum: null,          // num -> [entradas]
   byId: null,           // id -> entrada
 
-  init(skeleton, categories, catdoc) {
+  init(skeleton, categories, catdoc, evolutions) {
     this.skeleton = skeleton;
     this.categories = categories;
     this.catdoc = catdoc || {};
     this.byCat = {};
     categories.forEach(c => { this.byCat[c.key] = c; });
+
+    /* Grafo de evolução -> quem precede cada NÚMERO (não forma: a busca do
+       jogo agrupa por número, e "quem evolui pra isso" já é a mesma pergunta
+       pra qualquer forma daquele número - ver data/evolutions.json). */
+    this.numEvolvesFrom = new Map();
+    for (const n of (evolutions && evolutions.chains) || []) {
+      for (const f of n.evolvesFrom) {
+        let s = this.numEvolvesFrom.get(n.num);
+        if (!s) { s = new Set(); this.numEvolvesFrom.set(n.num, s); }
+        s.add(f.num);
+      }
+    }
+    this._preEvoCache = new Map();
 
     const d = new Date();
     this.today = [
@@ -213,22 +226,51 @@ const Agg = {
       it.got && (!region || it.region === region));
   },
 
+  /* Todos os números de pré-evolução na cadeia (transitivo: Venusaur -> 2, 1),
+     achatado por NÚMERO — a forma não importa aqui, ver comentário no init().
+     Memoizado porque a mesma cadeia é percorrida de novo a cada tela. */
+  preEvoNums(num) {
+    let hit = this._preEvoCache.get(num);
+    if (hit) return hit;
+    const out = new Set();
+    const walk = n => {
+      for (const p of (this.numEvolvesFrom.get(n) || [])) {
+        if (out.has(p)) continue;      // guarda contra ciclo, por via das dúvidas
+        out.add(p);
+        walk(p);
+      }
+    };
+    walk(num);
+    this._preEvoCache.set(num, out);
+    return out;
+  },
+
   /* String de busca do jogo: NÚMEROS da dex separados por vírgula.
      Números são mais curtos que nomes e funcionam em qualquer idioma do
      jogo (o nome em português nem sempre é o que a busca aceita).
      XXL e XXS ganham o prefixo do filtro de tamanho: "XXL&1,4,7" =
      tamanho XXL E (número 1 ou 4 ou 7) — na busca do GO a vírgula é OU
-     e o & é E. */
-  searchString(catKey, region) {
+     e o & é E.
+     includePreEvo soma os números de quem evolui pra cada faltante (Bulbasaur
+     e Ivysaur quando falta Venusaur) - dedupe pelo mesmo Set, então um número
+     que já ia entrar por conta própria não repete. Fantasias ficam de fora:
+     evoluir a espécie lisa não garante a fantasia (caso a caso, sem dados
+     ainda - ver PLANS.md). */
+  searchString(catKey, region, includePreEvo) {
     const cat = this.byCat[catKey];
     const seen = new Set(), nums = [];
+    const add = n => { if (!seen.has(n)) { seen.add(n); nums.push(n); } };
     for (const it of this.missing(catKey, region)) {
-      if (!seen.has(it.num)) { seen.add(it.num); nums.push(it.num); }
+      add(it.num);
+      if (includePreEvo && !it.display.costumePt) {
+        for (const anc of this.preEvoNums(it.num)) add(anc);
+      }
     }
     if (!nums.length) return "";
     nums.sort((a, b) => a - b);
     const prefix = cat.mark === "xxl" ? "XXL&"
-                 : cat.mark === "xxs" ? "XXS&" : "";
+                 : cat.mark === "xxs" ? "XXS&"
+                 : cat.searchKeyword ? cat.searchKeyword[LANG] + "&" : "";
     return prefix + nums.join(",");
   },
 

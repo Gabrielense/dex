@@ -7,6 +7,7 @@
     "mark": "marca pessoal que conta como feito",
     "color": "cor da categoria, tirada das abas do Pokedex do jogo",
     "icon": "chave do icone em js/icons.js",
+    "searchKeyword": "opcional - palavra-chave real da busca do jogo pra essa categoria (verificada no app, nao inventada); vira prefixo 'palavra&' antes dos numeros, igual XXL&/XXS&. So preencher quando confirmado - sem isso a busca fica so com os numeros, como sempre foi.",
     "resumo": "colunas da aba Resumo usadas so para conferencia / Resumo columns, for reconciliation only"
   },
   "categories": [
@@ -58,6 +59,7 @@
       "labelPt": "Sombroso", "labelEn": "Shadow",
       "shortPt": "Sombr.", "shortEn": "Shadow",
       "scope": "dex", "gate": "shadow", "mark": "shadow",
+      "searchKeyword": { "pt": "sombroso", "en": "shadow" },
       "resumo": { "caught": 27, "released": 31 }
     },
     {
@@ -179,6 +181,7 @@
       "shortPt": "Fantasia", "shortEn": "Costume",
       "scope": "entry", "gate": "base", "mark": "caught",
       "subset": { "nonempty": "costumePt" },
+      "searchKeyword": { "pt": "traje", "en": "costume" },
       "resumo": { "caught": 49, "released": 50 }
     },
     {

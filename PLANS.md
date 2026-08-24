@@ -1,15 +1,36 @@
 # Planos — pesquisado, ainda não implementado
 
 Dois recursos pedidos pelo Gabriel, com a pesquisa de fontes feita. Nada daqui
-está no código ainda.
+está no código ainda, **exceto** o grafo de evolução (base dos itens 1 e 2),
+que já existe: [tools/build_evolutions.py](tools/build_evolutions.py) →
+`data/evolutions.json`. Roda offline sem afetar o site (ninguém importa esse
+arquivo ainda) — baixa `pokemon_evolutions.json` da pogoapi e gera um grafo
+por nó `{num, form}` com `evolvesTo`/`evolvesFrom` (listas, porque Eevee
+diverge em 8 e os 3 mantos de Burmy convergem no mesmo Mothim). `form` é
+sempre um `regFormEn`/`altFormEn` EXATO de `data/skeleton.json` (ou `""`),
+então já respeita "Raticate de Alola vem de Rattata de Alola" sem precisar
+de outro passo de tradução. Rodar de novo quando sair geração nova:
+`python tools/build_evolutions.py`.
 
 ---
 
-## 1. Pré-evoluções na string de busca
+## 1. Pré-evoluções na string de busca — **Feito** (exceto fantasias)
 
 **A ideia.** Se falta o Venusaur brilhante, um Bulbasaur brilhante resolve
 (evolui e registra). Então a busca de faltantes deveria incluir os números das
 pré-evoluções — hoje `3` viraria `1,2,3`.
+
+Implementado em 2026-08-24: `Agg.numEvolvesFrom`/`Agg.preEvoNums()` em
+[js/aggregate.js](js/aggregate.js) leem `data/evolutions.json` (carregado em
+[js/app.js](js/app.js) junto com skeleton/categories) e achatam o grafo por
+NÚMERO com fechamento transitivo. `searchString(catKey, region, includePreEvo)`
+soma os ancestrais de cada faltante num `Set` (sem repetir número). O toggle
+"Incluir pré-evoluções" fica em [js/views.js](js/views.js) (tela Faltantes),
+desligado por padrão. Fantasias são puladas item a item
+(`!it.display.costumePt`) porque evoluir a espécie lisa não garante a
+fantasia — a busca some sem a fantasia (só os itens **da fantasia** ficam de
+fora; nada muda pras outras categorias). A nota de tamanho não garantido
+aparece só nas categorias XXL/XXS.
 
 **Fonte de dados — encontrada e é boa.** A [pogoapi.net](https://pogoapi.net)
 publica `GET /api/v1/pokemon_evolutions.json`:
@@ -26,10 +47,13 @@ Alternativas, se um dia precisar: o Game Master bruto do PokeMiners
 
 **Plano de implementação (quando for a hora):**
 
-1. `tools/build_evolutions.py`: baixa o JSON da pogoapi, inverte a direção
-   (alvo → lista de pré-evoluções, transitivo: Venusaur → [Ivysaur, Bulbasaur])
-   e grava `data/preevo.json` como `{ "3": [1, 2], "6": [4, 5], ... }`
-   (uns 2–3 KB). Rodar dentro do `update.bat` — sem chamada de rede no site.
+1. ~~`tools/build_evolutions.py`: baixa o JSON da pogoapi...~~ **Feito** — ver
+   nota no topo do arquivo. O que falta é só o passo de consumo: inverter
+   `data/evolutions.json` (alvo → lista de pré-evoluções, transitivo:
+   Venusaur → [Ivysaur, Bulbasaur], por NÚMERO — a busca do jogo agrupa por
+   número, forma não muda o número) num `data/preevo.json` pequeno
+   (`{ "3": [1, 2], ... }`), ou gerar isso em memória no próprio site a
+   partir do `evolutions.json` já publicado (~97 KB, cabe tranquilo).
 2. Em `searchString()`: expandir cada número faltante com suas pré-evoluções,
    dedup, ordenar. Um toggle na tela ("incluir pré-evoluções") pra não inflar a
    string de quem não quer.
@@ -117,14 +141,97 @@ podiam vir com ele (inclusive fantasia/forma, ex. `Pikachu red`,
    a maioria é impossível de completar. A aba deve separar "possíveis"
    (special/globais) de "presenciais", pra lista de faltantes não virar um mar
    de viagens não feitas.
-6. **Herança por evolução** (depois que o JSON de evoluções estiver pronto):
-   o background acompanha o Pokémon quando ele evolui. Então um background
+6. **Herança por evolução** — `data/evolutions.json` já existe (ver nota no
+   topo). O background acompanha o Pokémon quando ele evolui: um background
    listado no Fandom para o Bulbasaur é alcançável também como Ivysaur ou
    Venusaur evoluídos daquele espécime. Na prática: expandir a lista de
-   `pokemon` de cada background com a cadeia evolutiva (para FRENTE, usando o
-   mesmo `data/preevo.json` invertido), marcando os expandidos como
-   "via evolução" na interface. Depende do item 1 deste arquivo — fazer na
-   ordem: evoluções → busca com pré-evos → backgrounds com herança.
+   `pokemon` de cada background seguindo `evolvesTo` PARA FRENTE (recursivo,
+   já que uma cadeia pode ter 2–3 estágios e a de Eevee se abre em 8),
+   marcando os expandidos como "via evolução" na interface. Atenção à forma:
+   se o background listou "Rattata de Alola", a expansão deve seguir o nó
+   `{num:19, form:"Alolan"}` e não o Kantonian — é exatamente pra isso que o
+   grafo guarda `form` por nó em vez de só o número.
 
 **Custo estimado**: parser + esqueleto ~1 sessão; aba + marcas + exportação
 mais ~1. Sem dependências novas.
+
+---
+
+## 3. Entrada única para novas entradas → alimenta os 3 sites
+
+**A ideia.** Hoje, quando sai um Pokémon/fantasia/forma novo, Gabriel edita a
+planilha à mão e cada site puxa de uma fonte diferente. A ideia é um
+formulário só — nome, classificação (espécie/forma/fantasia/gênero/flags tipo
+Mega, Gigamax, regional) e as datas de estreia — que atualiza a planilha
+`PokéAgenda 2026.xlsx` (fonte de verdade) e, a partir dela, propaga pros três
+sites com regras diferentes por site, não um espelho 1:1.
+
+**Formatos confirmados (repos clonados em 2026-08-24 ao lado de `pokeagenda/`,
+em `pogorewind/` e `pikachugo/`):**
+
+- **pogorewind** — `pogorewind/datas_debut.csv`, colunas
+  `Número,ID,Nome,Name,Estreia,Brilhante,Sombroso,Sombroso Brilhante,Dinamax,Dinamax Brilhante`,
+  datas `dd/mm/yyyy`. Uma linha por variante/forma (mesmo grão do `ID` da
+  planilha). `ID` é o nome literal do arquivo em `pogorewind/sprites/`. Linhas
+  só existem quando há uma data real de estreia (pode ser uma data futura já
+  anunciada — hoje já tem entradas de 2026 no arquivo).
+- **pikachugo** — sem CSV, os dados ficam direto em `pikachugo/index.html`,
+  array `VARIANTS_RAW` (~linha 296): cada item é
+  `[code, nomeEN, nomePT, dataEstreia, dataEstreiaBrilhante, flags]`, `flags`
+  ⊂ `{M, F, P}` (só macho / só fêmea / exclusivo presencial), string vazia se
+  nenhuma. Só entradas do Número 25 (Pikachu) entram aqui — sem colunas de
+  sombroso/dinamax porque fantasia de Pikachu não tem essas variantes.
+- **pokeagenda** — já documentado: `data/skeleton.json`, gerado por
+  [export_skeleton.py](tools/export_skeleton.py) a partir da planilha.
+
+**Regras de propagação (do que o Gabriel descreveu):**
+
+1. **Fantasia nova de Pikachu** (ex.: "só macho", evento X) → nova linha na
+   planilha com Número=25 **sempre** gera uma nova entrada em
+   `VARIANTS_RAW` do pikachugo (mapeando SomenteM/SomenteF/SomenteN →
+   `M`/`F`/vazio, e Exclusivo/presencial → `P`), além do fluxo normal 2–3
+   abaixo. Isso vale só pro pikachugo — outros números não tocam nesse repo.
+2. **Mega novo / data de estreia nova em algo que já existe** (ex.: Mega já
+   cadastrado, só chegou a data de lançamento) → atualiza a linha existente
+   na planilha e, pela regra 3, dispara a atualização do pogorewind (e do
+   pikachugo se for Número 25).
+3. **Toda vez que uma data de estreia é PREENCHIDA** (estava vazia, ganhou
+   valor) → gera/atualiza a linha correspondente em
+   `pogorewind/datas_debut.csv` usando o `ID` da planilha como nome do
+   sprite. Antes de ter data, a entrada NÃO aparece no pogorewind (mesmo
+   padrão que o arquivo já segue hoje).
+4. **Geração nova cai (dex numbers/nomes novos, sem data ainda)** → a
+   ferramenta deve aceitar cadastrar a entrada na planilha/skeleton só com
+   Número + Nome + taxonomia, datas em branco. Isso só atualiza o pokeagenda
+   (skeleton mostra "não lançado ainda", igual já faz hoje pra espécies
+   futuras); pogorewind e pikachugo esperam a regra 3 disparar quando a data
+   chegar.
+
+**Plano de implementação:**
+
+1. Formulário local (HTML simples ou script Python/CLI) com os campos:
+   Número, Nome PT/EN, Espécie/Variação/Forma/Traje, Região, flags (Mega,
+   Gigamax, Não trocável, Regional, DiF gênero SomenteM/F/N, Lendário etc.) e
+   as seis datas de estreia — mesmos campos das colunas 1–23 e 25–51 da aba
+   PokéAgenda. Datas podem ficar em branco (regra 4).
+2. Ao salvar: grava/atualiza a linha na planilha `PokéAgenda 2026.xlsx`
+   (XML direto, como já foi feito nos consertos de 2026-08-24 — ver
+   [pokeagenda-project.md](../.claude memory) — ou via openpyxl).
+3. Roda `export_skeleton.py` (atualiza `data/skeleton.json` sempre).
+4. Diff a planilha antes/depois: pra cada data de estreia que passou de
+   vazia pra preenchida (regra 3), escreve/atualiza a linha equivalente em
+   `pogorewind/datas_debut.csv`. Pra cada linha com Número=25 nova ou
+   alterada (regra 1), escreve/atualiza o item correspondente em
+   `VARIANTS_RAW` dentro de `pikachugo/index.html` (edição textual do array,
+   já que não há build step).
+5. Um `update.bat` combinado roda os três passos e faz commit+push nos três
+   repositórios — cada site continua funcionando sozinho sem depender dos
+   outros dois; só a ferramenta de entrada é compartilhada.
+6. **Cuidado**: os IDs de sprite (`0001-00-00-01`, `+F`, `+S`, `G`, `M`...)
+   têm que ficar idênticos nos três, e os únicos sprites usados vêm de
+   `pogorewind/sprites/` (os outros dois hotlinkam de lá, não duplicar
+   upload de imagem).
+
+**Custo estimado**: formulário + script de propagação com as 4 regras,
+2–3 sessões (a edição textual do `VARIANTS_RAW` do pikachugo exige cuidado
+pra não quebrar o array/ordem esperada pela UI).

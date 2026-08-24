@@ -324,7 +324,7 @@ const Dashboard = {
 
 /* ============================================================ FALTANTES */
 const Lists = {
-  state: { cat: "pokemon", region: "", q: "", showUnreleased: false, showRegistered: false },
+  state: { cat: "pokemon", region: "", q: "", showUnreleased: false, showRegistered: false, includePreEvo: false },
 
   render(root, params) {
     if (params && params.cat) this.state.cat = params.cat;
@@ -382,7 +382,13 @@ const Lists = {
       this.state.showRegistered = !this.state.showRegistered; App.rerender();
     });
 
-    controls.append(catSel, regSel, q, unrel, showReg);
+    const preEvo = el("button", "chip" + (this.state.includePreEvo ? " is-on" : ""));
+    preEvo.append(el("span", null, t("lists.includePreEvo")));
+    preEvo.addEventListener("click", () => {
+      this.state.includePreEvo = !this.state.includePreEvo; App.rerender();
+    });
+
+    controls.append(catSel, regSel, q, unrel, showReg, preEvo);
     p.appendChild(controls);
 
     const body = el("div");
@@ -418,12 +424,17 @@ const Lists = {
     const blocked = filt(split.blocked);
 
     /* string de busca do jogo — só o que dá pra caçar agora */
-    const searchStr = Agg.searchString(this.state.cat, region);
+    const searchStr = Agg.searchString(this.state.cat, region, this.state.includePreEvo);
     if (searchStr) {
       const box = el("div", "busca");
       const left = el("div");
       left.style.flex = "1";
       left.append(el("div", "small dim", t("lists.busca")), el("code", null, searchStr));
+      if (this.state.includePreEvo) {
+        let note = t("lists.includePreEvoNote");
+        if (cat.mark === "xxl" || cat.mark === "xxs") note += t("lists.includePreEvoNoteSize");
+        left.appendChild(el("div", "small dim", note));
+      }
       const copy = el("button", "btn");
       copy.append(Icons.svg("copy", 15), el("span", null, t("lists.copy")));
       copy.addEventListener("click", async () => {

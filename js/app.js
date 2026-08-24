@@ -27,7 +27,7 @@ const App = {
     if (Store.isEmpty()) this.view = "data";
 
     try {
-      const [sk, cats] = await Promise.all([
+      const [sk, cats, evo] = await Promise.all([
         fetch("data/skeleton.json").then(r => {
           if (!r.ok) throw new Error("skeleton.json HTTP " + r.status);
           return r.json();
@@ -35,9 +35,13 @@ const App = {
         fetch("data/categories.json").then(r => {
           if (!r.ok) throw new Error("categories.json HTTP " + r.status);
           return r.json();
+        }),
+        fetch("data/evolutions.json").then(r => {
+          if (!r.ok) throw new Error("evolutions.json HTTP " + r.status);
+          return r.json();
         })
       ]);
-      Agg.init(sk, cats.categories, cats);
+      Agg.init(sk, cats.categories, cats, evo);
     } catch (err) {
       document.getElementById("main").innerHTML =
         '<div class="panel"><h2>Erro ao carregar os dados</h2>' +
