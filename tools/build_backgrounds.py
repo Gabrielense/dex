@@ -87,7 +87,32 @@ FILEPATH_BASE = "https://pokemongo.fandom.com/wiki/Special:FilePath/"
 
 ROWSPAN_RE = re.compile(r'^rowspan\s*=\s*"(\d+)"\s*\|(.*)$', re.DOTALL)
 FILE_RE = re.compile(r'\[\[File:([^|\]]+)')
-POKEMON_TPL_RE = re.compile(r'\{\{I\|([^|}]+)\|\|(?:ci=([^|}]+)\|)?[^}]*\}\}')
+# O Fandom nao e consistente sobre ONDE o ci= aparece dentro do template -
+# a maioria e {{I|Nome||ci=X|70px}} (2o parametro vazio, DEPOIS o ci=), mas
+# tem linha (ex.: as cores de Flabebe) escrita {{I|Nome|ci=X||70px}} (ci=
+# logo apos o nome, o parametro vazio DEPOIS). Um regex fixo pra uma ordem
+# so perdia a segunda forma inteira, silenciosamente (nem entrava no
+# relatorio de "nao casou" - o template inteiro não batia com o regex).
+# Fandom isn't consistent about WHERE ci= appears inside the template -
+# most are {{I|Name||ci=X|70px}} (empty 2nd param, THEN ci=), but some
+# rows (e.g. Flabébé's colors) are written {{I|Name|ci=X||70px}} (ci=
+# right after the name, empty param AFTER). A regex fixed to one order
+# silently lost the second form entirely (didn't even show up in the "no
+# match" report - the whole template just never matched the regex).
+POKEMON_TPL_RE = re.compile(r'\{\{I\|([^}]*)\}\}')
+
+
+def parse_pokemon_template(inner):
+    """'Nome|ci=X||70px|t=t' ou 'Nome||ci=X|70px|t=t' -> (nome, ci)."""
+    parts = inner.split("|")
+    name = parts[0].strip()
+    ci = ""
+    for part in parts[1:]:
+        part = part.strip()
+        if part.lower().startswith("ci="):
+            ci = part[3:].strip()
+            break
+    return name, ci
 
 SECTION_SPECIAL = "==List of Special Backgrounds=="
 SECTION_LOCATION = "==List of Location Backgrounds=="
@@ -418,27 +443,37 @@ def norm(s):
 
 
 def match_costume(species_name, ci_raw, candidates):
+    """-> lista de entradas (0+). Uma fantasia/forma pode ter par M/F (ex.:
+    Eevee "Explorer" tem 0133-00-00-05 E 0133-00-00-05+F) - o wiki não diz
+    gênero, então os dois contam, mesma regra do match_pokemon pra
+    entradas sem fantasia.
+    -> list of entries (0+). A costume/form can have an M/F pair (e.g.
+    Eevee "Explorer" has both 0133-00-00-05 AND 0133-00-00-05+F) - the
+    wiki doesn't say gender, so both count, same rule as match_pokemon for
+    costume-less entries."""
     hint = ci_raw.strip()
     if hint.lower().startswith(species_name.lower()):
         hint = hint[len(species_name):].strip()
     hint_n = norm(hint)
     if not hint_n:
-        return None
+        return []
     for field in ("costumeEn", "regFormEn", "altFormEn"):
-        for e in candidates:
-            if e.get(field) and norm(e[field]) == hint_n:
-                return e
-    best, best_len = None, None
+        exact = [e for e in candidates if e.get(field) and norm(e[field]) == hint_n]
+        if exact:
+            return exact
     for field in ("costumeEn", "regFormEn", "altFormEn"):
+        scored = []
         for e in candidates:
             v = e.get(field)
             if not v:
                 continue
             vn = norm(v)
             if hint_n in vn or vn in hint_n:
-                if best is None or len(vn) < best_len:
-                    best, best_len = e, len(vn)
-    return best
+                scored.append((len(vn), e))
+        if scored:
+            best_len = min(l for l, _ in scored)
+            return [e for l, e in scored if l == best_len]
+    return []
 
 
 def match_pokemon(name, ci_raw, by_species):
@@ -471,9 +506,9 @@ def match_pokemon(name, ci_raw, by_species):
         if not candidates:
             return None, "species-not-found"
     if ci_raw:
-        m = match_costume(name, ci_raw, candidates)
-        if m:
-            return [m], None
+        matches = match_costume(name, ci_raw, candidates)
+        if matches:
+            return matches, None
         return None, "costume-not-found:%s" % ci_raw
     # Um "{{I|Pikachu||70px}}" sem ci= nunca quer dizer Mega/Gigamax -
     # mesma regra de build_numform_index (nao e resultado de evolucao,
@@ -833,6 +868,21 @@ for _bg in ("special-background-valor", "special-background-mystic", "special-ba
 # saiu sombroso ali, ao contrario dos outros Pokemon do mesmo fundo.
 SHADOW_ELIGIBLE[("special-background-wild-area-global-2025", 491)] = "only"
 
+# bg_id -> [ID do esqueleto, ...] pra Pokemon que o Fandom simplesmente
+# nao lista na linha (nao e um problema de ci= ou de parser - a tabela
+# so nao menciona), confirmado pelo Gabriel. Sword/Shield Version listam
+# só a forma Hero of Many Battles; a Crowned (destrancada ao vencer a
+# Raid Battle correspondente) também saía com esses fundos.
+# bg_id -> [skeleton ID, ...] for Pokemon the Fandom table simply doesn't
+# list on the row at all (not a ci=/parser issue - the table just doesn't
+# mention it), confirmed by Gabriel. Sword/Shield Version only list the
+# Hero of Many Battles form; the Crowned one (unlocked by winning the
+# matching Raid Battle) also came with these backgrounds.
+EXTRA_POKEMON = {
+    "special-background-gofest-2025-sword": ["0888-00-01"],
+    "special-background-gofest-2025-shield": ["0889-00-01"],
+}
+
 
 # ------------------------------------------------------------------ main
 def main():
@@ -844,6 +894,7 @@ def main():
     numform_idx = build_numform_index(entries)
     costume_idx = build_costume_index(entries)
     evo_idx = build_evo_index(load_evolutions())
+    by_id = {e["id"]: e for e in entries}
 
     try:
         wikitext = fetch_wikitext()
@@ -887,8 +938,9 @@ def main():
                     if event_text and event_text not in bg["events"]:
                         bg["events"].append(event_text)
 
-                    for pk_name, ci in POKEMON_TPL_RE.findall(pokemon_cell or ""):
-                        ci = CI_OVERRIDES.get((bg_id, pk_name), ci.strip())
+                    for tpl_inner in POKEMON_TPL_RE.findall(pokemon_cell or ""):
+                        pk_name, ci = parse_pokemon_template(tpl_inner)
+                        ci = CI_OVERRIDES.get((bg_id, pk_name), ci)
                         entries, err = match_pokemon(pk_name, ci, by_species)
                         if not entries:
                             unmatched.append((bg_id, pk_name, ci, err))
@@ -918,6 +970,20 @@ def main():
                                         bg["pokemon"][te["id"]] = {
                                             "id": te["id"], "num": te["num"], "viaEvolution": True
                                         }
+
+    for bg_id, extra_ids in EXTRA_POKEMON.items():
+        bg = backgrounds.get(bg_id)
+        if not bg:
+            continue
+        for eid in extra_ids:
+            entry = by_id.get(eid)
+            if not entry:
+                print("AVISO: EXTRA_POKEMON %s -> %s nao existe no esqueleto" % (bg_id, eid))
+                continue
+            if entry["id"] not in bg["pokemon"]:
+                bg["pokemon"][entry["id"]] = {
+                    "id": entry["id"], "num": entry["num"], "viaEvolution": False
+                }
 
     out_list = []
     untranslated = []
