@@ -549,6 +549,8 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 }
 .bg-sprite:hover{border-color:var(--dex-red)}
 .bg-sprite.got{filter:none;opacity:1;border-color:var(--ok)}
+.bg-sprite.unavailable{cursor:not-allowed;opacity:.25;filter:grayscale(1)}
+.bg-sprite.unavailable:hover{border-color:var(--line)}
 .bg-sprite .sprite{width:26px;height:26px}
 /* dentro dos limites (bg-sprite tem overflow:hidden pro sprite arredondado -
    um offset negativo como o .mon-variant-badge normal seria cortado). */

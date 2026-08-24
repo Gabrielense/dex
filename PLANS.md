@@ -318,6 +318,29 @@ principal, que já tem 51 colunas.
   XML no `.xlsx` mestre (backup
   `PokéAgenda 2026 (backup 2026-08-24-psyduck-swim-ring-typo).xlsx`).
 
+**Sexta rodada (mesmo dia, cores de Flabébé + formas coroadas +
+gênero de Eevee):** Vermelha era a única cor de Flabébé/evoluções no
+fundo "Temporada Contos de Transformação" — branca, laranja, amarela e
+azul entraram. Zacian/Zamazenta coroados entraram em "Versão Espada"/
+"Versão Escudo" junto da forma padrão (mesmo padrão de `EXTRA_POKEMON`).
+Eevee fêmea entra em todo fundo onde o macho aparece (nenhuma evolução
+tem fêmea separada, só o próprio Eevee).
+
+**Sétima rodada (mesmo dia, brilhante indisponível em fundo específico):**
+Confirmado pelo Gabriel: o Tauros de Paldea (Espécie Aquática) do fundo
+"Arraiá 2026" e o Lunala do fundo "Pokémon GO Fest 2024: Umbra" ainda não
+tinham brilhante lançado (no Brasil, no caso do Tauros) quando cada fundo
+saiu — mesmo o brilhante existindo hoje, esses dois fundos nunca foram
+completáveis em brilhante. Novo dict `SHINY_UNAVAILABLE` em
+`tools/build_backgrounds.py` ((bg_id, num) -> True) marca
+`pokemon[].shinyAvailable = False` nesses casos (campo esparso, ausente =
+disponível). Na aba brilhante o sprite correspondente renderiza
+desabilitado (classe `.bg-sprite.unavailable`, sem clique, tooltip
+explicando) e sai do denominador — tanto do card individual quanto do
+card-resumo/`Agg.backgroundStats` (que também para de contar o fundo
+inteiro se ele ficar com zero Pokémon brilhante-elegível). Na aba normal
+(não-brilhante) os dois continuam clicáveis normalmente.
+
 <details>
 <summary>Plano original (histórico, antes da implementação)</summary>
 

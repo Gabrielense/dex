@@ -643,15 +643,18 @@ const Agg = {
   backgroundStats(type, shiny) {
     const hasMark = shiny ? Store.hasBackgroundShinyMark.bind(Store) : Store.hasBackgroundMark.bind(Store);
     const bgs = this.backgrounds.filter(b => b.type === type);
-    let bgOwned = 0, pkmnTotal = 0, pkmnOwned = 0;
+    let bgTotal = 0, bgOwned = 0, pkmnTotal = 0, pkmnOwned = 0;
     for (const b of bgs) {
+      const eligible = shiny ? b.pokemon.filter(p => p.shinyAvailable !== false) : b.pokemon;
+      if (shiny && eligible.length === 0) continue;
+      bgTotal++;
       let owned = 0;
-      for (const p of b.pokemon) if (hasMark(b.id, p.id)) owned++;
-      pkmnTotal += b.pokemon.length;
+      for (const p of eligible) if (hasMark(b.id, p.id)) owned++;
+      pkmnTotal += eligible.length;
       pkmnOwned += owned;
       if (owned > 0) bgOwned++;
     }
-    return { bgTotal: bgs.length, bgOwned, pkmnTotal, pkmnOwned };
+    return { bgTotal, bgOwned, pkmnTotal, pkmnOwned };
   },
 
   backgroundItems(type, shiny) {

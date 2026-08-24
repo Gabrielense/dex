@@ -883,6 +883,29 @@ EXTRA_POKEMON = {
     "special-background-gofest-2025-shield": ["0889-00-01"],
 }
 
+# (bg_id, num) -> True quando o brilhante daquele Pokemon especifico ainda
+# NAO tinha sido lancado no momento em que ESSE background saiu (mesmo que
+# o brilhante exista hoje) - confirmado pelo Gabriel caso a caso. O
+# background continua existindo/listado, so fica impossivel de completar
+# em brilhante -> sai do denominador de "fundos brilhantes possiveis" no
+# site (nao so do numerador). pokemon[].shinyAvailable so aparece (false)
+# nesses casos - ausente = disponivel, mesmo espirito de viaEvolution/
+# viaShadow.
+# (bg_id, num) -> True when that specific Pokemon's shiny had NOT been
+# released yet at the time THIS background came out (even if the shiny
+# exists today) - confirmed by Gabriel case by case. The background stays
+# listed, it just becomes impossible to complete in shiny -> excluded from
+# the site's "possible shiny backgrounds" denominator (not just the
+# numerator). pokemon[].shinyAvailable only appears (false) in these
+# cases - absent = available, same spirit as viaEvolution/viaShadow.
+SHINY_UNAVAILABLE = {
+    # Tauros de Paldea (forma Aquática) nao tinha brilhante lancado no
+    # Brasil quando o background Arraiá 2026 saiu.
+    ("special-background-arraia-2026", 128): True,
+    # Lunala nao tinha brilhante lancado quando GO Fest 2024: Umbra saiu.
+    ("special-background-gofest2024-umbra", 792): True,
+}
+
 
 # ------------------------------------------------------------------ main
 def main():
@@ -1005,6 +1028,8 @@ def main():
                 # So sombroso saiu - marca a propria entrada, sem duplicar
                 # (nao existe uma "normal" separada pra essa captura).
                 p["viaShadow"] = True
+            if SHINY_UNAVAILABLE.get((bg["id"], p["num"])):
+                p["shinyAvailable"] = False
         if dupes:
             b2["pokemon"] = sorted(b2["pokemon"] + dupes, key=lambda p: p["num"])
         b2["debut"] = earliest_debut(bg["events"], bg["year"])

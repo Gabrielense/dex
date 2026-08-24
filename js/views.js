@@ -1362,9 +1362,14 @@ const Backgrounds = {
     banner.style.backgroundImage = `url("${bg.image}")`;
     card.appendChild(banner);
 
-    const allCaught = bg.pokemon.length > 0 && bg.caught === bg.pokemon.length;
+    /* em abas brilhantes, Pokemon cujo brilhante ainda nao existia quando
+       o fundo saiu (ver SHINY_UNAVAILABLE em tools/build_backgrounds.py)
+       saem do denominador de "possiveis" - o fundo pode ficar impossivel
+       de completar em brilhante mesmo aparecendo na lista. */
+    const total = shiny ? bg.pokemon.filter(p => p.shinyAvailable !== false).length : bg.pokemon.length;
+    const allCaught = total > 0 && bg.caught === total;
     const progress = el("div", "bg-progress" + (allCaught ? " done" : ""),
-      `${bg.caught} / ${bg.pokemon.length}`);
+      `${bg.caught} / ${total}`);
     const nameBox = el("div", "bg-name");
     nameBox.appendChild(document.createTextNode(bgNameOf(bg)));
     if (bg.regionExclusive) {
@@ -1397,11 +1402,14 @@ const Backgrounds = {
          tools/build_backgrounds.py). */
       const entry = Agg.byId.get(p.id) || Agg.byId.get(p.id.replace(/\+shadow$/, ""));
       if (!entry) continue;
-      const got = hasMark(bg.id, p.id);
-      const s = el("div", "bg-sprite" + (got ? " got" : ""));
-      s.title = nameOf(entry) + (p.viaEvolution ? " (" + t("bg.viaEvolution") + ")" : "") +
-        (p.viaShadow ? " (" + t("e.shadow") + ")" : "") +
-        (canMark ? " — " + t("bg.tapHint") : "");
+      const unavailable = shiny && p.shinyAvailable === false;
+      const got = !unavailable && hasMark(bg.id, p.id);
+      const s = el("div", "bg-sprite" + (got ? " got" : "") + (unavailable ? " unavailable" : ""));
+      s.title = unavailable
+        ? nameOf(entry) + " — " + t("bg.shinyUnavailableHint")
+        : nameOf(entry) + (p.viaEvolution ? " (" + t("bg.viaEvolution") + ")" : "") +
+          (p.viaShadow ? " (" + t("e.shadow") + ")" : "") +
+          (canMark ? " — " + t("bg.tapHint") : "");
       s.appendChild(Sprites.img(entry, shiny));
       /* alguns backgrounds tambem valiam pra captura sombrosa da mesma
          especie, como um par INDEPENDENTE do normal (confirmado caso a
@@ -1416,7 +1424,7 @@ const Backgrounds = {
          normal OU brilhante conforme a aba) - mesmo espirito do botao ✓
          quick nas outras telas. De propósito NÃO reconstroi o card
          inteiro, só o que mudou (ver monCard). */
-      if (canMark) {
+      if (canMark && !unavailable) {
         s.setAttribute("role", "button");
         s.tabIndex = 0;
         const toggle = () => {
@@ -1424,8 +1432,8 @@ const Backgrounds = {
           s.classList.toggle("got", on);
           const nowCaught = bg.pokemon.filter(pp => hasMark(bg.id, pp.id)).length;
           bg.caught = nowCaught;
-          progress.textContent = `${nowCaught} / ${bg.pokemon.length}`;
-          progress.classList.toggle("done", nowCaught === bg.pokemon.length);
+          progress.textContent = `${nowCaught} / ${total}`;
+          progress.classList.toggle("done", nowCaught === total);
           card.classList.toggle("is-empty", nowCaught === 0);
           App.markDirty();
         };
