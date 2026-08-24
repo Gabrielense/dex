@@ -211,19 +211,36 @@ const DataPanel = {
     try {
       const name = file.name.toLowerCase();
       let res;
+      let bgMarks = null; // null = nao mexe no que ja existia (json ja resolve sozinho)
       if (name.endsWith(".json")) {
         res = XlsxIO.readJson(await file.text(), Agg.skeleton);
       } else if (name.endsWith(".csv")) {
         res = XlsxIO.readCsv(await file.text(), Agg.skeleton);
       } else {
         this.say(t("data.importing"));
-        const rows = await XlsxIO.readSheet(await file.arrayBuffer(), "PokéAgenda");
+        const buf = await file.arrayBuffer();
+        const rows = await XlsxIO.readSheet(buf, "PokéAgenda");
         res = XlsxIO.rowsToMarks(rows, Agg.skeleton);
+        /* aba "Backgrounds" e opcional - planilhas exportadas antes dela
+           existir simplesmente nao tem essa aba, e a importacao segue
+           normal sem mexer nas marcas de background ja salvas. */
+        try {
+          const bgRows = await XlsxIO.readSheet(buf, "Backgrounds", { requireName: true });
+          bgMarks = XlsxIO.backgroundRowsToMarks(bgRows);
+        } catch (bgErr) {
+          if (bgErr.message !== "SHEET_NOT_FOUND") throw bgErr;
+        }
       }
 
       const count = Store.replaceAll(res.rows);
       this.say(t("data.matched", { n: res.report.matched }), "ok");
       this.say(t("data.marksFound", { n: count }), "ok");
+      if (bgMarks) {
+        Store.replaceAllBackgroundMarks(bgMarks);
+        let bgCount = 0;
+        for (const k in bgMarks) bgCount += Object.keys(bgMarks[k]).length;
+        this.say(t("data.bgMarksFound", { n: bgCount }), "ok");
+      }
       if (res.report.unmatched.length) {
         this.say(t("data.unmatched", { n: res.report.unmatched.length }), "warn");
         this.say("  " + res.report.unmatched.slice(0, 12).join("\n  "), "warn");

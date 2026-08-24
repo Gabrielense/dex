@@ -93,7 +93,69 @@ categoria Fantasia, caso a caso.
 
 ---
 
-## 2. Dex de Backgrounds (planos de fundo)
+## 2. Dex de Backgrounds (planos de fundo) — **Feito**
+
+Implementado em 2026-08-24. Marca própria por PAR (background, Pokémon) —
+`Store.backgroundMarks`, `{ bgId: { pokemonId: 1 } }` — exatamente como o
+plano original pedia. Não dá pra derivar da marca `caught`: o mesmo
+Pokémon (mesmo ID do esqueleto) pode ter sido capturado várias vezes com
+backgrounds diferentes (ou nenhum), então "registrado" e "peguei com ESTE
+background" são perguntas independentes. Vive no navegador, no backup
+`.json` (junto de `customTiers`/`customMarks`, mesmo padrão) e numa aba
+própria "Backgrounds" no `.xlsx` — nunca como coluna na aba PokéAgenda
+principal, que já tem 51 colunas.
+
+- [tools/build_backgrounds.py](tools/build_backgrounds.py) baixa o
+  wikitext de `pokemongo.fandom.com/wiki/Backgrounds` (endpoint MediaWiki,
+  contorna o bloqueio de scraping), faz o parse manual das tabelas wiki
+  (`rowspan` incluso — vários backgrounds reaparecem em eventos diferentes
+  ao longo dos anos na MESMA célula) e casa cada `{{I|Nome||ci=Forma}}` com
+  uma entrada de `data/skeleton.json` por espécie + costume/forma, com
+  fallback difuso quando o texto do wiki não bate exatamente com
+  costumeEn/regFormEn/altFormEn. Cada background é identificado pelo NOME
+  DO ARQUIVO da imagem (não pelo texto exibido — o mesmo texto se repete
+  entre backgrounds diferentes). Testado contra os dados reais: 44
+  especiais + 106 presenciais, 1156 vínculos Pokémon↔background, só 6
+  fantasias futuras (ainda não lançadas, fora do esqueleto) ficam de fora
+  — reportadas no log, resolvem sozinhas quando o esqueleto for atualizado.
+- Expansão por evolução: para entradas SEM fantasia, segue
+  `data/evolutions.json` PARA FRENTE (mesma regra do item 1), respeitando
+  a forma do nó. Mega e Gigamax ficam de fora da expansão — não são
+  resultado de evolução por doce, são um estado à parte (Energia
+  Mega/partículas Max) que qualquer exemplar do número alcança, com ou sem
+  background.
+- Saída: `data/backgrounds.json` (`{id, type, name, image, year, events[],
+  pokemon: [{id, num, viaEvolution}]}`). `id` é o nome do arquivo
+  normalizado (estável entre gerações). `image` é um link
+  `Special:FilePath` do Fandom (redireciona pro arquivo atual, sem
+  precisar baixar/hospedar nada).
+- Aba nova em [js/views.js](js/views.js) (`Backgrounds`) + agregação em
+  [js/aggregate.js](js/aggregate.js) (`initBackgrounds`/`backgroundStats`/
+  `backgroundItems`, lendo `Store.hasBackgroundMark`). Resumo no topo
+  (especiais e presenciais, backgrounds e Pokémon), sub-abas Especiais
+  (padrão)/Presenciais, card por background com banner, progresso `x/y` e
+  grade de sprites clicáveis — cada sprite liga/desliga a marca daquele
+  par (background, Pokémon) na hora, sem re-renderizar a tela inteira
+  (mesmo espírito do botão ✓ rápido nas outras telas). Card inteiro em
+  preto e branco (`filter: grayscale(1)`) enquanto nenhum par estiver
+  marcado. `data/backgrounds.json` é opcional no boot — se faltar ou vier
+  quebrado, o resto do site continua funcionando normalmente.
+- Exportação/importação em [js/xlsxio.js](js/xlsxio.js): terceira aba do
+  `.xlsx` ("Backgrounds", uma linha por par background×Pokémon elegível,
+  coluna "Marcado"), lida de volta por `backgroundRowsToMarks` — planilhas
+  antigas sem essa aba (`SHEET_NOT_FOUND`) simplesmente não mexem nas
+  marcas já salvas, em vez de confundir com a aba principal. O backup
+  `.json` carrega `backgroundMarks` do mesmo jeito que já carrega
+  `customTiers`/`customMarks`.
+- `update.bat` ganhou um passo `tools\build_backgrounds.py` (não
+  bloqueante — se o Fandom estiver fora do ar, publica com o
+  `backgrounds.json` que já existia em vez de travar a atualização
+  inteira).
+
+<details>
+<summary>Plano original (histórico, antes da implementação)</summary>
+
+
 
 **Fonte lida:** `pokemongo.fandom.com/wiki/Backgrounds` (via API MediaWiki do
 Fandom — a página bloqueia scraping comum, mas
@@ -154,6 +216,8 @@ podiam vir com ele (inclusive fantasia/forma, ex. `Pikachu red`,
 
 **Custo estimado**: parser + esqueleto ~1 sessão; aba + marcas + exportação
 mais ~1. Sem dependências novas.
+
+</details>
 
 ---
 

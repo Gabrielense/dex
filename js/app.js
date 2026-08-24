@@ -42,6 +42,16 @@ const App = {
         })
       ]);
       Agg.init(sk, cats.categories, cats, evo);
+
+      /* Backgrounds e opcional: um data/backgrounds.json ausente ou
+         quebrado nao pode derrubar o resto do site (as outras telas nao
+         dependem dele). initBackgrounds([]) ja e o padrao de init(). */
+      try {
+        const bgRes = await fetch("data/backgrounds.json");
+        if (bgRes.ok) Agg.initBackgrounds(await bgRes.json());
+      } catch (bgErr) {
+        console.warn("data/backgrounds.json indisponivel", bgErr);
+      }
     } catch (err) {
       document.getElementById("main").innerHTML =
         '<div class="panel"><h2>Erro ao carregar os dados</h2>' +
@@ -126,6 +136,7 @@ const App = {
     if (this.view === "dashboard") Dashboard.render(main);
     else if (this.view === "lists") Lists.render(main, params);
     else if (this.view === "living") Living.render(main);
+    else if (this.view === "backgrounds") Backgrounds.render(main);
     else if (this.view === "timeline") Timeline.render(main);
     else if (this.view === "data") {
       DataPanel.render(main);

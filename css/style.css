@@ -494,6 +494,44 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 .custom-builder .row{margin:8px 0 6px}
 .custom-builder .chip{background:var(--panel)}
 
+/* =========================== dex de backgrounds =========================== */
+.kpi.noclick{cursor:default}
+.kpi.noclick:hover{transform:none;box-shadow:var(--shadow-1);border-color:var(--line)}
+
+.bg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-top:12px}
+.bg-card{
+  background:var(--panel);border:1px solid var(--line);border-radius:var(--radius-sm);
+  overflow:hidden;box-shadow:var(--shadow-1);content-visibility:auto;contain-intrinsic-size:auto 260px;
+  transition:filter .2s ease,opacity .2s ease;
+}
+/* B&W ate registrar o primeiro Pokemon elegivel - ver Agg.backgroundItems */
+.bg-card.is-empty{filter:grayscale(1);opacity:.62}
+.bg-banner{
+  width:100%;height:104px;background-size:cover;background-position:center;
+  background-color:var(--panel2);
+}
+.bg-info{
+  display:flex;align-items:baseline;justify-content:space-between;gap:8px;
+  padding:9px 12px 3px;
+}
+.bg-name{font-size:13px;font-weight:700;line-height:1.25}
+.bg-progress{
+  flex:none;font-size:12px;font-weight:800;color:var(--dim);
+  font-variant-numeric:tabular-nums;
+}
+.bg-progress.done{color:var(--ok)}
+.bg-events{padding:0 12px 6px;line-height:1.35}
+.bg-sprites{display:flex;flex-wrap:wrap;gap:5px;padding:0 10px 11px}
+.bg-sprite{
+  width:34px;height:34px;border-radius:8px;overflow:hidden;
+  background:var(--panel2);border:1.5px solid var(--line);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  filter:grayscale(.9);opacity:.55;transition:filter .12s,opacity .12s,border-color .12s;
+}
+.bg-sprite:hover{border-color:var(--dex-red)}
+.bg-sprite.got{filter:none;opacity:1;border-color:var(--ok)}
+.bg-sprite .sprite{width:26px;height:26px}
+
 /* =========================== responsivo =========================== */
 @media(max-width:600px){
   .brand h1{font-size:16px}
@@ -503,4 +541,5 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
   .sprite{width:54px;height:54px}
   main{padding:14px 11px 50px}
   .panel{padding:13px}
+  .bg-grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
 }

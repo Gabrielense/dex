@@ -31,6 +31,14 @@ const Store = {
      dinâmicas (o formato dela ficaria imprevisível). */
   customTiers: [],
   customMarks: Object.create(null),
+  /* Dex de Backgrounds: marca por PAR (background, Pokémon) — um mesmo
+     Pokémon (mesmo ID do esqueleto) pode ter sido pego com backgrounds
+     diferentes em ocasiões diferentes, então isso NÃO pode ser derivado
+     da marca "caught" (registro é por espécie/entrada; background é por
+     captura específica). Formato: { bgId: { pokemonId: 1 } }.
+     Vive no navegador, no backup .json e numa aba própria "Backgrounds"
+     do .xlsx (js/xlsxio.js) — nunca como coluna na aba PokéAgenda. */
+  backgroundMarks: Object.create(null),
 
   load() {
     try {
@@ -41,6 +49,7 @@ const Store = {
       this.meta = Object.assign(this.meta, o.meta || {});
       this.customTiers = o.customTiers || [];
       this.customMarks = o.customMarks || Object.create(null);
+      this.backgroundMarks = o.backgroundMarks || Object.create(null);
       return true;
     } catch (e) {
       console.warn("marks illegible, starting empty", e);
@@ -52,7 +61,8 @@ const Store = {
     try {
       localStorage.setItem(KEY, JSON.stringify({
         v: 1, marks: this.marks, meta: this.meta,
-        customTiers: this.customTiers, customMarks: this.customMarks
+        customTiers: this.customTiers, customMarks: this.customMarks,
+        backgroundMarks: this.backgroundMarks
       }));
       return true;
     } catch (e) {
@@ -66,6 +76,7 @@ const Store = {
     this.meta = { lastImport: null, lastExport: null, dirty: false, active: false };
     this.customTiers = [];
     this.customMarks = Object.create(null);
+    this.backgroundMarks = Object.create(null);
     try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
   },
 
@@ -75,6 +86,7 @@ const Store = {
     this.meta = { lastImport: null, lastExport: null, dirty: false, active: true };
     this.customTiers = [];
     this.customMarks = Object.create(null);
+    this.backgroundMarks = Object.create(null);
     this.save();
   },
 
@@ -104,6 +116,27 @@ const Store = {
     this.meta.dirty = true;
     this.save();
     return on;
+  },
+
+  /* ---- dex de backgrounds ---- */
+  hasBackgroundMark(bgId, pokemonId) {
+    const m = this.backgroundMarks[bgId];
+    return !!(m && m[pokemonId]);
+  },
+  toggleBackgroundMark(bgId, pokemonId) {
+    let m = this.backgroundMarks[bgId];
+    if (!m) m = this.backgroundMarks[bgId] = {};
+    const on = !m[pokemonId];
+    if (on) m[pokemonId] = 1; else delete m[pokemonId];
+    if (!on && Object.keys(m).length === 0) delete this.backgroundMarks[bgId];
+    this.meta.dirty = true;
+    this.save();
+    return on;
+  },
+  /* Substitui tudo (usado pela importação — planilha ou backup .json). */
+  replaceAllBackgroundMarks(marks) {
+    this.backgroundMarks = marks || Object.create(null);
+    this.save();
   },
 
   has(id, key) { return ((this.marks[id] || 0) & MARK_BIT[key]) !== 0; },

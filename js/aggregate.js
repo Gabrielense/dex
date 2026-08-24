@@ -22,6 +22,7 @@ const Agg = {
     this.catdoc = catdoc || {};
     this.byCat = {};
     categories.forEach(c => { this.byCat[c.key] = c; });
+    this.backgrounds = [];
 
     /* Grafo de evolução -> quem precede cada NÚMERO (não forma: a busca do
        jogo agrupa por número, e "quem evolui pra isso" já é a mesma pergunta
@@ -568,6 +569,35 @@ const Agg = {
       }
     }
     return { total, byMark };
+  },
+
+  /* ---------------------------------------------------------- backgrounds
+     Dex de backgrounds: marca PROPRIA por par (background, Pokemon) -
+     Store.hasBackgroundMark. Nao da pra derivar da marca "caught": o
+     mesmo Pokemon pode ter sido registrado com backgrounds diferentes (ou
+     nenhum) em capturas diferentes ao longo do tempo. */
+  initBackgrounds(data) {
+    this.backgrounds = (data && data.backgrounds) || [];
+  },
+
+  backgroundStats(type) {
+    const bgs = this.backgrounds.filter(b => b.type === type);
+    let bgOwned = 0, pkmnTotal = 0, pkmnOwned = 0;
+    for (const b of bgs) {
+      let owned = 0;
+      for (const p of b.pokemon) if (Store.hasBackgroundMark(b.id, p.id)) owned++;
+      pkmnTotal += b.pokemon.length;
+      pkmnOwned += owned;
+      if (owned > 0) bgOwned++;
+    }
+    return { bgTotal: bgs.length, bgOwned, pkmnTotal, pkmnOwned };
+  },
+
+  backgroundItems(type) {
+    return this.backgrounds
+      .filter(b => b.type === type)
+      .map(b => ({ ...b, caught: b.pokemon.filter(p => Store.hasBackgroundMark(b.id, p.id)).length }))
+      .sort((a, b) => (b.year - a.year) || a.name.localeCompare(b.name));
   },
 
   entryTimeline(entry) {

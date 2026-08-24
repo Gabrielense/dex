@@ -9,12 +9,12 @@ setlocal
 cd /d "%~dp0"
 
 echo.
-echo [1/3] Lendo a planilha e gerando data\skeleton.json...
+echo [1/4] Lendo a planilha e gerando data\skeleton.json...
 python tools\export_skeleton.py %1
 if errorlevel 1 goto :erro
 
 echo.
-echo [2/3] Conferindo as contas contra a aba Resumo...
+echo [2/4] Conferindo as contas contra a aba Resumo...
 python tools\check_resumo.py %1
 if errorlevel 1 (
   echo.
@@ -24,8 +24,17 @@ if errorlevel 1 (
 )
 
 echo.
-echo [3/3] Publicando...
-git add data\skeleton.json data\categories.json
+echo [3/4] Atualizando data\backgrounds.json (Fandom)...
+python tools\build_backgrounds.py
+if errorlevel 1 (
+  echo.
+  echo   Nao consegui atualizar os backgrounds ^(sem internet? Fandom fora do ar?^).
+  echo   Publicando mesmo assim com o backgrounds.json que ja existia.
+)
+
+echo.
+echo [4/4] Publicando...
+git add data\skeleton.json data\categories.json data\backgrounds.json
 git diff --cached --quiet
 if not errorlevel 1 (
   echo   Nada mudou nos dados. Nada a publicar.

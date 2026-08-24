@@ -1099,6 +1099,133 @@ const Living = {
   }
 };
 
+/* =========================================================== BACKGROUNDS
+   Sem marca propria: "tenho este background" e derivado da marca "caught"
+   de sempre (ver Agg.backgroundStats/backgroundItems). Especiais primeiro
+   e por padrao - presenciais ficam numa sub-aba a parte porque a imensa
+   maioria e impossivel de completar sem ter ido ao evento (PLANS.md). */
+const Backgrounds = {
+  state: { tab: "special" },
+
+  render(root) {
+    if (!Agg.backgrounds || !Agg.backgrounds.length) {
+      const e = el("div", "panel empty-state");
+      e.append(Icons.svg("gallery", 38), el("div", null, t("bg.unavailable")));
+      root.appendChild(e);
+      return;
+    }
+
+    const p1 = el("div", "panel");
+    p1.append(el("h2", null, t("bg.title")), el("p", "sub", t("bg.sub")));
+    const summary = el("div", "kpis");
+    summary.append(this.summaryCard("special", "sparkle", "#E0A21B"),
+                   this.summaryCard("location", "globe", "#3A6FB0"));
+    p1.appendChild(summary);
+    root.appendChild(p1);
+
+    const p2 = el("div", "panel");
+    const chips = el("div", "chips");
+    for (const [key, icon] of [["special", "sparkle"], ["location", "globe"]]) {
+      const c = el("button", "chip" + (this.state.tab === key ? " is-on" : ""));
+      c.append(Icons.svg(icon, 14), el("span", null, t("bg." + key)));
+      c.addEventListener("click", () => { this.state.tab = key; App.rerender(); });
+      chips.appendChild(c);
+    }
+    p2.appendChild(chips);
+
+    const items = Agg.backgroundItems(this.state.tab);
+    if (this.state.tab === "location") {
+      p2.appendChild(el("p", "small dim", t("bg.locationNote")));
+    }
+    p2.appendChild(el("p", "small dim", t("bg.count", { n: items.length })));
+    if (!Store.isEmpty()) p2.appendChild(el("p", "small dim", t("bg.tapHint")));
+
+    if (!items.length) {
+      p2.appendChild(el("div", "empty-state", t("bg.noneYet")));
+    } else {
+      const grid = el("div", "bg-grid");
+      for (const b of items) grid.appendChild(this.card(b));
+      p2.appendChild(grid);
+    }
+    root.appendChild(p2);
+  },
+
+  summaryCard(type, icon, color) {
+    const s = Agg.backgroundStats(type);
+    const b = el("div", "kpi noclick");
+    b.style.setProperty("--c", color);
+    const top = el("div", "kpi-top");
+    top.append(Icons.svg(icon, 20), el("span", "kpi-name", t("bg." + type)));
+    const num = el("div", "kpi-num");
+    num.append(document.createTextNode(String(s.bgOwned)), el("span", "of", " / " + s.bgTotal));
+    const bar = el("div", "bar");
+    const fill = el("i");
+    const p = pct(s.bgOwned, s.bgTotal);
+    fill.style.width = p + "%";
+    if (p >= 100) fill.className = "full";
+    bar.appendChild(fill);
+    const sub = el("div", "kpi-sub");
+    sub.append(el("span", null, p + "%"),
+      el("span", "dim", t("bg.pokemonCount", { c: s.pkmnOwned, n: s.pkmnTotal })));
+    b.append(top, num, bar, sub);
+    return b;
+  },
+
+  card(bg) {
+    const card = el("div", "bg-card" + (bg.caught === 0 ? " is-empty" : ""));
+    const banner = el("div", "bg-banner");
+    banner.style.backgroundImage = `url("${bg.image}")`;
+    card.appendChild(banner);
+
+    const allCaught = bg.pokemon.length > 0 && bg.caught === bg.pokemon.length;
+    const progress = el("div", "bg-progress" + (allCaught ? " done" : ""),
+      `${bg.caught} / ${bg.pokemon.length}`);
+    const info = el("div", "bg-info");
+    info.append(el("div", "bg-name", bg.name), progress);
+    card.appendChild(info);
+
+    if (bg.events && bg.events.length) {
+      card.appendChild(el("div", "small dim bg-events", bg.events.join(" · ")));
+    }
+
+    const canMark = !Store.isEmpty();
+    const sprites = el("div", "bg-sprites");
+    for (const p of bg.pokemon) {
+      const entry = Agg.byId.get(p.id);
+      if (!entry) continue;
+      const got = Store.hasBackgroundMark(bg.id, p.id);
+      const s = el("div", "bg-sprite" + (got ? " got" : ""));
+      s.title = nameOf(entry) + (p.viaEvolution ? " (" + t("bg.viaEvolution") + ")" : "") +
+        (canMark ? " — " + t("bg.tapHint") : "");
+      s.appendChild(Sprites.img(entry, false));
+      /* marcacao rapida: clique liga/desliga o par (background, Pokemon) -
+         mesmo espirito do botao ✓ quick nas outras telas. De propósito NÃO
+         reconstroi o card inteiro, só o que mudou (ver monCard). */
+      if (canMark) {
+        s.setAttribute("role", "button");
+        s.tabIndex = 0;
+        const toggle = () => {
+          const on = Store.toggleBackgroundMark(bg.id, p.id);
+          s.classList.toggle("got", on);
+          const nowCaught = bg.pokemon.filter(pp => Store.hasBackgroundMark(bg.id, pp.id)).length;
+          bg.caught = nowCaught;
+          progress.textContent = `${nowCaught} / ${bg.pokemon.length}`;
+          progress.classList.toggle("done", nowCaught === bg.pokemon.length);
+          card.classList.toggle("is-empty", nowCaught === 0);
+          App.markDirty();
+        };
+        s.addEventListener("click", toggle);
+        s.addEventListener("keydown", e => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+        });
+      }
+      sprites.appendChild(s);
+    }
+    card.appendChild(sprites);
+    return card;
+  }
+};
+
 /* ============================================================= ficha */
 const MARK_GATE = {
   caught: "base", shiny: "shiny", shinyDex: "shiny", shadow: "shadow",

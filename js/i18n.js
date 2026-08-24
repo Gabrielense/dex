@@ -2,7 +2,7 @@
 const I18N = {
   pt: {
     "nav.dashboard": "Painel", "nav.lists": "Faltantes",
-    "nav.living": "Dex Viva",
+    "nav.living": "Dex Viva", "nav.backgrounds": "Backgrounds",
     "nav.timeline": "Lançamentos", "nav.data": "Meus dados",
     "ui.showMore": "Mostrar mais ({n} restantes)",
     "loading": "Carregando…",
@@ -90,6 +90,7 @@ const I18N = {
     "data.unmatched": "{n} linhas da planilha não têm par no esqueleto",
     "data.newRows": "Provavelmente são entradas novas: atualize o esqueleto (tools/export_skeleton.py).",
     "data.marksFound": "{n} marcas lidas",
+    "data.bgMarksFound": "{n} marcas de background lidas",
     "data.done": "Pronto!",
     "data.err": "Não consegui ler o arquivo",
     "data.skeleton": "Esqueleto", "data.entries": "entradas",
@@ -153,11 +154,22 @@ const I18N = {
 
     "health.title": "Marcas que não estão contando",
     "health.sub": "{n} marcas suas caem em entradas sem a data de estreia correspondente, então nenhuma conta entra nelas — nem aqui, nem na sua planilha.",
-    "health.hint": "Ou a marca está errada, ou falta preencher a data de estreia na planilha. Depois de preencher, rode tools/export_skeleton.py e publique de novo."
+    "health.hint": "Ou a marca está errada, ou falta preencher a data de estreia na planilha. Depois de preencher, rode tools/export_skeleton.py e publique de novo.",
+
+    "bg.title": "Dex de Backgrounds",
+    "bg.sub": "Os planos de fundo colecionáveis de eventos. Um background conta como seu assim que você registra qualquer Pokémon elegível — inclusive quem chegou lá evoluindo de um deles.",
+    "bg.special": "Especiais", "bg.location": "Presenciais",
+    "bg.pokemonCount": "{c} / {n} Pokémon",
+    "bg.locationNote": "Presenciais dependem de ter ido ao evento — a maioria é praticamente impossível de completar à distância. Aqui é só pra acompanhar o que você já tem.",
+    "bg.unavailable": "Lista de backgrounds indisponível no momento.",
+    "bg.viaEvolution": "via evolução",
+    "bg.noneYet": "Nenhum background aqui ainda.",
+    "bg.count": "{n} backgrounds",
+    "bg.tapHint": "clique para marcar que você tem este Pokémon com este background"
   },
   en: {
     "nav.dashboard": "Dashboard", "nav.lists": "Missing",
-    "nav.living": "Living Dex",
+    "nav.living": "Living Dex", "nav.backgrounds": "Backgrounds",
     "nav.timeline": "Releases", "nav.data": "My data",
     "ui.showMore": "Show more ({n} left)",
     "loading": "Loading…",
@@ -245,6 +257,7 @@ const I18N = {
     "data.unmatched": "{n} spreadsheet rows have no match in the skeleton",
     "data.newRows": "These are probably new entries: refresh the skeleton (tools/export_skeleton.py).",
     "data.marksFound": "{n} marks read",
+    "data.bgMarksFound": "{n} background marks read",
     "data.done": "Done!",
     "data.err": "Couldn't read the file",
     "data.skeleton": "Skeleton", "data.entries": "entries",
@@ -308,7 +321,18 @@ const I18N = {
 
     "health.title": "Marks that aren't counting",
     "health.sub": "{n} of your marks sit on entries with no matching debut date, so no count includes them — not here, and not in your spreadsheet either.",
-    "health.hint": "Either the mark is wrong, or the debut date is missing from the spreadsheet. Once you fill it in, run tools/export_skeleton.py and publish again."
+    "health.hint": "Either the mark is wrong, or the debut date is missing from the spreadsheet. Once you fill it in, run tools/export_skeleton.py and publish again.",
+
+    "bg.title": "Background Dex",
+    "bg.sub": "Collectible event backgrounds. A background counts as yours as soon as you register any eligible Pokémon — including ones reached by evolving one of them.",
+    "bg.special": "Special", "bg.location": "Location",
+    "bg.pokemonCount": "{c} / {n} Pokémon",
+    "bg.locationNote": "Location backgrounds require having attended the event — most are practically impossible to complete remotely. This is just to track what you already have.",
+    "bg.unavailable": "Background list unavailable right now.",
+    "bg.viaEvolution": "via evolution",
+    "bg.noneYet": "No backgrounds here yet.",
+    "bg.count": "{n} backgrounds",
+    "bg.tapHint": "click to mark that you have this Pokémon with this background"
   }
 };
 

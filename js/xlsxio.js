@@ -43,8 +43,12 @@ const XlsxIO = (() => {
       String(d.getUTCDate()).padStart(2, "0")].join("-");
   }
 
-  /* ------------------------------------------------------------ read */
-  async function readSheet(arrayBuffer, preferSheetName) {
+  /* ------------------------------------------------------------ read
+     opts.requireName: quando true, so aceita a aba de nome EXATO
+     preferSheetName - lanca SHEET_NOT_FOUND em vez de cair pra sheets[0].
+     Usado pra ler a aba opcional "Backgrounds" sem confundir com os dados
+     principais quando a planilha e antiga e nao tem essa aba ainda. */
+  async function readSheet(arrayBuffer, preferSheetName, opts) {
     const files = await Zip.read(arrayBuffer);
     const dec = new TextDecoder("utf-8");
     const parser = new DOMParser();
@@ -74,7 +78,11 @@ const XlsxIO = (() => {
         relMap[r.getAttribute("Id")] = r.getAttribute("Target");
       }
       const sheets = Array.from(wbx.getElementsByTagName("sheet"));
-      let pick = sheets.find(s => s.getAttribute("name") === preferSheetName) || sheets[0];
+      const byName = sheets.find(s => s.getAttribute("name") === preferSheetName);
+      if (opts && opts.requireName && !byName) {
+        throw new Error("SHEET_NOT_FOUND");
+      }
+      let pick = byName || sheets[0];
       if (pick) {
         const rid = pick.getAttributeNS(
           "http://schemas.openxmlformats.org/officeDocument/2006/relationships", "id")
@@ -158,6 +166,39 @@ const XlsxIO = (() => {
       out.push({ id, marks });
     }
     return { rows: out, report };
+  }
+
+  /* Cabecalhos da aba "Backgrounds" -> indice de coluna. */
+  const BG_SHEET_COLUMNS = [
+    ["ID do Background", "bgId"], ["Nome do Background", "bgName"],
+    ["Tipo", "bgType"], ["ID do Pokémon", "pokemonId"],
+    ["Nome do Pokémon", "pokemonName"], ["Via evolução", "viaEvolution"],
+    ["Marcado", "marked"]
+  ];
+
+  /* rows: saida crua de readSheet(arrayBuffer, "Backgrounds", {requireName:true}).
+     -> { bgId: { pokemonId: 1 } }, só os pares marcados com "x". */
+  function backgroundRowsToMarks(rows) {
+    if (!rows.length) return {};
+    const header = rows[0].map(h => normHeader(h));
+    const idx = {};
+    for (const [h, k] of BG_SHEET_COLUMNS) {
+      const i = header.indexOf(normHeader(h));
+      if (i >= 0) idx[k] = i;
+    }
+    if (idx.bgId === undefined || idx.pokemonId === undefined) return {};
+    const out = Object.create(null);
+    for (let r = 1; r < rows.length; r++) {
+      const row = rows[r];
+      const marked = String(row[idx.marked] || "").trim();
+      if (!marked) continue;
+      const bgId = String(row[idx.bgId] || "").trim();
+      const pokemonId = String(row[idx.pokemonId] || "").trim();
+      if (!bgId || !pokemonId) continue;
+      if (!out[bgId]) out[bgId] = {};
+      out[bgId][pokemonId] = 1;
+    }
+    return out;
   }
 
   function normHeader(s) {
@@ -415,12 +456,56 @@ const XlsxIO = (() => {
     add([[0, "Depois de preencher", subXf]]);
     skip();
     add([[0, "Salve o arquivo e importe pela aba \"Meus dados\" do site — suas marcas substituem as que já estavam salvas neste navegador."]]);
+    skip();
+    add([[0, "A aba \"Backgrounds\" é separada: cada linha é um Pokémon elegível para um background de evento. Marque a coluna \"Marcado\" para o Pokémon que você pegou COM aquele background especificamente — o mesmo Pokémon pode aparecer marcado numa linha e não marcado em outra, já que o registro normal (\"Registro\") não distingue de qual captura veio."]]);
 
     return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
 <sheetFormatPr defaultRowHeight="16"/>
 <cols><col min="1" max="1" width="4" customWidth="1"/><col min="2" max="2" width="26" customWidth="1"/><col min="3" max="3" width="85" customWidth="1"/></cols>
 <sheetData>${rows.join("")}</sheetData>
+</worksheet>`;
+  }
+
+  /* Aba "Backgrounds": uma linha por PAR (background, Pokémon elegível) -
+     é N-pra-N, não cabe como coluna na aba principal (ver PLANS.md item 2).
+     blank=true (planilha em branco) gera a aba com a coluna Marcado vazia. */
+  function backgroundsSheetXml(styles, blank) {
+    const { headerXf } = styles;
+    const bgs = (typeof Agg !== "undefined" && Agg.backgrounds) || [];
+    const head = BG_SHEET_COLUMNS.map(([h]) => h);
+    const rows = [];
+    const headCells = head.map((v, i) => {
+      const key = BG_SHEET_COLUMNS[i][1];
+      const color = key === "marked" ? headerColorFor("caught") : REF_COLOR;
+      return xCell(colName(i) + "1", v, headerXf[color]);
+    }).join("");
+    rows.push(`<row r="1" customHeight="1" ht="30">${headCells}</row>`);
+
+    let r = 2;
+    for (const bg of bgs) {
+      for (const p of bg.pokemon) {
+        const entry = Agg.byId && Agg.byId.get(p.id);
+        const marked = !blank && Store.hasBackgroundMark(bg.id, p.id) ? "x" : "";
+        const vals = [
+          bg.id, bg.name, bg.type === "special" ? "Especial" : "Presencial",
+          p.id, entry ? (LANG === "en" ? (entry.nameEn || entry.namePt) : entry.namePt) : "",
+          p.viaEvolution ? "Sim" : "", marked
+        ];
+        const cells = vals.map((v, ci) => xCell(colName(ci) + r, v)).join("");
+        rows.push(`<row r="${r}">${cells}</row>`);
+        r++;
+      }
+    }
+
+    const lastCol = colName(head.length - 1);
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>
+<sheetFormatPr defaultRowHeight="15"/>
+<cols><col min="1" max="2" width="26" customWidth="1"/><col min="5" max="5" width="24" customWidth="1"/></cols>
+<sheetData>${rows.join("")}</sheetData>
+<autoFilter ref="A1:${lastCol}${r - 1}"/>
 </worksheet>`;
   }
 
@@ -431,6 +516,7 @@ const XlsxIO = (() => {
 <Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
 <Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
 <Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
+<Override PartName="/xl/worksheets/sheet3.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
 <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
 </Types>`;
 
@@ -441,10 +527,12 @@ const XlsxIO = (() => {
 
   /* "Instruções" aparece primeiro (é a aba que abre), mas o arquivo físico
      sheet1.xml continua sendo o de dados — mantém o fallback de leitura
-     (readSheet cai em sheet1.xml se não conseguir resolver pelo nome). */
+     (readSheet cai em sheet1.xml se não conseguir resolver pelo nome).
+     "Backgrounds" vem por último, como aba opcional (arquivos antigos
+     simplesmente não têm o rId4/sheet3.xml). */
   const WORKBOOK = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-<sheets><sheet name="Instruções" sheetId="2" r:id="rId2"/><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/></sheets>
+<sheets><sheet name="Instruções" sheetId="2" r:id="rId2"/><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/><sheet name="Backgrounds" sheetId="3" r:id="rId4"/></sheets>
 </workbook>`;
 
   const WB_RELS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -452,6 +540,7 @@ const XlsxIO = (() => {
 <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>
 <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/>
 <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+<Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet3.xml"/>
 </Relationships>`;
 
   async function buildXlsx(skeleton, blank) {
@@ -465,7 +554,8 @@ const XlsxIO = (() => {
       { name: "xl/_rels/workbook.xml.rels", data: enc.encode(WB_RELS) },
       { name: "xl/styles.xml", data: enc.encode(styles.xml) },
       { name: "xl/worksheets/sheet1.xml", data: enc.encode(dataSheetXml(head, body, skeleton.entries, styles)) },
-      { name: "xl/worksheets/sheet2.xml", data: enc.encode(instructionsSheetXml(styles)) }
+      { name: "xl/worksheets/sheet2.xml", data: enc.encode(instructionsSheetXml(styles)) },
+      { name: "xl/worksheets/sheet3.xml", data: enc.encode(backgroundsSheetXml(styles, blank)) }
     ]);
   }
 
@@ -497,7 +587,9 @@ const XlsxIO = (() => {
       marks,
       /* dexes personalizadas viajam no backup (a planilha não as carrega) */
       customTiers: Store.customTiers,
-      customMarks: Store.customMarks
+      customMarks: Store.customMarks,
+      /* dex de backgrounds tambem viaja aqui, alem da aba propria no .xlsx */
+      backgroundMarks: Store.backgroundMarks
     }, null, 1)], { type: "application/json" });
   }
 
@@ -508,6 +600,7 @@ const XlsxIO = (() => {
       Store.customTiers = o.customTiers;
       Store.customMarks = o.customMarks || {};
     }
+    if (o.backgroundMarks) Store.backgroundMarks = o.backgroundMarks;
     const known = new Set(skeleton.entries.map(e => e.id));
     const report = { matched: 0, unmatched: [], marks: 0, rows: Object.keys(o.marks).length };
     const rows = [];
@@ -544,6 +637,6 @@ const XlsxIO = (() => {
     return rowsToMarks(rows, skeleton);
   }
 
-  return { readSheet, rowsToMarks, readJson, readCsv,
+  return { readSheet, rowsToMarks, readJson, readCsv, backgroundRowsToMarks,
            buildXlsx, buildCsv, buildJson, SHEET_COLUMNS };
 })();
