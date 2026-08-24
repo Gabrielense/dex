@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PokéAgenda</title>
+<meta name="description" content="Acompanhe sua coleção de Pokémon GO: progresso por região, listas do que falta e a linha do tempo dos lançamentos.">
+<meta name="theme-color" content="#d8232f">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23d8232f'/><path d='M4 50h92' stroke='%23111' stroke-width='10'/><circle cx='50' cy='50' r='16' fill='%23fff' stroke='%23111' stroke-width='10'/></svg>">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <span class="lens" aria-hidden="true"></span>
+    <span class="leds" aria-hidden="true">
+      <span class="led r"></span><span class="led y"></span><span class="led g"></span>
+    </span>
+    <div class="brand">
+      <h1>PokéAgenda</h1>
+      <span class="tag" id="brandTag">Pokédex pessoal</span>
+    </div>
+    <div class="topbar-right">
+      <button class="chrome-btn" id="langBtn" title="Português / English"><span id="langLabel">PT</span></button>
+      <button class="chrome-btn" id="themeBtn" title="Tema / Theme">◐</button>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs" role="tablist">
+    <button class="tab is-active" data-view="dashboard" role="tab" data-i18n="nav.dashboard">Painel</button>
+    <button class="tab" data-view="lists" role="tab" data-i18n="nav.lists">Faltantes</button>
+    <button class="tab" data-view="living" role="tab" data-i18n="nav.living">Living Dex</button>
+    <button class="tab" data-view="timeline" role="tab" data-i18n="nav.timeline">Lançamentos</button>
+    <button class="tab" data-view="data" role="tab" data-i18n="nav.data">Meus dados</button>
+  </nav>
+</header>
+
+<div id="banner" class="banner is-hidden">
+  <div class="banner-in">
+    <span id="bannerText"></span>
+    <button class="banner-cta" id="bannerCta" data-i18n="banner.cta">Importar planilha</button>
+    <button class="banner-x" id="bannerX" aria-label="Fechar">×</button>
+  </div>
+</div>
+
+<main id="main">
+  <p class="loading" id="loading" data-i18n="loading">Carregando…</p>
+</main>
+
+<footer class="foot">
+  <span data-i18n="foot.by">Feito por</span>
+  <a href="https://github.com/Gabrielense" target="_blank" rel="noopener">Gabrielense</a>
+  ·
+  <a href="https://www.buymeacoffee.com/gabrielense" target="_blank" rel="noopener" data-i18n="foot.coffee">Buy me a coffee</a>
+  ·
+  <span id="footStamp" class="dim"></span>
+  <div class="dim small" data-i18n="foot.privacy" style="margin-top:5px">
+    Seus dados ficam só no seu navegador. Nada é enviado para nenhum servidor.
+  </div>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/icons.js"></script>
+<script src="js/store.js"></script>
+<script src="js/aggregate.js"></script>
+<script src="js/zip.js"></script>
+<script src="js/xlsxio.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/views.js"></script>
+<script src="js/dataview.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
