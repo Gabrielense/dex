@@ -163,10 +163,14 @@ const Dashboard = {
          miss <= 0 ? t("dash.complete") : missingLabel(miss)));
 
     b.append(top, num, bar, sub);
-    /* O que existe na planilha mas ainda nem saiu no jogo (inclui a Gen 10
-       inteira, hoje) — único lugar do painel que cita isso. */
+    /* Só no card Pokémon: nos outros, "não lançado" ou é o mesmo número do
+       Pokémon (XXL/XXS/100%/Sortudo travam na mesma data-base — repetir
+       seria ruído) ou é uma aposta que não dá pra fazer (Sombroso,
+       Purificado, Dinamax, Fantasia sombrosa etc. não têm garantia de que
+       algum dia saem pra todo mundo). Só a dex em si é praticamente certa
+       de chegar com o tempo — é o único "não lançado" que faz sentido citar. */
     const unrel = s.total - s.released;
-    if (unrel > 0) {
+    if (unrel > 0 && cat.key === "pokemon") {
       b.appendChild(el("div", "kpi-sub", t("lists.unreleasedCount", { n: unrel })));
     }
     b.title = `${catLabel(cat)}\n${s.caught} / ${s.released} ${t("dash.released")}\n` +
