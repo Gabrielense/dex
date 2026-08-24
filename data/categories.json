@@ -23,6 +23,7 @@
       "labelPt": "Brilhante", "labelEn": "Shiny",
       "shortPt": "Brilh.", "shortEn": "Shiny",
       "scope": "dex", "gate": "shiny", "mark": "shinyDex",
+      "searchKeyword": { "pt": "brilhante", "en": "shiny" },
       "resumo": { "caught": 17, "released": 18 }
     },
     {
@@ -31,6 +32,7 @@
       "shortPt": "Sortudo", "shortEn": "Lucky",
       "scope": "dex", "gate": "base", "mark": "lucky",
       "denomExcludeFlag": "notrade",
+      "searchKeyword": { "pt": "sortudo", "en": "lucky" },
       "resumo": { "caught": 19, "released": 20 }
     },
     {
@@ -68,6 +70,7 @@
       "labelPt": "Purificado", "labelEn": "Purified",
       "shortPt": "Purif.", "shortEn": "Purified",
       "scope": "dex", "gate": "shadow", "mark": "purified",
+      "searchKeyword": { "pt": "purificado", "en": "purified" },
       "resumo": { "caught": 30, "released": 31 }
     },
     {
@@ -75,6 +78,7 @@
       "labelPt": "Sombroso brilhante", "labelEn": "Shiny shadow",
       "shortPt": "Sombr. ✦", "shortEn": "Shiny shad.",
       "scope": "dex", "gate": "shadowShiny", "mark": "shadowShiny",
+      "searchKeyword": { "pt": "sombroso&brilhante", "en": "shadow&shiny" },
       "resumo": { "caught": 28, "released": 29 }
     },
 
@@ -91,6 +95,7 @@
       "labelPt": "Dinamax brilhante", "labelEn": "Shiny Dynamax",
       "shortPt": "Dinamax ✦", "shortEn": "Shiny Dmax",
       "scope": "entry", "gate": "dmaxShiny", "mark": "dmaxShiny",
+      "searchKeyword": { "pt": "dinamax&brilhante", "en": "dynamax&shiny" },
       "resumo": { "caught": 25, "released": 26 }
     },
     {
@@ -102,7 +107,7 @@
         { "flag": "mega" },
         { "equals": { "field": "altFormPt", "value": "Primitivo" } }
       ] },
-      "searchKeyword": { "pt": "megaevolui", "en": "megaevolve" },
+      "searchKeyword": { "pt": "mega", "en": "mega" },
       "resumo": { "caught": 32, "released": 33, "total": 34 }
     },
     {
@@ -113,7 +118,8 @@
       "subset": { "any": [
         { "flag": "mega" },
         { "equals": { "field": "altFormPt", "value": "Primitivo" } }
-      ] }
+      ] },
+      "searchKeyword": { "pt": "mega&brilhante", "en": "mega&shiny" }
     },
     {
       "key": "gmax", "icon": "gmax", "group": "special", "color": "#B32A70",
@@ -130,6 +136,7 @@
       "shortPt": "Gigamax ✦", "shortEn": "Shiny Gmax",
       "scope": "entry", "gate": "shiny", "mark": "shiny",
       "subset": { "flag": "gmax" },
+      "searchKeyword": { "pt": "gigamax&brilhante", "en": "gigantamax&shiny" },
       "resumo": { "caught": 36, "released": 37 }
     },
 
@@ -193,7 +200,8 @@
       "labelPt": "Fantasia brilhante", "labelEn": "Shiny costume",
       "shortPt": "Fant. ✦", "shortEn": "Shiny cost.",
       "scope": "entry", "gate": "shiny", "mark": "shiny",
-      "subset": { "nonempty": "costumePt" }
+      "subset": { "nonempty": "costumePt" },
+      "searchKeyword": { "pt": "traje&brilhante", "en": "costume&shiny" }
     },
     {
       "key": "costumeShadow", "icon": "hatFlame", "group": "variant", "color": "#9A5C3C",
