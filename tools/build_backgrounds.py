@@ -1009,6 +1009,22 @@ EXTRA_POKEMON = {
     "special-background-gofest-2025-shield": ["0889-00-01"],
 }
 
+# bg_id -> [(celula de Pokemon em wikitext, texto do evento)] - linhas que o
+# Fandom ainda nao tem, afirmadas pelo Gabriel. Passam pelo MESMO caminho das
+# linhas do wiki (casamento + evolucao pra frente + evento), entao Zorua leva
+# Zoroark junto. Quando o wiki ganhar a linha, esta vira redundante (inofensiva).
+# bg_id -> [(Pokemon cell as wikitext, event text)] - rows Fandom doesn't have
+# yet, stated by Gabriel. They go through the SAME path as wiki rows (matching
+# + forward evolution + event), so Zorua brings Zoroark along. Once the wiki
+# gets the row this becomes redundant (harmless).
+EXTRA_ROWS = {
+    # Dia Comunitario do Zorua (10/10/2026) tambem deu o fundo de 2026 - o
+    # wiki parou no Gible (13/09). Afirmado pelo Gabriel em 2026-10-12.
+    "special-background-community-2026": [
+        ("{{I|Zorua||70px|t=t}}", "October 2026 Community Day · October 10"),
+    ],
+}
+
 # (bg_id, num) -> True quando o brilhante daquele Pokemon especifico ainda
 # NAO tinha sido lancado no momento em que ESSE background saiu (mesmo que
 # o brilhante exista hoje) - confirmado pelo Gabriel caso a caso. O
@@ -1146,6 +1162,14 @@ def main():
                         bg_id = slugify(filename)
                         bg_id = BG_ID_ALIASES.get(bg_id, bg_id)
                         add_row(get_bg(bg_id, filename, name, type_, year), bg_id, pokemon_cell, event_cell)
+
+    for bg_id, rows in EXTRA_ROWS.items():
+        bg = backgrounds.get(bg_id)
+        if not bg:
+            print("AVISO: EXTRA_ROWS %s nao existe no wiki / not on the wiki" % bg_id)
+            continue
+        for pokemon_cell, event_text in rows:
+            add_row(bg, bg_id, pokemon_cell, event_text)
 
     for bg_id, extra_ids in EXTRA_POKEMON.items():
         bg = backgrounds.get(bg_id)
