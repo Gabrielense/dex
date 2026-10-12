@@ -333,6 +333,10 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 }
 .chip:hover{border-color:var(--dex-red)}
 .chip.is-on{background:var(--dex-red);color:#fff;border-color:var(--dex-red-dk);font-weight:650}
+/* filtro de tags do Faltantes: 3º estado = "exceto esta tag" */
+.chip.is-out{border-style:dashed;border-color:var(--dex-red);color:var(--dex-red);text-decoration:line-through;font-weight:650}
+.tag-filter{margin-top:10px;align-items:center}
+.tag-filter .small{margin-right:2px}
 
 /* =========================== grade de sprites =========================== */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:9px}

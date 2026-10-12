@@ -374,8 +374,21 @@ const Dashboard = {
 };
 
 /* ============================================================ FALTANTES */
+/* Tags que dá pra filtrar no Faltantes, na ordem dos chips. Cada chip tem 3
+   estados: neutro -> "só" (is-on) -> "exceto" (is-out) -> neutro. Vários
+   "só" = qualquer um deles (OU); qualquer "exceto" tira o item. */
+const LIST_TAGS = ["legendary", "mythical", "ultrabeast", "paradox", "pseudo", "starter",
+                   "baby", "regional", "exclusive", "mega", "gmax", "notrade"];
+
+function itemFlags(it) {
+  const s = new Set();
+  for (const e of [it.display].concat(it.entries || [])) for (const f of (e && e.flags) || []) s.add(f);
+  return s;
+}
+
 const Lists = {
-  state: { cat: "pokemon", region: "", q: "", showUnreleased: false, showRegistered: false, includePreEvo: false },
+  state: { cat: "pokemon", region: "", q: "", showUnreleased: false, showRegistered: false, includePreEvo: false,
+           tags: {} },
 
   render(root, params) {
     if (params && params.cat) this.state.cat = params.cat;
@@ -442,6 +455,30 @@ const Lists = {
     controls.append(catSel, regSel, q, unrel, showReg, preEvo);
     p.appendChild(controls);
 
+    const tagRow = el("div", "chips tag-filter");
+    tagRow.appendChild(el("span", "small dim", t("lists.tags")));
+    for (const f of LIST_TAGS) {
+      const mode = this.state.tags[f];
+      const c = el("button", "chip" + (mode === "only" ? " is-on" : mode === "out" ? " is-out" : ""),
+        flagLabel(f));
+      c.type = "button";
+      c.title = t("lists.tagHint");
+      c.setAttribute("aria-pressed", mode === "only" ? "true" : mode === "out" ? "mixed" : "false");
+      c.addEventListener("click", () => {
+        const next = !mode ? "only" : mode === "only" ? "out" : null;
+        if (next) this.state.tags[f] = next; else delete this.state.tags[f];
+        App.rerender();
+      });
+      tagRow.appendChild(c);
+    }
+    if (Object.keys(this.state.tags).length) {
+      const clr = el("button", "chip", t("lists.tagsClear"));
+      clr.type = "button";
+      clr.addEventListener("click", () => { this.state.tags = {}; App.rerender(); });
+      tagRow.appendChild(clr);
+    }
+    p.appendChild(tagRow);
+
     const body = el("div");
     p.appendChild(body);
     this.paint(body);
@@ -453,10 +490,17 @@ const Lists = {
     const cat = Agg.byCat[this.state.cat];
     const region = this.state.region || null;
     const qq = this.state.q.trim().toLowerCase();
-    const filt = list => !qq ? list : list.filter(it =>
+    const only = LIST_TAGS.filter(f => this.state.tags[f] === "only");
+    const out = LIST_TAGS.filter(f => this.state.tags[f] === "out");
+    const tagOk = it => {
+      if (!only.length && !out.length) return true;
+      const fl = itemFlags(it);
+      return (!only.length || only.some(f => fl.has(f))) && !out.some(f => fl.has(f));
+    };
+    const filt = list => list.filter(it => tagOk(it) && (!qq ||
       nameOf(it.display).toLowerCase().includes(qq) ||
       speciesOf(it.display).toLowerCase().includes(qq) ||
-      String(it.num).includes(qq));
+      String(it.num).includes(qq)));
 
     if (Store.isEmpty()) {
       const e = el("div", "empty-state");
@@ -486,6 +530,7 @@ const Lists = {
         if (cat.mark === "xxl" || cat.mark === "xxs") note += t("lists.includePreEvoNoteSize");
         left.appendChild(el("div", "small dim", note));
       }
+      if (only.length || out.length) left.appendChild(el("div", "small dim", t("lists.tagsBuscaNote")));
       const copy = el("button", "btn");
       copy.append(Icons.svg("copy", 15), el("span", null, t("lists.copy")));
       copy.addEventListener("click", async () => {
