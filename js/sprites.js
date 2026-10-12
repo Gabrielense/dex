@@ -84,8 +84,14 @@ const Sprites = (() => {
     if (s > 1) el.style.transform = "scale(" + s + ")";
   }
 
+  /* pogorewind numera as fantasias de Pikachu com três dígitos
+     (0025-00-00-001…); os IDs da planilha continuam com dois. */
+  function file(id) {
+    return id.replace(/^(0025-00-00-)(\d\d)(?=\+|$)/, "$10$2");
+  }
+
   function url(id, shiny) {
-    return BASE + encodeURIComponent(id + (shiny ? "+S" : "")) + ".png";
+    return BASE + encodeURIComponent(file(id) + (shiny ? "+S" : "")) + ".png";
   }
 
   function chain(entry, shiny) {
