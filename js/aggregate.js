@@ -307,12 +307,14 @@ const Agg = {
      e Ivysaur quando falta Venusaur) - dedupe pelo mesmo Set, então um número
      que já ia entrar por conta própria não repete. Fantasias ficam de fora:
      evoluir a espécie lisa não garante a fantasia (caso a caso, sem dados
-     ainda - ver PLANS.md). */
-  searchString(catKey, region, includePreEvo) {
+     ainda - ver PLANS.md).
+     items (opcional): a lista já filtrada da tela (tags/busca) - só entram
+     os números presentes nela. Sem items, todos os faltantes da região. */
+  searchString(catKey, region, includePreEvo, items) {
     const cat = this.byCat[catKey];
     const seen = new Set(), nums = [];
     const add = n => { if (!seen.has(n)) { seen.add(n); nums.push(n); } };
-    for (const it of this.missing(catKey, region)) {
+    for (const it of (items || this.missing(catKey, region))) {
       add(it.num);
       if (includePreEvo && !it.display.costumePt) {
         for (const anc of this.preEvoNums(it.num)) add(anc);

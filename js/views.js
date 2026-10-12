@@ -378,7 +378,7 @@ const Dashboard = {
    estados: neutro -> "só" (is-on) -> "exceto" (is-out) -> neutro. Vários
    "só" = qualquer um deles (OU); qualquer "exceto" tira o item. */
 const LIST_TAGS = ["legendary", "mythical", "ultrabeast", "paradox", "pseudo", "starter",
-                   "baby", "regional", "exclusive", "mega", "gmax", "notrade"];
+                   "baby", "regional", "exclusive", "mega", "gmax"];
 
 function itemFlags(it) {
   const s = new Set();
@@ -388,7 +388,7 @@ function itemFlags(it) {
 
 const Lists = {
   state: { cat: "pokemon", region: "", q: "", showUnreleased: false, showRegistered: false, includePreEvo: false,
-           tags: {} },
+           tags: {}, filteredStr: true },
 
   render(root, params) {
     if (params && params.cat) this.state.cat = params.cat;
@@ -518,20 +518,36 @@ const Lists = {
     const todo = filt(split.todo);
     const blocked = filt(split.blocked);
 
-    /* string de busca do jogo — só o que dá pra caçar agora */
-    const searchStr = Agg.searchString(this.state.cat, region, this.state.includePreEvo);
-    if (searchStr) {
+    /* string de busca do jogo — só o que dá pra caçar agora. Com filtro de
+       tags/busca ativo, por padrão só entram os números que estão na tela
+       (filteredStr); o botão alterna pra string completa e volta. */
+    const filtering = !!(only.length || out.length || qq);
+    const useFiltered = filtering && this.state.filteredStr;
+    const searchStr = Agg.searchString(this.state.cat, region, this.state.includePreEvo,
+      useFiltered ? todo : null);
+    if (searchStr || filtering) {
       const box = el("div", "busca");
       const left = el("div");
       left.style.flex = "1";
-      left.append(el("div", "small dim", t("lists.busca")), el("code", null, searchStr));
+      left.append(el("div", "small dim", t(useFiltered ? "lists.buscaFiltered" : "lists.busca")),
+        el("code", null, searchStr || "—"));
       if (this.state.includePreEvo) {
         let note = t("lists.includePreEvoNote");
         if (cat.mark === "xxl" || cat.mark === "xxs") note += t("lists.includePreEvoNoteSize");
         left.appendChild(el("div", "small dim", note));
       }
-      if (only.length || out.length) left.appendChild(el("div", "small dim", t("lists.tagsBuscaNote")));
+      if (filtering && !useFiltered) left.appendChild(el("div", "small dim", t("lists.tagsBuscaNote")));
+      const btns = el("div", "chips");
+      btns.style.flexDirection = "column";
+      if (filtering) {
+        const gen = el("button", "btn");
+        gen.type = "button";
+        gen.append(el("span", null, t(useFiltered ? "lists.fullString" : "lists.genFiltered")));
+        gen.addEventListener("click", () => { this.state.filteredStr = !useFiltered; this.paint(body); });
+        btns.appendChild(gen);
+      }
       const copy = el("button", "btn");
+      copy.disabled = !searchStr;
       copy.append(Icons.svg("copy", 15), el("span", null, t("lists.copy")));
       copy.addEventListener("click", async () => {
         try { await navigator.clipboard.writeText(searchStr); }
@@ -542,7 +558,8 @@ const Lists = {
         }
         toast(t("lists.copied"));
       });
-      box.append(left, copy);
+      btns.appendChild(copy);
+      box.append(left, btns);
       body.appendChild(box);
     }
 
