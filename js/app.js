@@ -130,10 +130,12 @@ const App = {
 
     const main = document.getElementById("main");
     main.textContent = "";
+    document.body.classList.remove("gd-on");
     const params = this.params;
     this.params = null;
 
     if (this.view === "dashboard") Dashboard.render(main);
+    else if (this.view === "gamedex") GameDex.render(main);
     else if (this.view === "lists") Lists.render(main, params);
     else if (this.view === "living") Living.render(main);
     else if (this.view === "backgrounds") Backgrounds.render(main);

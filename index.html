@@ -17,7 +17,11 @@
 <meta name="twitter:title" content="PokéAgenda">
 <meta name="twitter:description" content="Acompanhe sua coleção de Pokémon GO: progresso por região, listas do que falta e a linha do tempo dos lançamentos.">
 <meta name="twitter:image" content="assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;800;900&display=swap">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/gamedex.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23d8232f'/><path d='M4 50h92' stroke='%23111' stroke-width='10'/><circle cx='50' cy='50' r='16' fill='%23fff' stroke='%23111' stroke-width='10'/></svg>">
 </head>
 <body>
@@ -39,6 +43,7 @@
   </div>
   <nav class="tabs" id="tabs" role="tablist">
     <button class="tab is-active" data-view="dashboard" role="tab" data-i18n="nav.dashboard">Painel</button>
+    <button class="tab" data-view="gamedex" role="tab" data-i18n="nav.gamedex">Pokédex</button>
     <button class="tab" data-view="lists" role="tab" data-i18n="nav.lists">Faltantes</button>
     <button class="tab" data-view="living" role="tab" data-i18n="nav.living">Living Dex</button>
     <button class="tab" data-view="backgrounds" role="tab" data-i18n="nav.backgrounds">Backgrounds</button>
@@ -80,6 +85,7 @@
 <script src="js/sprites.js"></script>
 <script src="js/views.js"></script>
 <script src="js/dataview.js"></script>
+<script src="js/gamedex.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>
