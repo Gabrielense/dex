@@ -900,6 +900,19 @@ MANUAL_OVERRIDES = {
     "special-background-community-2026": {
         "image": "assets/backgrounds/community-day-2026.jpg",
     },
+    # O Fandom so tem placeholders genericos pra estes dois (Moonlight: colinas
+    # sem lua, 512px; Worlds: degrade liso de 256px, ambos de quem subiu antes
+    # do evento). Arte real de serebii.net/pokemongo/locationcard/moonlight.jpg
+    # e .../pokemonworldchampionships2026.jpg, commitada em assets/backgrounds/
+    # (sem marca d'agua, nao precisou recorte). Pedido pelo Gabriel em 2026-10-12.
+    # Fandom only has generic placeholders for these two; real art from Serebii,
+    # committed locally. Requested by Gabriel on 2026-10-12.
+    "special-background-dancing-in-the-moonlight-2026": {
+        "image": "assets/backgrounds/dancing-in-the-moonlight-2026.jpg",
+    },
+    "special-background-worlds-special-blue": {
+        "image": "assets/backgrounds/worlds-2026-special.jpg",
+    },
 }
 
 # Backgrounds "Special" que na pratica so saem em evento presencial de uma
