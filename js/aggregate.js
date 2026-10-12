@@ -636,13 +636,22 @@ const Agg = {
     this.backgrounds = (data && data.backgrounds) || [];
   },
 
+  /* Fundos "regionExclusive" (especiais que só saíram presencialmente numa
+     região) entram por padrão; a aba Fundos pode escondê-los da lista E dos
+     totais. Preferência só de visualização, por navegador. */
+  bgIncludeRegional: true,
+
+  bgVisible(b, type) {
+    return b.type === type && (this.bgIncludeRegional || !b.regionExclusive);
+  },
+
   /* shiny=true olha pro par (background, Pokémon) do lado brilhante -
      Store.backgroundShinyMarks em vez de backgroundMarks. Todo Pokémon de
      background é elegível a brilhante (sempre foi), então é um segundo
      eixo sempre presente, não um recorte condicional. */
   backgroundStats(type, shiny) {
     const hasMark = shiny ? Store.hasBackgroundShinyMark.bind(Store) : Store.hasBackgroundMark.bind(Store);
-    const bgs = this.backgrounds.filter(b => b.type === type);
+    const bgs = this.backgrounds.filter(b => this.bgVisible(b, type));
     let bgTotal = 0, bgOwned = 0, pkmnTotal = 0, pkmnOwned = 0;
     for (const b of bgs) {
       const eligible = shiny ? b.pokemon.filter(p => p.shinyAvailable !== false) : b.pokemon;
@@ -660,7 +669,7 @@ const Agg = {
   backgroundItems(type, shiny) {
     const hasMark = shiny ? Store.hasBackgroundShinyMark.bind(Store) : Store.hasBackgroundMark.bind(Store);
     return this.backgrounds
-      .filter(b => b.type === type)
+      .filter(b => this.bgVisible(b, type))
       .map(b => ({
         ...b,
         pokemon: reorderPikachu(b.pokemon.slice(), p => p.num, p => p.id),

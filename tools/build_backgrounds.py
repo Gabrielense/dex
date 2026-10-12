@@ -915,6 +915,9 @@ REGION_EXCLUSIVE_IDS = {
     "special-background-festival-of-colors-2026",
     "special-background-lego",
     "special-background-observatory-exhibition-tour",
+    # Gabriel, 2026-10-12: tambem so sairam regionalmente
+    "special-background-patterns-of-the-wild",          # Indonesia
+    "special-background-dancing-in-the-moonlight-2026",
 }
 
 # O Fandom lista Bulbasaur/Charmander/Squirtle SEM ci= na linha "Ultra

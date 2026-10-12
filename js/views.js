@@ -1272,6 +1272,9 @@ const BG_TAB_DEF = {
   locationShiny: { type: "location", shiny: true, icon: "globe" }
 };
 
+const BG_REGIONAL_KEY = "pokeagenda-bg-include-regional";
+try { Agg.bgIncludeRegional = localStorage.getItem(BG_REGIONAL_KEY) !== "0"; } catch (e) { /* sem storage: padrão */ }
+
 const Backgrounds = {
   state: { tab: "special" },
 
@@ -1308,6 +1311,23 @@ const Backgrounds = {
     p2.appendChild(chips);
 
     const { type, shiny } = BG_TAB_DEF[this.state.tab];
+    /* Liga/desliga os fundos regionais (regionExclusive) - lista e totais. */
+    const nRegional = Agg.backgrounds.filter(b => b.type === type && b.regionExclusive).length;
+    if (nRegional) {
+      const filters = el("div", "chips");
+      const rc = el("button", "chip" + (Agg.bgIncludeRegional ? " is-on" : ""));
+      rc.type = "button";
+      rc.title = t("bg.includeRegionalHint");
+      rc.setAttribute("aria-pressed", String(Agg.bgIncludeRegional));
+      rc.append(Icons.svg("globe", 13), el("span", null, t("bg.includeRegional", { n: nRegional })));
+      rc.addEventListener("click", () => {
+        Agg.bgIncludeRegional = !Agg.bgIncludeRegional;
+        try { localStorage.setItem(BG_REGIONAL_KEY, Agg.bgIncludeRegional ? "1" : "0"); } catch (e) { /* ok */ }
+        App.rerender();
+      });
+      filters.appendChild(rc);
+      p2.appendChild(filters);
+    }
     const items = Agg.backgroundItems(type, shiny);
     if (type === "location") {
       p2.appendChild(el("p", "small dim", t("bg.locationNote")));

@@ -178,6 +178,8 @@ const I18N = {
     "bg.tapHint": "clique para marcar que você tem este Pokémon com este fundo",
     "bg.regionExclusive": "Regional",
     "bg.regionExclusiveHint": "Mesmo listado como especial, este fundo só saiu presencialmente numa região específica — praticamente impossível de completar à distância.",
+    "bg.includeRegional": "Incluir regionais ({n})",
+    "bg.includeRegionalHint": "Mostra ou esconde os fundos especiais regionais — na lista e nos totais acima.",
     "bg.shinyUnavailableHint": "brilhante ainda não tinha sido lançado quando este fundo saiu",
     "bg.monthRange": "de {a} a {b}"
   },
@@ -359,6 +361,8 @@ const I18N = {
     "bg.tapHint": "click to mark that you have this Pokémon with this background",
     "bg.regionExclusive": "Regional",
     "bg.regionExclusiveHint": "Even though it's listed as special, this background was only available in person in one specific region — practically impossible to complete remotely.",
+    "bg.includeRegional": "Include regional ({n})",
+    "bg.includeRegionalHint": "Shows or hides the regional special backgrounds — in the list and in the totals above.",
     "bg.shinyUnavailableHint": "shiny hadn't been released yet when this background came out",
     "bg.monthRange": "from {a} to {b}"
   }
