@@ -946,6 +946,19 @@ for _bg in ("special-background-valor", "special-background-mystic", "special-ba
 TEMPLATE_FIXES = {
     # Pikachu fêmea do traje espacial (Worlds 2026, San Francisco) = 0025-00-00-94
     ("Pikachu", "Pikachu female spacesuit"): ("Pikachu", "Pikachu Cosmog-themed spacesuit"),
+    # Confirmados pelo Gabriel / nas paginas dos eventos (2026-10-12):
+    # Horizons = Charmander+ de oculos do Friede e Pikachu Capitao
+    ("Charmander", "Charmander horizons"): ("Charmander", "Charmander Friede's goggles"),
+    ("Charizard", "Charizard horizons"): ("Charizard", "Charizard Friede's goggles"),
+    ("Pikachu", "Pikachu horizons"): ("Pikachu", "Pikachu Cap's hat"),
+    # Lapras de laco (Water Festival)
+    ("Lapras", "Lapras scarf"): ("Lapras", "Lapras Drip"),
+    # Jeju Island Stamp Rally: form=Blue shirt (Citrus)
+    ("Pikachu", "Pikachu teal"): ("Pikachu", "Pikachu Blue shirt (Citrus)"),
+    # Pyeongchang 2026 "Snowflake beanie" = File:Pikachu winter.png, a touca de 2019
+    ("Pikachu", "Pikachu winter"): ("Pikachu", "Pikachu Beanie"),
+    # Patterns of the Wild: form=Batik shirt (fantasia colada no nome)
+    ("Pikachu adventure", ""): ("Pikachu", "Pikachu Batik shirt"),
 }
 
 # slug novo -> id antigo, quando o Fandom renomeia o ARQUIVO de um
@@ -1072,6 +1085,11 @@ def main():
                     bg["pokemon"][entry["id"]] = {
                         "id": entry["id"], "num": entry["num"], "viaEvolution": False
                     }
+                else:
+                    # listado no wiki ganha de "chegou pela evolucao de outro da linha"
+                    # (Horizons lista Charmander E Charizard; Charmander vinha primeiro)
+                    # listed on the wiki beats "reached by evolving another listed one"
+                    bg["pokemon"][entry["id"]]["viaEvolution"] = False
                 costume = entry.get("costumeEn")
                 form = entry.get("regFormEn") or entry.get("altFormEn") or ""
                 if not costume:
