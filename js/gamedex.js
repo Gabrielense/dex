@@ -31,6 +31,8 @@ const GameDex = {
     Paldea: [909, 912, 906], Indefinida: [808]
   },
 
+  ART_BASE: "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon%20-%20256x256/Addressable%20Assets/",
+
   tab: "pokemon",
   mode: "regions",       // "regions" | "grid"
   jumpTo: null,          // região pra rolar ao abrir a grade
@@ -138,10 +140,67 @@ const GameDex = {
     for (const num of this.ART[region] || []) {
       const group = Agg.byNum.get(num);
       if (!group) continue;
-      mons.appendChild(Sprites.img(Agg.baseEntry(num, group), false, "gd-art-mon"));
+      /* Arte grande: os sprites do pogorewind têm ~100px e ficavam
+         borrados ampliados no card (Galar/Paldea, principalmente). Os
+         renders 256px do próprio jogo (PokeMiners) aguentam o tamanho;
+         se não carregarem, volta pro sprite de sempre. */
+      const box = el("span", "sprite gd-art-mon");
+      const im = document.createElement("img");
+      im.alt = "";
+      im.decoding = "async";
+      im.crossOrigin = "anonymous";
+      const fallback = () => box.replaceWith(Sprites.img(Agg.baseEntry(num, group), false, "gd-art-mon"));
+      const cached = this.artCache[num];
+      if (cached) im.src = cached;
+      else {
+        const raw = new Image();
+        raw.crossOrigin = "anonymous";
+        raw.onload = () => {
+          const url = this.trim(raw) || raw.src;
+          this.artCache[num] = url;
+          im.src = url;
+        };
+        raw.onerror = fallback;
+        raw.src = this.ART_BASE + "pm" + num + ".icon.png";
+      }
+      im.addEventListener("error", fallback, { once: true });
+      box.appendChild(im);
+      mons.appendChild(box);
     }
     box.appendChild(mons);
     return box;
+  },
+
+  /* Os renders do jogo vêm num quadro 256x256 com o Pokémon em escala
+     real (Sobble minúsculo, Ursaluna enorme). Recorta pros pixels
+     desenhados, pra todos encherem o card igual. -> data URL (ou null). */
+  artCache: {},
+  trim(img) {
+    try {
+      const W = img.naturalWidth, H = img.naturalHeight;
+      const c = document.createElement("canvas");
+      c.width = W; c.height = H;
+      const x = c.getContext("2d", { willReadFrequently: true });
+      x.drawImage(img, 0, 0);
+      const d = x.getImageData(0, 0, W, H).data;
+      let x0 = W, y0 = H, x1 = -1, y1 = -1;
+      for (let y = 0; y < H; y++) {
+        for (let i = 0; i < W; i++) {
+          if (d[(y * W + i) * 4 + 3] > 8) {
+            if (i < x0) x0 = i; if (i > x1) x1 = i;
+            if (y < y0) y0 = y; if (y > y1) y1 = y;
+          }
+        }
+      }
+      if (x1 < 0) return null;
+      const w = x1 - x0 + 1, h = y1 - y0 + 1;
+      const o = document.createElement("canvas");
+      o.width = w; o.height = h;
+      o.getContext("2d").drawImage(c, x0, y0, w, h, 0, 0, w, h);
+      return o.toDataURL("image/png");
+    } catch (e) {
+      return null;     // canvas bloqueado (CORS): usa o render cru
+    }
   },
 
   /* medalha de colecionador da região: bronze/prata/ouro/platina */
