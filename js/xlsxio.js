@@ -266,6 +266,7 @@ const XlsxIO = (() => {
       if (key === "dexCanon") return e.dexCanon ? "Sim" : "";
       if (key === "gender") return e.gender || "";
       if (key.indexOf("flag_") === 0) {
+        if (key === "flag_regional" && e.regionalPt) return e.regionalPt;
         return e.flags.indexOf(key.slice(5)) !== -1 ? "Sim" : "";
       }
       if (DATE_COL[key]) {

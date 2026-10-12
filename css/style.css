@@ -366,6 +366,8 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
 }
 .mon .nm{font-size:11.5px;line-height:1.28;margin-top:5px;color:var(--dim);
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mon .mon-reg{font-size:10px;line-height:1.2;margin-top:2px;color:var(--faint);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mon .dexno{position:absolute;top:5px;left:7px;font-size:10px;color:var(--faint);
   font-variant-numeric:tabular-nums;font-weight:600}
 .mon.unreleased{opacity:.45;filter:grayscale(.85)}

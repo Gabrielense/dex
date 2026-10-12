@@ -656,6 +656,22 @@ const Lists = {
    não foi pedido e não têm essa ambiguidade visual. */
 const VARIANT_BADGE_KEYS = new Set(["shadow", "shadowShiny", "dmax", "dmaxShiny"]);
 
+/* Linha "onde sai" do card. Um card pode juntar várias formas do número
+   (Shellos Leste/Oeste, as 4 do Oricório): só conta forma "lisa" - Mega,
+   Gigamax e trajes não dizem onde a espécie sai. Se alguma forma lisa não é
+   regional, dá pra completar em qualquer lugar -> sem linha. Formas em
+   regiões diferentes -> "Várias regiões", com cada uma no tooltip. */
+function regionalLine(it) {
+  const pool = (it.entries && it.entries.length ? it.entries : [it.display]).filter(e =>
+    e && !e.costumePt && !(e.flags || []).some(f => f === "mega" || f === "gmax"));
+  if (!pool.length || pool.some(e => !(e.flags || []).includes("regional"))) return null;
+  const where = [...new Set(pool.map(regionalWhere).filter(Boolean))];
+  if (!where.length) return null;
+  if (where.length === 1) return { text: where[0], title: flagLabel("regional") + ": " + where[0] };
+  return { text: t("e.severalRegions"),
+           title: pool.map(e => `${nameOf(e)}: ${regionalWhere(e) || "?"}`).join("\n") };
+}
+
 /* card de Pokémon reaproveitado em todas as telas */
 function monCard(it, cat, opt) {
   opt = opt || {};
@@ -674,6 +690,13 @@ function monCard(it, cat, opt) {
   card.appendChild(spriteWrap);
 
   card.appendChild(el("div", "nm", labelFor(it, cat)));
+  /* regional: onde ele sai, numa linha discreta abaixo do nome */
+  const reg = regionalLine(it);
+  if (reg) {
+    const rg = el("div", "mon-reg", reg.text);
+    rg.title = reg.title;
+    card.appendChild(rg);
+  }
 
   /* marcação rápida: um toque marca sem abrir a ficha */
   if (opt.quick && cat && !Store.isEmpty()) {
@@ -1601,7 +1624,7 @@ const Detail = {
       const meta = el("div", "meta");
       const bits = [`${t("e.dexNo")} ${entry.num}`, `${t("e.region")}: ${regionLabel(entry.region)}`];
       if (entry.gender) bits.push(entry.gender);
-      if (entry.flags.length) bits.push(entry.flags.map(flagLabel).join(", "));
+      if (entry.flags.length) bits.push(entry.flags.map(f => flagLabelFor(f, entry)).join(", "));
       meta.textContent = bits.join(" · ");
       sheet.appendChild(meta);
 

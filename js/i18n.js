@@ -122,6 +122,7 @@ const I18N = {
     "e.livingDmax": "Dinamax na caixa", "e.livingLucky": "Sortudo na caixa",
     "e.notReleased": "ainda não lançado",
     "e.dexNo": "Nº", "e.region": "Região", "e.debuts": "Estreias",
+    "e.severalRegions": "Várias regiões",
     "e.noDebut": "—", "e.flags": "Marcadores",
     "e.readonly": "Importe seus dados para poder marcar.",
     "e.editHint": "Clique em qualquer marca para ligar ou desligar. Salva na hora.",
@@ -312,6 +313,7 @@ const I18N = {
     "e.livingDmax": "Dynamax in the box", "e.livingLucky": "Lucky in the box",
     "e.notReleased": "not released yet",
     "e.dexNo": "No.", "e.region": "Region", "e.debuts": "Debuts",
+    "e.severalRegions": "Several regions",
     "e.noDebut": "—", "e.flags": "Tags",
     "e.readonly": "Import your data to start marking.",
     "e.editHint": "Click any mark to turn it on or off. Saves instantly.",
@@ -403,6 +405,32 @@ function t(key, vars) {
 }
 function setLang(l) { LANG = (l === "en") ? "en" : "pt"; }
 function flagLabel(f) { return (FLAG_LABELS[LANG] || FLAG_LABELS.pt)[f] || f; }
+
+/* Onde um regional sai (coluna Regional da planilha, entry.regionalPt).
+   Em inglês traduz os textos conhecidos; texto novo cai no original. */
+const REGIONAL_EN = {
+  "Américas": "Americas", "Américas e África": "Americas and Africa",
+  "Ásia-Pacífico": "Asia-Pacific", "Hemisfério Ocidental": "Western Hemisphere",
+  "Hemisfério Oriental": "Eastern Hemisphere", "Hemisfério Sul": "Southern Hemisphere",
+  "Europa, África, Oeste Asiático": "Europe, Africa, Western Asia",
+  "Europa, Ásia, Oceania": "Europe, Asia, Oceania", "Europa": "Europe",
+  "Nova Zelândia e Fiji": "New Zealand and Fiji", "Ártico": "Arctic", "Egito": "Egypt",
+  "França": "France", "Leste asiático": "East Asia", "Austrália": "Australia",
+  "América do Norte": "North America", "América Latina": "Latin America",
+  "Península Hibérica": "Iberian Peninsula", "Regiões Tropicais": "Tropical regions",
+  "Sul asiático": "South Asia", "África": "Africa", "Sudeste dos EUA": "Southeastern US",
+  "Noroeste dos EUA": "Northwestern US", "Japão": "Japan", "México": "Mexico",
+  "Ilhas Tropicais": "Tropical islands", "Havaí": "Hawaii", "Reino Unido": "United Kingdom"
+};
+function regionalWhere(e) {
+  if (!e || !e.regionalPt) return "";
+  return LANG === "en" ? (REGIONAL_EN[e.regionalPt] || e.regionalPt) : e.regionalPt;
+}
+/* "Regional (Américas)" na ficha; sem texto, só "Regional". */
+function flagLabelFor(f, e) {
+  const w = f === "regional" ? regionalWhere(e) : "";
+  return w ? `${flagLabel(f)} (${w})` : flagLabel(f);
+}
 function fmtDate(iso) {
   if (!iso) return t("e.noDebut");
   const [y, m, d] = iso.split("-");

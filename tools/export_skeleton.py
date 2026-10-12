@@ -182,6 +182,10 @@ def main():
             if k.startswith("flag_") and txt(cell(row, k))
         ]
         debut = {k: iso(cell(row, "d_" + k)) for k in DATE_KEYS}
+        # A coluna Regional guarda ONDE (ex. "Américas"), nao so sim/nao - o
+        # texto vai junto pro site mostrar. The Regional column holds WHERE.
+        reg_txt = txt(cell(row, "flag_regional"))
+        reg_txt = "" if reg_txt.lower() in ("sim", "x", "yes") else reg_txt
 
         entries.append({
             "id": eid,
@@ -199,6 +203,7 @@ def main():
             "costumeEn": txt(cell(row, "costumeEn")),
             "gender": txt(cell(row, "gender")),
             "flags": flags,
+            **({"regionalPt": reg_txt} if reg_txt else {}),
             # Legado: linha "canonica" da planilha. Nao usar em contagens.
             # Legacy canonical-row marker. Never drive counts with this.
             "dexCanon": bool(txt(cell(row, "dexCanon"))),
