@@ -25,6 +25,8 @@ const App = {
        direto em Meus dados, que é a única tela útil nesse estado — o
        Painel só faz sentido depois que existe alguma marca pra mostrar. */
     if (Store.isEmpty()) this.view = "data";
+    /* ...a não ser que o endereço já diga a aba (F5, link salvo). */
+    this.readHash();
 
     try {
       const [sk, cats, evo] = await Promise.all([
@@ -42,6 +44,8 @@ const App = {
         })
       ]);
       Agg.init(sk, cats.categories, cats, evo);
+      /* categoria do endereço que não existe (link velho, digitado errado) */
+      if (!Agg.byCat[Lists.state.cat]) Lists.state.cat = "pokemon";
 
       /* Backgrounds e opcional: um data/backgrounds.json ausente ou
          quebrado nao pode derrubar o resto do site (as outras telas nao
@@ -70,7 +74,40 @@ const App = {
     if (stamp) stamp.textContent = Agg.skeleton.generated.slice(0, 10);
   },
 
+  /* Cada aba tem seu endereço (#gamedex, #lists/shiny...): F5 volta pra
+     mesma aba e o Voltar do navegador anda entre as abas. O pedaço depois
+     da barra é a categoria escolhida dentro de Faltantes / Pokédex. */
+  VIEWS: ["dashboard", "gamedex", "lists", "living", "backgrounds", "timeline", "data"],
+
+  readHash() {
+    const [view, sub] = decodeURIComponent(location.hash.slice(1)).split("/");
+    if (this.VIEWS.indexOf(view) === -1) return false;
+    this.view = view;
+    if (sub && view === "gamedex" && GameDex.TABS.some(x => x.key === sub)) GameDex.tab = sub;
+    if (sub && view === "lists") Lists.state.cat = sub;
+    return true;
+  },
+
+  hashFor() {
+    const sub = this.view === "gamedex" ? GameDex.tab
+      : this.view === "lists" ? Lists.state.cat : "";
+    return "#" + this.view + (sub ? "/" + sub : "");
+  },
+
+  /* push = aba nova (vira um passo do Voltar); senão só atualiza o endereço */
+  syncHash(push) {
+    const h = this.hashFor();
+    if (location.hash === h) return;
+    if (push) history.pushState(null, "", h);
+    else history.replaceState(null, "", h);
+  },
+
   bindChrome() {
+    window.addEventListener("popstate", () => {
+      if (!this.readHash()) return;
+      closeSheet();
+      this.rerender({ fromHistory: true });
+    });
     document.getElementById("tabs").addEventListener("click", e => {
       const b = e.target.closest(".tab");
       if (b) this.go(b.dataset.view);
@@ -112,7 +149,7 @@ const App = {
     this.view = view;
     this.params = params || null;
     closeSheet();
-    this.rerender();
+    this.rerender({ push: true });
     window.scrollTo({ top: 0, behavior: "smooth" });
   },
 
@@ -147,6 +184,7 @@ const App = {
         DataPanel.log.classList.remove("is-hidden");
       }
     }
+    if (!(opts && opts.fromHistory)) this.syncHash(opts && opts.push);
     this.refreshBanner();
   },
 
