@@ -128,12 +128,54 @@ def fetch_wikitext():
     return data["parse"]["wikitext"]["*"]
 
 
+def resolve_image_urls(filenames):
+    """nome do arquivo -> URL direta no CDN (static.wikia.nocookie.net), via
+    prop=imageinfo, 50 por chamada. Desde out/2026 o redirecionamento
+    Special:FilePath falha quando o navegador carrega a imagem de outro site
+    (os banners do site ficaram em branco); a URL direta do CDN carrega.
+    Arquivo que a API nao resolver fica com Special:FilePath.
+    filename -> direct CDN URL, via prop=imageinfo, 50 per call. Since Oct
+    2026 the Special:FilePath redirect fails when a browser loads the image
+    from another site (the site's banners went blank); the direct CDN URL
+    loads. Anything the API doesn't resolve keeps Special:FilePath."""
+    out = {}
+    names = sorted(set(filenames))
+    for i in range(0, len(names), 50):
+        chunk = names[i:i + 50]
+        url = ("https://pokemongo.fandom.com/api.php?action=query&prop=imageinfo&iiprop=url"
+               "&format=json&titles=" + urllib.parse.quote("|".join("File:" + n for n in chunk)))
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "pokeagenda-build-backgrounds"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                q = json.loads(resp.read().decode("utf-8"))["query"]
+        except Exception as exc:
+            print("AVISO: imageinfo falhou / failed: %r" % exc)
+            continue
+        # a API normaliza "_" -> " " e a 1a letra; mapeia de volta pro nome original
+        # the API normalizes "_" -> " " and the first letter; map back to the original name
+        back = {n["to"]: n["from"] for n in q.get("normalized", [])}
+        for page in q.get("pages", {}).values():
+            info = page.get("imageinfo")
+            if info:
+                title = back.get(page["title"], page["title"])
+                out[title[len("File:"):]] = info[0]["url"]
+    missing = [n for n in names if n not in out]
+    if missing:
+        print("AVISO: %d imagem(ns) sem URL direta (ficam com Special:FilePath) / image(s) "
+              "without a direct URL: %s" % (len(missing), ", ".join(missing[:10])))
+    return out
+
+
 # -------------------------------------------------------------- wikitext
 def clean_wikitext(s):
     """Texto legivel a partir de wikitext cru: derruba templates, links e
     tags comuns. Human-readable text from raw wikitext: drops templates,
     links and common tags."""
-    s = re.sub(r"\{\{Nth\|(\d+)\}\}", r"\1", s)
+    # {{Nth|..}} e {{nth|..}} - o Fandom usa os dois; so o maiusculo era
+    # reconhecido, e as linhas novas (2026) perdiam o dia e ficavam sem data.
+    # Fandom uses both {{Nth|..}} and {{nth|..}}; only the capitalised one
+    # was matched, so newer (2026) rows lost their day and got no debut date.
+    s = re.sub(r"\{\{Nth\|(\d+)\}\}", r"\1", s, flags=re.I)
     s = re.sub(r"\{\{[^{}]*\}\}", "", s)
     s = re.sub(r"\[\[File:[^\]]*\]\]", "", s)
     s = re.sub(r"\[\[[^|\]]+\|([^\]]+)\]\]", r"\1", s)
@@ -717,6 +759,31 @@ NAME_PT = {
     "location-background-go-fest-2026-tokyo": "Tóquio, Japão",
     "location-background-npb-2026-yokohama-stadium": "Estádio de Yokohama, Naka-ku, Yokohama, Japão",
     "location-background-npb-2026-zozo-marine": "ZOZO Marine Stadium, Chiba, Japão",
+    "location-background-npb-2026-seibu-lions": "NPB 2026 Seibu Lions",
+    "location-background-npb-2026-orix-buffaloes": "NPB 2026 Orix Buffaloes",
+    "location-background-npb-2026-tokyo-swallows": "NPB 2026 Tokyo Swallows",
+    "location-background-npb-2026-mynavi-allstar": "NPB 2026 Mynavi AllStar",
+    "location-background-rpj": "Red Pokémon Jet",
+    "location-background-gpj": "Green Pokémon Jet",
+    "location-background-pok-xciting-malaysia": "PokéXciting! Malásia",
+    "location-background-pok-xciting-taiwan": "PokéXciting! Taiwan",
+    "location-background-pok-xciting-singapore": "PokéXciting! Singapura",
+    "location-background-pok-xciting-philippines": "PokéXciting! Filipinas",
+    "location-background-city-safari-brisbane": "Brisbane, Austrália",
+    "location-background-city-safari-marseille": "Marselha, França",
+    "location-background-city-safari-munich": "Munique, Alemanha",
+    "location-background-city-safari-lisbon": "Lisboa, Portugal",
+    "location-background-city-safari-rio-de-janeiro": "Rio de Janeiro, Brasil",
+    "location-background-city-safari-boston": "Boston, EUA",
+    "location-background-wild-area-sendai": "Sendai, Miyagi, Japão",
+    "location-background-wild-area-mexico-city": "Cidade do México, México",
+    # os 6 museus da parceria com a ESA (out/2026 - abr/2027)
+    "location-background-esa-science-museum-london": "Science Museum – Londres, Inglaterra",
+    "location-background-esa-cite-de-espace": "Cité de l'espace – Toulouse, França",
+    "location-background-esa-space-center-germany": "Deutsches Museum – Nuremberg, Alemanha",
+    "location-background-esa-ciudad-de-las-artes": "Museu de les Ciències – Valência, Espanha",
+    "location-background-esa-space-expo-nl": "Space Expo – Noordwijk, Holanda",
+    "location-background-esa-euro-space-center": "Euro Space Center – Transinne, Bélgica",
     # ---- special ----
     "special-background-deccd2024": "Dia Comunitário de Dezembro de 2024",
     "special-background-gofest2024-radiance": "Pokémon GO Fest 2024: Radiância",
@@ -760,7 +827,31 @@ NAME_PT = {
     "special-background-silver": "Versão Prata",
     "special-background-x": "Versão X",
     "special-background-y": "Versão Y",
+    "special-background-worlds-special-blue": "Campeonato Mundial de Pokémon 2026",
+    "special-background-horizons": "Pokémon Horizontes",
+    "special-background-dancing-in-the-moonlight-2026": "Dançando ao Luar 2026",
+    "special-background-patterns-of-the-wild": "Padrões da Natureza",
 }
+
+# Regras pras familias grandes que chegam em lote (um fundo por provincia,
+# loja ou propriedade), no estilo das entradas curadas acima. NAME_PT ganha
+# de qualquer regra. -> None quando nenhuma regra se aplica.
+# Rules for the big families that arrive in bulk (one background per
+# prefecture, store or property), in the style of the curated entries
+# above. NAME_PT always wins over a rule. -> None when no rule applies.
+JP_PLACE_PT = {"Tokyo": "Tóquio", "Kyoto": "Quioto"}
+
+
+def rule_name_pt(bg_id, name):
+    if bg_id.startswith("location-background-pokelid-") and name.endswith(", Japan"):
+        place = name[:-len(", Japan")]
+        return "%s, Japão" % JP_PLACE_PT.get(place, place)
+    if bg_id.startswith("location-background-pokemoncenter-") and name.startswith("Pokémon Center"):
+        return name  # nome da loja / store name
+    if bg_id.startswith("location-background-national-trust-") and "Reino Unido" not in name:
+        return name + ", Reino Unido"
+    return None
+
 
 # Sobrescreve nome (as vezes nos dois idiomas) e/ou imagem quando o texto
 # ou a imagem que o Fandom tem no momento nao servem - curado a mao, caso a
@@ -842,6 +933,28 @@ CI_OVERRIDES = {}
 for _bg in ("special-background-valor", "special-background-mystic", "special-background-instinct"):
     for _species in ("Bulbasaur", "Charmander", "Squirtle"):
         CI_OVERRIDES[(_bg, _species)] = "%s party hat" % _species
+
+# (nome, ci) exatamente como no template do Fandom -> (nome, ci) corrigidos,
+# pra fantasias que o wiki escreve diferente do costumeEn da planilha (ex.:
+# "Pikachu female spacesuit" = "Cosmog-themed spacesuit") ou com a fantasia
+# colada no nome ({{I|Pikachu adventure||70px}}). Vale pra todos os
+# backgrounds. O atualizador (skill update-pokemon-sites, backgrounds.py)
+# lista o que nao casou; cada entrada nova aqui vai pro notes.html.
+# (name, ci) exactly as in Fandom's template -> fixed (name, ci), for
+# costumes the wiki spells differently from the sheet's costumeEn, or with
+# the costume glued onto the name. Applies to every background.
+TEMPLATE_FIXES = {
+    # Pikachu fêmea do traje espacial (Worlds 2026, San Francisco) = 0025-00-00-94
+    ("Pikachu", "Pikachu female spacesuit"): ("Pikachu", "Pikachu Cosmog-themed spacesuit"),
+}
+
+# slug novo -> id antigo, quando o Fandom renomeia o ARQUIVO de um
+# background ja publicado: o id e a chave das marcas dos visitantes
+# ({ bgId: { pokemonId: 1 } } no localStorage), entao nunca pode mudar.
+# new slug -> old id, for when Fandom renames an already-published
+# background's FILE: the id keys visitors' saved marks, so it must not change.
+BG_ID_ALIASES = {
+}
 
 # (bg_id, num) -> "both" (saiu normal E sombroso - dois pares
 # independentes pra marcar, ver "+shadow" mais abaixo) ou "only" (SÓ saiu
@@ -933,12 +1046,52 @@ def main():
             bg = {
                 "id": bg_id, "type": type_, "name": name,
                 "image": FILEPATH_BASE + urllib.parse.quote(filename),
+                "_file": filename,
                 "year": year, "events": [], "pokemon": {},
             }
             backgrounds[bg_id] = bg
         elif year < bg["year"]:
             bg["year"] = year
         return bg
+
+    def add_row(bg, bg_id, pokemon_cell, event_cell):
+        event_text = clean_wikitext(event_cell or "")
+        if event_text and event_text not in bg["events"]:
+            bg["events"].append(event_text)
+
+        for tpl_inner in POKEMON_TPL_RE.findall(pokemon_cell or ""):
+            pk_name, ci = parse_pokemon_template(tpl_inner)
+            pk_name, ci = TEMPLATE_FIXES.get((pk_name, ci), (pk_name, ci))
+            ci = CI_OVERRIDES.get((bg_id, pk_name), ci)
+            entries, err = match_pokemon(pk_name, ci, by_species)
+            if not entries:
+                unmatched.append((bg_id, pk_name, ci, err))
+                continue
+            for entry in entries:
+                if entry["id"] not in bg["pokemon"]:
+                    bg["pokemon"][entry["id"]] = {
+                        "id": entry["id"], "num": entry["num"], "viaEvolution": False
+                    }
+                costume = entry.get("costumeEn")
+                form = entry.get("regFormEn") or entry.get("altFormEn") or ""
+                if not costume:
+                    targets = expand_forward(entry["num"], form, evo_idx)
+                    target_pool = numform_idx
+                else:
+                    # só continua a cadeia enquanto a MESMA fantasia
+                    # existir na proxima etapa (ex.: Eevee "Explorer"
+                    # -> as 8 eeveelutions "Explorer" - a maioria das
+                    # fantasias NAO faz isso, e por isso o default
+                    # continua sendo parar; ver build_costume_index).
+                    targets = expand_forward_costume(
+                        entry["num"], form, costume, evo_idx, costume_idx)
+                    target_pool = costume_idx.get(costume, {})
+                for (tnum, tform) in targets:
+                    for te in target_pool.get((tnum, tform), []):
+                        if te["id"] not in bg["pokemon"]:
+                            bg["pokemon"][te["id"]] = {
+                                "id": te["id"], "num": te["num"], "viaEvolution": True
+                            }
 
     sections = [
         ("special", SECTION_SPECIAL, [SECTION_LOCATION] + SECTION_END_MARKERS),
@@ -950,49 +1103,31 @@ def main():
             for table_lines in find_tables(block_text):
                 raw_rows = parse_table(table_lines)
                 for bg_cell, pokemon_cell, event_cell in resolve_columns(raw_rows):
-                    m = FILE_RE.search(bg_cell or "")
-                    if not m:
+                    files = FILE_RE.findall(bg_cell or "")
+                    if not files:
                         continue
-                    filename = m.group(1).strip()
-                    bg_id = slugify(filename)
-                    name = bg_display_name(bg_cell, filename)
-                    event_text = clean_wikitext(event_cell or "")
-                    bg = get_bg(bg_id, filename, name, type_, year)
-                    if event_text and event_text not in bg["events"]:
-                        bg["events"].append(event_text)
-
-                    for tpl_inner in POKEMON_TPL_RE.findall(pokemon_cell or ""):
-                        pk_name, ci = parse_pokemon_template(tpl_inner)
-                        ci = CI_OVERRIDES.get((bg_id, pk_name), ci)
-                        entries, err = match_pokemon(pk_name, ci, by_species)
-                        if not entries:
-                            unmatched.append((bg_id, pk_name, ci, err))
-                            continue
-                        for entry in entries:
-                            if entry["id"] not in bg["pokemon"]:
-                                bg["pokemon"][entry["id"]] = {
-                                    "id": entry["id"], "num": entry["num"], "viaEvolution": False
-                                }
-                            costume = entry.get("costumeEn")
-                            form = entry.get("regFormEn") or entry.get("altFormEn") or ""
-                            if not costume:
-                                targets = expand_forward(entry["num"], form, evo_idx)
-                                target_pool = numform_idx
-                            else:
-                                # só continua a cadeia enquanto a MESMA fantasia
-                                # existir na proxima etapa (ex.: Eevee "Explorer"
-                                # -> as 8 eeveelutions "Explorer" - a maioria das
-                                # fantasias NAO faz isso, e por isso o default
-                                # continua sendo parar; ver build_costume_index).
-                                targets = expand_forward_costume(
-                                    entry["num"], form, costume, evo_idx, costume_idx)
-                                target_pool = costume_idx.get(costume, {})
-                            for (tnum, tform) in targets:
-                                for te in target_pool.get((tnum, tform), []):
-                                    if te["id"] not in bg["pokemon"]:
-                                        bg["pokemon"][te["id"]] = {
-                                            "id": te["id"], "num": te["num"], "viaEvolution": True
-                                        }
+                    if len(files) == 1:
+                        found = [(files[0].strip(), bg_display_name(bg_cell, files[0].strip()))]
+                    else:
+                        # Varios fundos na MESMA linha (tabela aninhada na celula, ex.: os 6
+                        # museus da parceria com a ESA, 2026) - mesmos Pokemon e evento, cada
+                        # imagem e um fundo proprio com a legenda que vem logo depois dela.
+                        # Several backgrounds on ONE row (a table nested in the cell, e.g. the
+                        # six ESA partnership museums, 2026) - same Pokemon and event, each
+                        # image is its own background, captioned by the text right after it.
+                        found = []
+                        for seg in re.split(r"(?=\[\[File:)", bg_cell)[1:]:
+                            fn = FILE_RE.match(seg).group(1).strip()
+                            caption = bg_display_name(seg.strip().rstrip("-").strip(), fn)
+                            # arte antiga ao lado da atual: "(old background - unused)"
+                            # superseded art shown next to the current one
+                            if re.search(r"\bunused\b", caption, re.I):
+                                continue
+                            found.append((fn, caption))
+                    for filename, name in found:
+                        bg_id = slugify(filename)
+                        bg_id = BG_ID_ALIASES.get(bg_id, bg_id)
+                        add_row(get_bg(bg_id, filename, name, type_, year), bg_id, pokemon_cell, event_cell)
 
     for bg_id, extra_ids in EXTRA_POKEMON.items():
         bg = backgrounds.get(bg_id)
@@ -1008,10 +1143,12 @@ def main():
                     "id": entry["id"], "num": entry["num"], "viaEvolution": False
                 }
 
+    direct = resolve_image_urls([bg["_file"] for bg in backgrounds.values()])
     out_list = []
     untranslated = []
     for bg in backgrounds.values():
         b2 = dict(bg)
+        b2["image"] = direct.get(b2.pop("_file"), bg["image"])
         b2["pokemon"] = sorted(bg["pokemon"].values(), key=lambda p: p["num"])
         dupes = []
         for p in b2["pokemon"]:
@@ -1043,6 +1180,8 @@ def main():
             b2["namePt"] = override["namePt"]
         elif bg["id"] in NAME_PT:
             b2["namePt"] = NAME_PT[bg["id"]]
+        elif rule_name_pt(bg["id"], b2["name"]):
+            b2["namePt"] = rule_name_pt(bg["id"], b2["name"])
         else:
             b2["namePt"] = b2["name"]
             untranslated.append(bg["id"])
