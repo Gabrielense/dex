@@ -31,7 +31,11 @@ const GameDex = {
     Paldea: [909, 912, 906], Indefinida: [808]
   },
 
-  ART_BASE: "https://raw.githubusercontent.com/PokeMiners/pogo_assets/master/Images/Pokemon%20-%20256x256/Addressable%20Assets/",
+  /* Renders 512px do Pokémon HOME (PokeAPI). Os 256px do GO (PokeMiners)
+     ficavam bons em Kanto, mas Sobble/Fuecoco & cia. ocupam um canto
+     pequeno do quadro e saíam borrados; os do HOME têm ~390px de desenho
+     em todas as gerações, então os cards ficam iguais entre si. */
+  ART_BASE: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/",
 
   tab: "pokemon",
   mode: "regions",       // "regions" | "grid"
@@ -141,8 +145,7 @@ const GameDex = {
       const group = Agg.byNum.get(num);
       if (!group) continue;
       /* Arte grande: os sprites do pogorewind têm ~100px e ficavam
-         borrados ampliados no card (Galar/Paldea, principalmente). Os
-         renders 256px do próprio jogo (PokeMiners) aguentam o tamanho;
+         borrados ampliados no card. Usa os renders grandes de ART_BASE;
          se não carregarem, volta pro sprite de sempre. */
       const box = el("span", "sprite gd-art-mon");
       const im = document.createElement("img");
@@ -161,7 +164,7 @@ const GameDex = {
           im.src = url;
         };
         raw.onerror = fallback;
-        raw.src = this.ART_BASE + "pm" + num + ".icon.png";
+        raw.src = this.ART_BASE + num + ".png";
       }
       im.addEventListener("error", fallback, { once: true });
       box.appendChild(im);
