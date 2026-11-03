@@ -1048,6 +1048,8 @@ EXTRA_ROWS = {
     # wiki parou no Gible (13/09). Afirmado pelo Gabriel em 2026-10-12.
     "special-background-community-2026": [
         ("{{I|Zorua||70px|t=t}}", "October 2026 Community Day · October 10"),
+        # Pawniard (21/11/2026) tambem - afirmado pelo Gabriel em 2026-11-03.
+        ("{{I|Pawniard||70px|t=t}}", "November 2026 Community Day · November 21"),
     ],
 }
 
