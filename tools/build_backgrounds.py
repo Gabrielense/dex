@@ -83,6 +83,12 @@ EVO_PATH = os.path.join(ROOT, "data", "evolutions.json")
 OUT_PATH = os.path.join(ROOT, "data", "backgrounds.json")
 API_URL = ("https://pokemongo.fandom.com/api.php"
            "?action=parse&page=Backgrounds&prop=wikitext&format=json")
+# Revisao fixa do wiki (BACKGROUNDS_OLDID=190986): em nov/2026 a pagina virou uma tabela
+# unica por secao, sem os titulos de ano que o parser usa. Pinned wiki revision: in Nov 2026
+# the page became one table per section with no year headings, which this parser needs.
+if os.environ.get("BACKGROUNDS_OLDID"):
+    API_URL = ("https://pokemongo.fandom.com/api.php?action=parse&oldid=%s&prop=wikitext&format=json"
+               % os.environ["BACKGROUNDS_OLDID"])
 FILEPATH_BASE = "https://pokemongo.fandom.com/wiki/Special:FilePath/"
 
 ROWSPAN_RE = re.compile(r'^rowspan\s*=\s*"(\d+)"\s*\|(.*)$', re.DOTALL)
@@ -633,11 +639,6 @@ def parse_event_date(event_text, fallback_year):
         return None
 
 
-def earliest_debut(events, fallback_year):
-    dates = [d for d in (parse_event_date(e, fallback_year) for e in events) if d]
-    return min(dates) if dates else None
-
-
 # --------------------------------------------------------- curadoria manual
 # Traducoes em PT, curadas a mao (o texto em ingles vem direto da tabela do
 # Fandom - nomes proprios de time/versao/temporada nao tem traducao
@@ -831,6 +832,13 @@ NAME_PT = {
     "special-background-horizons": "Pokémon Horizontes",
     "special-background-dancing-in-the-moonlight-2026": "Dançando ao Luar 2026",
     "special-background-patterns-of-the-wild": "Padrões da Natureza",
+    # 2026-11-03
+    "special-background-dia-de-muertos-2026": "Día de Muertos 2026",
+    "location-background-2026-comic-con-malaga": "Málaga, Espanha",
+    "location-background-nfl-arizona-cardinals-2026": "Arizona, EUA",
+    "location-background-fc2026-seoul": "Seul, Coreia do Sul",
+    "location-background-night-out-2026-la": "Los Angeles, Califórnia, EUA",
+    "location-background-night-out-2026-london": "Londres, Reino Unido",
 }
 
 # Regras pras familias grandes que chegam em lote (um fundo por provincia,
@@ -931,6 +939,7 @@ REGION_EXCLUSIVE_IDS = {
     # Gabriel, 2026-10-12: tambem so sairam regionalmente
     "special-background-patterns-of-the-wild",          # Indonesia
     "special-background-dancing-in-the-moonlight-2026",
+    "special-background-dia-de-muertos-2026",           # evento regional do Mexico (2026-11-03)
 }
 
 # O Fandom lista Bulbasaur/Charmander/Squirtle SEM ci= na linha "Ultra
@@ -975,6 +984,7 @@ TEMPLATE_FIXES = {
     ("Pikachu", "Pikachu winter"): ("Pikachu", "Pikachu Beanie"),
     # Patterns of the Wild: form=Batik shirt (fantasia colada no nome)
     ("Pikachu adventure", ""): ("Pikachu", "Pikachu Batik shirt"),
+    ("Pikachu", "Pikachu adventure"): ("Pikachu", "Pikachu Batik shirt"),  # mesma, escrita com ci= (nov/2026)
 }
 
 # slug novo -> id antigo, quando o Fandom renomeia o ARQUIVO de um
@@ -1092,17 +1102,24 @@ def main():
                 "id": bg_id, "type": type_, "name": name,
                 "image": FILEPATH_BASE + urllib.parse.quote(filename),
                 "_file": filename,
-                "year": year, "events": [], "pokemon": {},
+                "year": year, "events": [], "_dates": [], "pokemon": {},
             }
             backgrounds[bg_id] = bg
         elif year < bg["year"]:
             bg["year"] = year
         return bg
 
-    def add_row(bg, bg_id, pokemon_cell, event_cell):
+    def add_row(bg, bg_id, pokemon_cell, event_cell, year=None):
         event_text = clean_wikitext(event_cell or "")
         if event_text and event_text not in bg["events"]:
             bg["events"].append(event_text)
+        # data de cada evento com o ano da SUA secao: um fundo que volta anos depois
+        # (Mexico City 2023 -> Dia de Muertos 2026) nao pode herdar o ano da 1a aparicao.
+        # each event dated with ITS OWN section year: a background returning years later
+        # must not inherit the year it first appeared in.
+        d = parse_event_date(event_text, year or bg["year"])
+        if d:
+            bg["_dates"].append(d)
 
         for tpl_inner in POKEMON_TPL_RE.findall(pokemon_cell or ""):
             pk_name, ci = parse_pokemon_template(tpl_inner)
@@ -1177,7 +1194,7 @@ def main():
                     for filename, name in found:
                         bg_id = slugify(filename)
                         bg_id = BG_ID_ALIASES.get(bg_id, bg_id)
-                        add_row(get_bg(bg_id, filename, name, type_, year), bg_id, pokemon_cell, event_cell)
+                        add_row(get_bg(bg_id, filename, name, type_, year), bg_id, pokemon_cell, event_cell, year)
 
     for bg_id, rows in EXTRA_ROWS.items():
         bg = backgrounds.get(bg_id)
@@ -1207,6 +1224,7 @@ def main():
     for bg in backgrounds.values():
         b2 = dict(bg)
         b2["image"] = direct.get(b2.pop("_file"), bg["image"])
+        dates = b2.pop("_dates")
         b2["pokemon"] = sorted(bg["pokemon"].values(), key=lambda p: p["num"])
         dupes = []
         for p in b2["pokemon"]:
@@ -1227,7 +1245,7 @@ def main():
                 p["shinyAvailable"] = False
         if dupes:
             b2["pokemon"] = sorted(b2["pokemon"] + dupes, key=lambda p: p["num"])
-        b2["debut"] = earliest_debut(bg["events"], bg["year"])
+        b2["debut"] = min(dates) if dates else None
 
         override = MANUAL_OVERRIDES.get(bg["id"], {})
         if "name" in override:
