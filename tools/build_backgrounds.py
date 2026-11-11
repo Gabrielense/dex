@@ -749,7 +749,7 @@ NAME_PT = {
     "location-background-npb-2026-rakuten-eagles": "Rakuten Mobile Park Miyagi, Sendai, Japão",
     "location-background-rio-de-janeiro": "Rio de Janeiro, Brasil",
     "location-background-san-francisco": "São Francisco, Califórnia, EUA",
-    "location-background-mlb-tampa-bay-rays-2": "Steinbrenner Field, Tampa, Flórida, EUA",
+    "location-background-mlb-tampa-bay-rays-2": "Tropicana Field, St. Petersburg, Flórida, EUA",  # ver MANUAL_OVERRIDES
     "location-background-tainan-2026": "Tainan, Taiwan",
     "location-background-taipei-floral-picnic-2026": "Taipé, Taiwan",
     "location-background-nyc-2026": "Times Square, Nova York, EUA",
@@ -921,6 +921,32 @@ MANUAL_OVERRIDES = {
     },
     "special-background-worlds-special-blue": {
         "image": "assets/backgrounds/worlds-2026-special.jpg",
+    },
+    # Mesmo caso: o Fandom ainda hospeda placeholders (Dia de Muertos: textura
+    # rosa de papel amassado; Arraia: degrade laranja liso). Arte real de
+    # serebii.net/pokemongo/locationcard/diademuertos2026.jpg e
+    # .../pokemongoarraia2026.jpg (512px, sem marca d'agua nem barra preta;
+    # dittobase.com confirma a mesma arte). Auditoria visual de 2026-11-11,
+    # pedido pelo Gabriel.
+    # Same case: Fandom still hosts placeholders (Dia de Muertos: pink crumpled
+    # paper texture; Arraia: flat orange gradient). Real art from Serebii's
+    # full-size locationcard files (512px, no watermark, no black bar; Ditto
+    # Base shows the same art). Visual audit of 2026-11-11, requested by Gabriel.
+    "special-background-dia-de-muertos-2026": {
+        "image": "assets/backgrounds/dia-de-muertos-2026.jpg",
+    },
+    "special-background-arraia-2026": {
+        "image": "assets/backgrounds/arraia-2026.jpg",
+    },
+    # O wiki copia "Steinbrenner Field" do background de 2025, mas a arte de
+    # 2026 e o Tropicana Field (domo) - os Rays voltaram pra la na temporada
+    # 2026 (mlb.com, "Rays Return to Tropicana Field"). Auditoria de 2026-11-11.
+    # The wiki copies "Steinbrenner Field" from the 2025 background, but the
+    # 2026 art is Tropicana Field (domed) - the Rays returned there for the
+    # 2026 season (mlb.com, "Rays Return to Tropicana Field"). Audit of 2026-11-11.
+    "location-background-mlb-tampa-bay-rays-2": {
+        "name": "Tropicana Field, St. Petersburg, Florida, USA",
+        "namePt": "Tropicana Field, St. Petersburg, Flórida, EUA",
     },
 }
 
