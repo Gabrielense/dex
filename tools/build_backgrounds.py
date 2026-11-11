@@ -818,6 +818,7 @@ NAME_PT = {
     "special-background-arraia-2026": "Arraiá 2026",
     "special-background-diamond": "Versão Diamante",
     "special-background-festival-of-colors-2026": "Festival das Cores 2026",
+    "special-background-festival-of-lights-2026": "Festival das Luzes 2026",
     "special-background-gold": "Versão Ouro",
     "special-background-lego": "LEGO",
     "special-background-mega": "Mega Evolução",
@@ -940,6 +941,7 @@ REGION_EXCLUSIVE_IDS = {
     "special-background-patterns-of-the-wild",          # Indonesia
     "special-background-dancing-in-the-moonlight-2026",
     "special-background-dia-de-muertos-2026",           # evento regional do Mexico (2026-11-03)
+    "special-background-festival-of-lights-2026",       # evento regional da India, como o Festival of Colors (2026-11-11)
 }
 
 # O Fandom lista Bulbasaur/Charmander/Squirtle SEM ci= na linha "Ultra
@@ -1051,6 +1053,37 @@ EXTRA_ROWS = {
         # Pawniard (21/11/2026) tambem - afirmado pelo Gabriel em 2026-11-03.
         ("{{I|Pawniard||70px|t=t}}", "November 2026 Community Day · November 21"),
     ],
+    # Linhas que so existem na pagina NOVA do Fandom (pos-reestruturacao de nov/2026),
+    # nao na revisao fixa 190986. 3o elemento = ano do evento (senao herda o ano da
+    # 1a aparicao do fundo: Max Finale e de 2025). Adicionadas em 2026-11-11.
+    # Rows only on Fandom's NEW page layout, not in pinned revision 190986.
+    # 3rd element = the event's year. Added 2026-11-11.
+    "special-background-max-finale": [
+        ('{{I|Bulbasaur||60px|t=t|dynamax=t}}{{I|Charmander||60px|t=t|dynamax=t}}{{I|Squirtle||60px|t=t|dynamax=t}}{{I|Caterpie||60px|t=t|dynamax=t}}{{I|Pikachu||60px|t=t|dynamax=t}}{{I|Growlithe||60px|t=t|dynamax=t}}{{I|Abra||60px|t=t|dynamax=t}}{{I|Machop||60px|t=t|dynamax=t}}{{I|Gastly||60px|t=t|dynamax=t}}{{I|Krabby||60px|t=t|dynamax=t}}{{I|Hitmonlee||60px|t=t|dynamax=t}}{{I|Hitmonchan||60px|t=t|dynamax=t}}{{I|Rhyhorn||60px|t=t|dynamax=t}}{{I|Chansey||60px|t=t|dynamax=t}}{{I|Electabuzz||60px|t=t|dynamax=t}}{{I|Magmar||60px|t=t|dynamax=t}}{{I|Magikarp||60px|t=t|dynamax=t}}{{I|Eevee||60px|t=t|dynamax=t}}{{I|Omanyte||60px|t=t|dynamax=t}}{{I|Kabuto||60px|t=t|dynamax=t}}{{I|Hoothoot||60px|t=t|dynamax=t}}{{I|Shuckle||60px|t=t|dynamax=t}}{{I|Sneasel||60px|t=t|dynamax=t}}{{I|Hitmontop||60px|t=t|dynamax=t}}{{I|Ralts||60px|t=t|dynamax=t}}{{I|Sableye||60px|t=t|dynamax=t}}{{I|Wailmer||60px|t=t|dynamax=t}}{{I|Trapinch||60px|t=t|dynamax=t}}{{I|Feebas||60px|t=t|dynamax=t}}{{I|Spheal||60px|t=t|dynamax=t}}{{I|Beldum||60px|t=t|dynamax=t}}{{I|Combee||60px|t=t|dynamax=t}}{{I|Pidove||60px|t=t|dynamax=t}}{{I|Roggenrola||60px|t=t|dynamax=t}}{{I|Woobat||60px|t=t|dynamax=t}}{{I|Drilbur||60px|t=t|dynamax=t}}{{I|Excadrill||60px|t=t|dynamax=t}}{{I|Cottonee||60px|t=t|dynamax=t}}{{I|Darumaka||60px|t=t|dynamax=t}}{{I|Trubbish||60px|t=t|dynamax=t}}{{I|Cryogonal||60px|t=t|dynamax=t}}{{I|Deino||60px|t=t|dynamax=t}}{{I|Espurr||60px|t=t|dynamax=t}}{{I|Inkay||60px|t=t|dynamax=t}}{{I|Bounsweet||60px|t=t|dynamax=t}}{{I|Passimian||60px|t=t|dynamax=t}}{{I|Drampa||60px|t=t|dynamax=t}}{{I|Grookey||60px|t=t|dynamax=t}}{{I|Scorbunny||60px|t=t|dynamax=t}}{{I|Sobble||60px|t=t|dynamax=t}}{{I|Skwovet||60px|t=t|dynamax=t}}{{I|Rookidee||60px|t=t|dynamax=t}}{{I|Wooloo||60px|t=t|dynamax=t}}{{I|Toxtricity||60px|t=t|dynamax=t}}{{I|Toxtricity||ci=Toxtricity lowkey|60px|t=t|dynamax=t}}{{I|Sizzlipede||60px|t=t|dynamax=t}}{{I|Hatenna||60px|t=t|dynamax=t}}{{I|Falinks||60px|t=t|dynamax=t}}{{I|Duraludon||60px|t=t|dynamax=t}}', "Dynamax Trails · November 16 - 23", 2026),
+    ],
+    "location-background-wild-area-sendai": [
+        ("{{I|Lapras||60px|t=t}}", "Sendai – Lapras Stamp Rally · Since November 2", 2026),
+    ],
+    "location-background-wild-area-mexico-city": [
+        ("{{I|Hawlucha||60px|t=t}}", "Mexico City – Hawlucha Stamp Rally · Since November 2", 2026),
+    ],
+}
+
+# Fundos inteiros que so existem na pagina nova do Fandom (mesmo caminho das linhas
+# do wiki: get_bg + add_row). Quando o parser ler o layout novo, viram redundantes.
+# Whole backgrounds only on Fandom's new page (same path as wiki rows).
+EXTRA_BACKGROUNDS = [
+    {"type": "special", "year": 2026,
+     "file": "Special Background Festival of Lights 2026.png", "name": "Festival of Lights 2026",
+     "pokemon": "{{I|Pikachu||ci=Pikachu female saree|60px|t=t}}{{I|Pikachu||ci=Pikachu kurta|60px|t=t}}",
+     "event": "Festival of Lights 2026 · November 6 - 8"},
+]
+
+# (bg_id, texto do evento) que a revisao fixa poe no fundo errado: a pagina nova
+# deu ao Festival of Lights 2026 um fundo proprio (antes listado no Festival of Colors).
+# (bg_id, event text) the pinned revision files under the wrong background.
+DROP_EVENTS = {
+    ("special-background-festival-of-colors-2026", "Festival of Lights 2026 · November 6 - 8"),
 }
 
 # (bg_id, num) -> True quando o brilhante daquele Pokemon especifico ainda
@@ -1113,6 +1146,8 @@ def main():
 
     def add_row(bg, bg_id, pokemon_cell, event_cell, year=None):
         event_text = clean_wikitext(event_cell or "")
+        if (bg_id, event_text) in DROP_EVENTS:
+            return
         if event_text and event_text not in bg["events"]:
             bg["events"].append(event_text)
         # data de cada evento com o ano da SUA secao: um fundo que volta anos depois
@@ -1198,13 +1233,19 @@ def main():
                         bg_id = BG_ID_ALIASES.get(bg_id, bg_id)
                         add_row(get_bg(bg_id, filename, name, type_, year), bg_id, pokemon_cell, event_cell, year)
 
+    for xb in EXTRA_BACKGROUNDS:
+        bg_id = slugify(xb["file"])
+        bg_id = BG_ID_ALIASES.get(bg_id, bg_id)
+        add_row(get_bg(bg_id, xb["file"], xb["name"], xb["type"], xb["year"]),
+                bg_id, xb["pokemon"], xb["event"], xb["year"])
+
     for bg_id, rows in EXTRA_ROWS.items():
         bg = backgrounds.get(bg_id)
         if not bg:
             print("AVISO: EXTRA_ROWS %s nao existe no wiki / not on the wiki" % bg_id)
             continue
-        for pokemon_cell, event_text in rows:
-            add_row(bg, bg_id, pokemon_cell, event_text)
+        for row in rows:
+            add_row(bg, bg_id, row[0], row[1], row[2] if len(row) > 2 else None)
 
     for bg_id, extra_ids in EXTRA_POKEMON.items():
         bg = backgrounds.get(bg_id)
