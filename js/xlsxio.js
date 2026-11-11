@@ -216,6 +216,70 @@ const XlsxIO = (() => {
       .toLowerCase().trim().replace(/\s+/g, " ");
   }
 
+  /* ---- aba "Medalhas" (a da planilha-mestre do Gabriel ou a que o site
+     exporta — mesmo layout): três tabelas lado a lado.
+       A..E  Nome da Medalha | <valor> | Máximo | Progresso | Medalha
+       H..K  Nome da Medalha de Evento | Status | Lançamento | Descrição
+       M..P  Colecionador de elite | Data | Status | Registro
+     As colunas são achadas pelo cabeçalho da 1ª coluna de cada tabela, e
+     as outras por deslocamento — o cabeçalho do valor é uma data na
+     planilha-mestre ("19/04/2026"), não dá pra casar por nome. */
+  function cellDate(v) {
+    const s = String(v == null ? "" : v).trim();
+    if (!s) return null;
+    if (/^\d+(\.\d+)?$/.test(s)) return serialToIso(Number(s));
+    const m = /^(\d{1,2})\/(\d{1,2})\/(\d{4})/.exec(s) || /^(\d{4})-(\d{2})-(\d{2})/.exec(s);
+    if (!m) return null;
+    return m[0].indexOf("-") > 0 ? m[0] : `${m[3]}-${m[2].padStart(2, "0")}-${m[1].padStart(2, "0")}`;
+  }
+  function medalRowsToMarks(rows, medals) {
+    const out = { standard: Object.create(null), event: Object.create(null), elite: Object.create(null) };
+    const res = { marks: out, count: 0, unmatched: [] };
+    if (!rows.length || !medals) return res;
+    const header = rows[0].map(h => normHeader(h));
+    const iStd = header.indexOf(normHeader("Nome da Medalha"));
+    const iEv = header.indexOf(normHeader("Nome da Medalha de Evento"));
+    const iEl = header.indexOf(normHeader("Colecionador de elite"));
+    const stdIds = new Set(medals.standard.map(m => m.id));
+    const evIds = new Set(medals.event.map(m => m.id));
+    const elIds = new Set(medals.elite.map(m => m.id));
+    const str = v => String(v == null ? "" : v).trim();
+    for (let r = 1; r < rows.length; r++) {
+      const row = rows[r];
+      if (iStd >= 0) {
+        const name = str(row[iStd]);
+        if (name && name !== "Nome da Medalha") {
+          if (stdIds.has(name)) {
+            const value = str(row[iStd + 1]) === "" ? null : Number(row[iStd + 1]);
+            const tier = str(row[iStd + 4]);
+            if (value != null || tier) { out.standard[name] = { value: isNaN(value) ? null : value, tier }; res.count++; }
+          } else res.unmatched.push(name);
+        }
+      }
+      if (iEv >= 0) {
+        const name = str(row[iEv]);
+        if (name) {
+          const id = name + "|" + (cellDate(row[iEv + 2]) || "");
+          if (evIds.has(id)) {
+            if (str(row[iEv + 1]) === "x") { out.event[id] = 1; res.count++; }
+          } else res.unmatched.push(name);
+        }
+      }
+      if (iEl >= 0) {
+        const name = str(row[iEl]);
+        if (name) {
+          const id = name + "|" + (cellDate(row[iEl + 1]) || "");
+          if (elIds.has(id)) {
+            const status = str(row[iEl + 2]);
+            const date = cellDate(row[iEl + 3]);
+            if (status || date) { out.elite[id] = { status, date }; res.count++; }
+          } else res.unmatched.push(name);
+        }
+      }
+    }
+    return res;
+  }
+
   /* Cabeçalhos da aba 1 -> chave interna. Mesma ordem da planilha do Gabriel. */
   const SHEET_COLUMNS = [
     ["Número", "num"], ["Nome", "namePt"], ["Registro", "caught"],
@@ -467,6 +531,8 @@ const XlsxIO = (() => {
     skip();
     add([[0, "Salve o arquivo e importe pela aba \"Meus dados\" do site — suas marcas substituem as que já estavam salvas neste navegador."]]);
     skip();
+    add([[0, "A aba \"Medalhas\" tem o mesmo layout da planilha original: medalhas (valor e tier), medalhas de evento (Status x) e Colecionador de Elite (Status x / _ / Pago / Regional e a data de Registro). O site lê essas três tabelas pelo cabeçalho da primeira coluna de cada uma."]]);
+    skip();
     add([[0, "A aba \"Fundos\" é separada: cada linha é um Pokémon elegível para um fundo de evento. Marque a coluna \"Marcado\" para o Pokémon que você pegou COM aquele fundo especificamente — o mesmo Pokémon pode aparecer marcado numa linha e não marcado em outra, já que o registro normal (\"Registro\") não distingue de qual captura veio. A coluna \"Marcado brilhante\" é separada da \"Marcado\": todo Pokémon de fundo é elegível a brilhante, então as duas marcas são independentes — dá pra ter só o normal, só o brilhante, os dois ou nenhum."]]);
 
     return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -521,6 +587,51 @@ const XlsxIO = (() => {
 </worksheet>`;
   }
 
+  /* Aba "Medalhas": mesmo layout da planilha-mestre (três tabelas lado a
+     lado), pra dar pra colar de volta lá. blank=true: só o esqueleto. */
+  function medalsSheetXml(styles, blank) {
+    const { headerXf } = styles;
+    const md = (typeof App !== "undefined" && App.medals) || null;
+    const rows = [];
+    const H = headerXf[REF_COLOR], M = headerXf[headerColorFor("caught")];
+    const head = [[0, "Nome da Medalha", H], [1, "Progresso", M], [2, "Máximo", H], [3, "Progresso %", H], [4, "Medalha", M],
+                  [7, "Nome da Medalha de Evento", H], [8, "Status", M], [9, "Lançamento", H], [10, "Descrição", H],
+                  [12, "Colecionador de elite", H], [13, "Data", H], [14, "Status", M], [15, "Registro", M]];
+    rows.push(`<row r="1" customHeight="1" ht="30">${head.map(([c, v, s]) => xCell(colName(c) + "1", v, s)).join("")}</row>`);
+    if (md) {
+      const n = Math.max(md.standard.length, md.event.length, md.elite.length);
+      for (let i = 0; i < n; i++) {
+        const r = i + 2;
+        const cells = [];
+        const s = md.standard[i], e = md.event[i], c = md.elite[i];
+        if (s) {
+          const cur = (!blank && Store.medals.standard[s.id]) || {};
+          const v = cur.value != null ? Number(cur.value) : "";
+          cells.push(xCell("A" + r, s.namePt), xCell("B" + r, v), xCell("C" + r, s.max),
+                     xCell("D" + r, v === "" ? "" : Math.min(100, Math.round(v / s.max * 1000) / 10)),
+                     xCell("E" + r, cur.tier || ""));
+        }
+        if (e) {
+          cells.push(xCell("H" + r, e.name), xCell("I" + r, !blank && Store.medals.event[e.id] ? "x" : "_"),
+                     xCell("J" + r, e.date ? { date: e.date } : ""), xCell("K" + r, e.place || ""));
+        }
+        if (c) {
+          const cur = (!blank && Store.medals.elite[c.id]) || {};
+          cells.push(xCell("M" + r, c.name), xCell("N" + r, c.date ? { date: c.date } : ""),
+                     xCell("O" + r, cur.status || ""), xCell("P" + r, cur.date ? { date: cur.date } : ""));
+        }
+        rows.push(`<row r="${r}">${cells.join("")}</row>`);
+      }
+    }
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
+<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>
+<sheetFormatPr defaultRowHeight="15"/>
+<cols><col min="1" max="1" width="30" customWidth="1"/><col min="8" max="8" width="36" customWidth="1"/><col min="11" max="11" width="30" customWidth="1"/><col min="13" max="13" width="48" customWidth="1"/></cols>
+<sheetData>${rows.join("")}</sheetData>
+</worksheet>`;
+  }
+
   const CONTENT_TYPES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
 <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
@@ -529,6 +640,7 @@ const XlsxIO = (() => {
 <Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
 <Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
 <Override PartName="/xl/worksheets/sheet3.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
+<Override PartName="/xl/worksheets/sheet4.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
 <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
 </Types>`;
 
@@ -544,7 +656,7 @@ const XlsxIO = (() => {
      simplesmente não têm o rId4/sheet3.xml). */
   const WORKBOOK = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
-<sheets><sheet name="Instruções" sheetId="2" r:id="rId2"/><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/><sheet name="Fundos" sheetId="3" r:id="rId4"/></sheets>
+<sheets><sheet name="Instruções" sheetId="2" r:id="rId2"/><sheet name="PokéAgenda" sheetId="1" r:id="rId1"/><sheet name="Fundos" sheetId="3" r:id="rId4"/><sheet name="Medalhas" sheetId="4" r:id="rId5"/></sheets>
 </workbook>`;
 
   const WB_RELS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -553,6 +665,7 @@ const XlsxIO = (() => {
 <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/>
 <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
 <Relationship Id="rId4" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet3.xml"/>
+<Relationship Id="rId5" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet4.xml"/>
 </Relationships>`;
 
   async function buildXlsx(skeleton, blank) {
@@ -567,7 +680,8 @@ const XlsxIO = (() => {
       { name: "xl/styles.xml", data: enc.encode(styles.xml) },
       { name: "xl/worksheets/sheet1.xml", data: enc.encode(dataSheetXml(head, body, skeleton.entries, styles)) },
       { name: "xl/worksheets/sheet2.xml", data: enc.encode(instructionsSheetXml(styles)) },
-      { name: "xl/worksheets/sheet3.xml", data: enc.encode(backgroundsSheetXml(styles, blank)) }
+      { name: "xl/worksheets/sheet3.xml", data: enc.encode(backgroundsSheetXml(styles, blank)) },
+      { name: "xl/worksheets/sheet4.xml", data: enc.encode(medalsSheetXml(styles, blank)) }
     ]);
   }
 
@@ -602,7 +716,9 @@ const XlsxIO = (() => {
       customMarks: Store.customMarks,
       /* dex de backgrounds tambem viaja aqui, alem da aba propria no .xlsx */
       backgroundMarks: Store.backgroundMarks,
-      backgroundShinyMarks: Store.backgroundShinyMarks
+      backgroundShinyMarks: Store.backgroundShinyMarks,
+      /* medalhas (valor/tier, evento, Colecionador de Elite) - ver js/medals.js */
+      medals: Store.medals
     }, null, 1)], { type: "application/json" });
   }
 
@@ -615,6 +731,7 @@ const XlsxIO = (() => {
     }
     if (o.backgroundMarks) Store.backgroundMarks = o.backgroundMarks;
     if (o.backgroundShinyMarks) Store.backgroundShinyMarks = o.backgroundShinyMarks;
+    if (o.medals) Store.medals = Store.normMedals(o.medals);
     const known = new Set(skeleton.entries.map(e => e.id));
     const report = { matched: 0, unmatched: [], marks: 0, rows: Object.keys(o.marks).length };
     const rows = [];
@@ -651,6 +768,6 @@ const XlsxIO = (() => {
     return rowsToMarks(rows, skeleton);
   }
 
-  return { readSheet, rowsToMarks, readJson, readCsv, backgroundRowsToMarks,
+  return { readSheet, rowsToMarks, readJson, readCsv, backgroundRowsToMarks, medalRowsToMarks,
            buildXlsx, buildCsv, buildJson, SHEET_COLUMNS };
 })();

@@ -882,8 +882,9 @@ MANUAL_OVERRIDES = {
     "special-background-go-fest-2026-mewtwo": {
         "name": "GO Fest Global DNA",
         "namePt": "GO Fest Global DNA",
-        "image": "https://cdn.leekduck.com/assets/img/events/article-images/"
-                  "2026/2026-07-11-pokemon-go-fest-2026-global/mewtwo-special-background.jpg",
+        # copia local da arte (antes hot-link do cdn.leekduck.com; 2026-11-11)
+        # local copy of the art (was hot-linked from cdn.leekduck.com; 2026-11-11)
+        "image": "assets/backgrounds/gofest-2026-mewtwo.jpg",
     },
     # Mesmo problema de nome cru (o texto da celula e literalmente
     # "[[Pokémon GO Fest 2026: Global]]: Raid Background") - a linha

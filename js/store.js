@@ -44,6 +44,10 @@ const Store = {
      disponível, não um extra opcional. */
   backgroundMarks: Object.create(null),
   backgroundShinyMarks: Object.create(null),
+  /* Medalhas (js/medals.js): standard {id:{value,tier}}, event {id:1},
+     elite {id:{status,date}}. Esqueleto em data/medals.json; viaja na aba
+     "Medalhas" do .xlsx e no backup .json. */
+  medals: { standard: Object.create(null), event: Object.create(null), elite: Object.create(null) },
 
   load() {
     try {
@@ -56,6 +60,7 @@ const Store = {
       this.customMarks = o.customMarks || Object.create(null);
       this.backgroundMarks = o.backgroundMarks || Object.create(null);
       this.backgroundShinyMarks = o.backgroundShinyMarks || Object.create(null);
+      this.medals = this.normMedals(o.medals);
       return true;
     } catch (e) {
       console.warn("marks illegible, starting empty", e);
@@ -69,7 +74,8 @@ const Store = {
         v: 1, marks: this.marks, meta: this.meta,
         customTiers: this.customTiers, customMarks: this.customMarks,
         backgroundMarks: this.backgroundMarks,
-        backgroundShinyMarks: this.backgroundShinyMarks
+        backgroundShinyMarks: this.backgroundShinyMarks,
+        medals: this.medals
       }));
       return true;
     } catch (e) {
@@ -85,7 +91,41 @@ const Store = {
     this.customMarks = Object.create(null);
     this.backgroundMarks = Object.create(null);
     this.backgroundShinyMarks = Object.create(null);
+    this.medals = this.normMedals(null);
     try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ }
+  },
+
+  /* ---- medalhas ---- */
+  normMedals(o) {
+    o = o || {};
+    return { standard: o.standard || Object.create(null), event: o.event || Object.create(null),
+             elite: o.elite || Object.create(null) };
+  },
+  setMedal(id, value, tier) {
+    if (value == null && !tier) delete this.medals.standard[id];
+    else this.medals.standard[id] = { value, tier: tier || "" };
+    this.meta.dirty = true;
+    this.save();
+  },
+  setEventMedal(id, on) {
+    if (on) this.medals.event[id] = 1; else delete this.medals.event[id];
+    this.meta.dirty = true;
+    this.save();
+  },
+  setElite(id, status, date) {
+    if (!status && !date) delete this.medals.elite[id];
+    else this.medals.elite[id] = { status: status || "", date: date || null };
+    this.meta.dirty = true;
+    this.save();
+  },
+  /* Substitui tudo (importação de planilha ou backup). */
+  replaceMedals(o) {
+    this.medals = this.normMedals(o);
+    this.save();
+  },
+  medalCount() {
+    return Object.keys(this.medals.standard).length + Object.keys(this.medals.event).length +
+           Object.keys(this.medals.elite).length;
   },
 
   /* Dataset novo, vazio: para quem não tem planilha nenhuma. */
@@ -96,6 +136,7 @@ const Store = {
     this.customMarks = Object.create(null);
     this.backgroundMarks = Object.create(null);
     this.backgroundShinyMarks = Object.create(null);
+    this.medals = this.normMedals(null);
     this.save();
   },
 

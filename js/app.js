@@ -56,6 +56,13 @@ const App = {
       } catch (bgErr) {
         console.warn("data/backgrounds.json indisponivel", bgErr);
       }
+      /* Medalhas: tambem opcional (tools/export_medals.py). */
+      try {
+        const mdRes = await fetch("data/medals.json");
+        if (mdRes.ok) this.medals = await mdRes.json();
+      } catch (mdErr) {
+        console.warn("data/medals.json indisponivel", mdErr);
+      }
     } catch (err) {
       document.getElementById("main").innerHTML =
         '<div class="panel"><h2>Erro ao carregar os dados</h2>' +
@@ -77,7 +84,8 @@ const App = {
   /* Cada aba tem seu endereço (#gamedex, #lists/shiny...): F5 volta pra
      mesma aba e o Voltar do navegador anda entre as abas. O pedaço depois
      da barra é a categoria escolhida dentro de Faltantes / Pokédex. */
-  VIEWS: ["dashboard", "gamedex", "lists", "living", "backgrounds", "timeline", "data"],
+  VIEWS: ["dashboard", "gamedex", "lists", "living", "backgrounds", "medals", "timeline", "data"],
+  medals: null,   // data/medals.json (esqueleto das medalhas), carregado em boot()
 
   readHash() {
     const [view, sub] = decodeURIComponent(location.hash.slice(1)).split("/");
@@ -176,6 +184,7 @@ const App = {
     else if (this.view === "lists") Lists.render(main, params);
     else if (this.view === "living") Living.render(main);
     else if (this.view === "backgrounds") Backgrounds.render(main);
+    else if (this.view === "medals") Medals.render(main);
     else if (this.view === "timeline") Timeline.render(main);
     else if (this.view === "data") {
       DataPanel.render(main);

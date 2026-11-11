@@ -14,6 +14,11 @@ python tools\export_skeleton.py %1
 if errorlevel 1 goto :erro
 
 echo.
+echo [1b/4] Gerando data\medals.json (aba Medalhas)...
+python tools\export_medals.py %1
+if errorlevel 1 goto :erro
+
+echo.
 echo [2/4] Conferindo as contas contra a aba Resumo...
 python tools\check_resumo.py %1
 if errorlevel 1 (
@@ -34,7 +39,7 @@ if errorlevel 1 (
 
 echo.
 echo [4/4] Publicando...
-git add data\skeleton.json data\categories.json data\backgrounds.json
+git add data\skeleton.json data\categories.json data\backgrounds.json data\medals.json
 git diff --cached --quiet
 if not errorlevel 1 (
   echo   Nada mudou nos dados. Nada a publicar.

@@ -10,16 +10,19 @@
 <meta property="og:site_name" content="PokéAgenda">
 <meta property="og:title" content="PokéAgenda">
 <meta property="og:description" content="Acompanhe sua coleção de Pokémon GO: progresso por região, listas do que falta e a linha do tempo dos lançamentos.">
-<meta property="og:image" content="assets/og-image.png">
+<meta property="og:image" content="https://pokeagenda2026.vercel.app/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="PokéAgenda">
 <meta name="twitter:description" content="Acompanhe sua coleção de Pokémon GO: progresso por região, listas do que falta e a linha do tempo dos lançamentos.">
-<meta name="twitter:image" content="assets/og-image.png">
+<meta name="twitter:image" content="https://pokeagenda2026.vercel.app/assets/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;600;700;800;900&display=swap">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta property="og:url" content="https://pokeagenda2026.vercel.app/">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/gamedex.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23d8232f'/><path d='M4 50h92' stroke='%23111' stroke-width='10'/><circle cx='50' cy='50' r='16' fill='%23fff' stroke='%23111' stroke-width='10'/></svg>">
@@ -47,6 +50,7 @@
     <button class="tab" data-view="lists" role="tab" data-i18n="nav.lists">Faltantes</button>
     <button class="tab" data-view="living" role="tab" data-i18n="nav.living">Living Dex</button>
     <button class="tab" data-view="backgrounds" role="tab" data-i18n="nav.backgrounds">Backgrounds</button>
+    <button class="tab" data-view="medals" role="tab" data-i18n="nav.medals">Medalhas</button>
     <button class="tab" data-view="timeline" role="tab" data-i18n="nav.timeline">Lançamentos</button>
     <button class="tab" data-view="data" role="tab" data-i18n="nav.data">Meus dados</button>
   </nav>
@@ -86,6 +90,7 @@
 <script src="js/views.js"></script>
 <script src="js/dataview.js"></script>
 <script src="js/gamedex.js"></script>
+<script src="js/medals.js"></script>
 <script src="js/app.js"></script>
 </body>
 </html>

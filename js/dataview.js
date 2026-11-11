@@ -212,6 +212,7 @@ const DataPanel = {
       const name = file.name.toLowerCase();
       let res;
       let bgMarks = null; // null = nao mexe no que ja existia (json ja resolve sozinho)
+      let medals = null;  // idem para a aba Medalhas
       if (name.endsWith(".json")) {
         res = XlsxIO.readJson(await file.text(), Agg.skeleton);
       } else if (name.endsWith(".csv")) {
@@ -230,6 +231,16 @@ const DataPanel = {
         } catch (bgErr) {
           if (bgErr.message !== "SHEET_NOT_FOUND") throw bgErr;
         }
+        /* aba "Medalhas" (a da planilha-mestre ou a que o site exporta):
+           opcional do mesmo jeito. */
+        if (App.medals) {
+          try {
+            const mdRows = await XlsxIO.readSheet(buf, "Medalhas", { requireName: true });
+            medals = XlsxIO.medalRowsToMarks(mdRows, App.medals);
+          } catch (mdErr) {
+            if (mdErr.message !== "SHEET_NOT_FOUND") throw mdErr;
+          }
+        }
       }
 
       const count = Store.replaceAll(res.rows);
@@ -240,6 +251,14 @@ const DataPanel = {
         Store.replaceAllBackgroundShinyMarks(bgMarks.shinyMarks);
         const countPairs = m => { let n = 0; for (const k in m) n += Object.keys(m[k]).length; return n; };
         this.say(t("data.bgMarksFound", { n: countPairs(bgMarks.marks) + countPairs(bgMarks.shinyMarks) }), "ok");
+      }
+      if (medals) {
+        Store.replaceMedals(medals.marks);
+        this.say(t("data.medalMarksFound", { n: medals.count }), "ok");
+        if (medals.unmatched.length) {
+          this.say(t("data.medalsUnmatched", { n: medals.unmatched.length }) + " " +
+                   medals.unmatched.slice(0, 6).join("; "), "warn");
+        }
       }
       if (res.report.unmatched.length) {
         this.say(t("data.unmatched", { n: res.report.unmatched.length }), "warn");

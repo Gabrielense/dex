@@ -89,6 +89,20 @@ Se você criar colunas com esses cabeçalhos na sua planilha-mestre, a importaç
 lê as marcas de lá também. Com a camada "Macho e fêmea" ligada, cada ♂ e ♀ de
 formas/fantasias vira um slot próprio; desligada, o par conta como um slot só.
 
+### Medalhas
+
+Aba própria com o que a aba **Medalhas** da planilha acompanha: medalhas normais
+(valor atual + tier, com a barra até a platina), medalhas de evento (tem / não
+tem, com data e local) e os desafios do Colecionador de Elite (status `x` /
+`_` / `Pago` / `Regional` e a data de registro). O esqueleto público (nomes,
+máximos, datas) sai de `tools/export_medals.py` → `data/medals.json`; o
+progresso é lido da aba Medalhas da sua planilha na importação, editável no
+site, e volta numa aba Medalhas na exportação (mesmo layout de três tabelas)
+e no backup `.json`.
+
+O site também tem um `manifest.json`: no celular dá pra "Adicionar à tela
+inicial" e abrir como app.
+
 ### Strings de busca
 
 As buscas agora são **números da dex** (`843,844`), não nomes — mais curto e
@@ -299,6 +313,7 @@ js/
   aggregate.js        motor de contagem (espelha o check_resumo.py)
   zip.js              zip/unzip nativo, sem biblioteca
   xlsxio.js           ler e escrever .xlsx / .csv / .json
+  medals.js           tela de medalhas
   sprites.js          sprites + cadeia de fallback
   views.js            painel, faltantes, linha do tempo, gênero, ficha
   dataview.js         importar / exportar / saúde dos dados
@@ -308,6 +323,7 @@ data/
   categories.json     regras de contagem (edite aqui)
 tools/
   export_skeleton.py  planilha -> skeleton.json
+  export_medals.py    aba Medalhas -> medals.json
   check_resumo.py     confere as contas contra a aba Resumo
 update.bat            gerar + conferir + publicar
 ```
