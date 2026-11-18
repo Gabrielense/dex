@@ -523,8 +523,14 @@ select:focus,input:focus{outline:2px solid var(--lens-blue);outline-offset:1px}
   overflow:hidden;box-shadow:var(--shadow-1);content-visibility:auto;contain-intrinsic-size:auto 260px;
   transition:filter .2s ease,opacity .2s ease;
 }
-/* B&W ate registrar o primeiro Pokemon elegivel - ver Agg.backgroundItems */
-.bg-card.is-empty{filter:grayscale(1);opacity:.62}
+/* A classe .is-empty (nenhum Pokemon elegivel registrado - ver Agg.backgroundItems)
+   continua sendo aplicada, mas NAO muda mais a aparencia do card: a arte do fundo fica
+   colorida mesmo sem nada registrado, porque e bom ver o fundo inteiro antes de ter.
+   Quem falta continua marcado nos sprites (.bg-sprite sem .got) e no contador 0/N.
+   The .is-empty class (no eligible Pokemon registered yet) is still applied but no longer
+   changes the card: the art stays in full colour even with nothing registered, because
+   seeing the whole background before you have it is the point. What's missing is still
+   shown by the sprites (.bg-sprite without .got) and the 0/N counter. (2026-11-18) */
 .bg-banner{
   width:100%;height:104px;background-size:cover;background-position:center;
   background-color:var(--panel2);
