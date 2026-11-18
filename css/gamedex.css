@@ -93,15 +93,26 @@ body.gd-on #main{padding:0;max-width:none}
 }
 .gd-art-bg::after{left:16.5%;width:2.5px;opacity:.75}
 .gd-region.locked .gd-art-bg{opacity:.45}
+/* As artes sao recortadas (js/sprites.js tira a margem transparente), entao cada
+   uma tem sua proporcao: as "em pe" (Totodile, Snivy) sao mais altas que largas e,
+   com object-fit:contain, ocupam TODA a altura da caixa. Por isso a caixa nao pode
+   passar da altura do card: com 118%/126% o topo (cabeca, folha, chama) era cortado
+   pelo overflow:hidden do card. A do meio continua a maior, mas agora o limite e o
+   proprio card. (2026-11-18)
+   The art is trimmed (js/sprites.js strips the transparent margin), so each piece has
+   its own aspect ratio: the upright ones (Totodile, Snivy) are taller than wide and,
+   with object-fit:contain, fill the box's whole height. So the box must not be taller
+   than the card: at 118%/126% the top (head, leaf, flame) was cut off by the card's
+   overflow:hidden. The middle one is still the biggest, but the card is now the ceiling. */
 .gd-art-mons{
-  position:absolute;right:2px;top:0;bottom:0;width:58%;
+  position:absolute;right:10px;top:7%;bottom:0;width:62%;
   display:flex;align-items:flex-end;justify-content:flex-end;
 }
 .gd-art-mons .sprite{
-  flex:1 1 0;height:118%;display:flex;align-items:flex-end;justify-content:center;
-  margin-left:-7%;
+  flex:1 1 0;height:93%;display:flex;align-items:flex-end;justify-content:center;
+  margin-left:-8%;
 }
-.gd-art-mons .sprite:nth-child(2){height:126%;z-index:1}
+.gd-art-mons .sprite:nth-child(2){height:100%;z-index:1}
 .gd-art-mons .sprite img{
   max-width:135%;max-height:100%;object-fit:contain;object-position:bottom;
   transform:none !important;
