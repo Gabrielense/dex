@@ -83,9 +83,12 @@ EVO_PATH = os.path.join(ROOT, "data", "evolutions.json")
 OUT_PATH = os.path.join(ROOT, "data", "backgrounds.json")
 API_URL = ("https://pokemongo.fandom.com/api.php"
            "?action=parse&page=Backgrounds&prop=wikitext&format=json")
-# Revisao fixa do wiki (BACKGROUNDS_OLDID=190986): em nov/2026 a pagina virou uma tabela
-# unica por secao, sem os titulos de ano que o parser usa. Pinned wiki revision: in Nov 2026
-# the page became one table per section with no year headings, which this parser needs.
+# A pagina ao vivo. Em nov/2026 o Fandom trocou as tabelas por ano por UMA tabela de 5
+# colunas por secao; o parser le os dois formatos (ver iter_rows_new), entao nao ha mais
+# revisao fixa. BACKGROUNDS_OLDID continua existindo pra comparar com uma revisao antiga.
+# The live page. In Nov 2026 Fandom replaced the per-year tables with ONE 5-column table
+# per section; the parser reads both layouts (see iter_rows_new), so the revision is no
+# longer pinned. BACKGROUNDS_OLDID still works, to compare against an old revision.
 if os.environ.get("BACKGROUNDS_OLDID"):
     API_URL = ("https://pokemongo.fandom.com/api.php?action=parse&oldid=%s&prop=wikitext&format=json"
                % os.environ["BACKGROUNDS_OLDID"])
@@ -205,6 +208,20 @@ def name_from_filename(filename):
     base = base.replace("_", " ")
     base = NAME_PREFIX_RE.sub("", base)
     return base.strip()
+
+
+def first_piece(cleaned):
+    """1o pedaco real de um texto ja limpo separado por ' · ' - a celula Note
+    junta a legenda com observacoes ('Black and White Fusion · Requires
+    Fusion'), e o nome do fundo e so a 1a parte.
+    First real piece of an already-cleaned ' · '-separated text - the Note cell
+    joins the caption with remarks ('Black and White Fusion · Requires
+    Fusion'), and the background's name is only the first part."""
+    for piece in (cleaned or "").split(" \u00b7 "):
+        piece = piece.strip()
+        if piece and not re.fullmatch(r"[-\u2013\u2014\s]*", piece):
+            return piece
+    return ""
 
 
 def bg_display_name(bg_cell, filename):
@@ -366,6 +383,144 @@ def resolve_columns(raw_rows, ncols=3):
     return out
 
 
+# -------------------------------------------------- layout novo (nov/2026)
+# Ate nov/2026 cada secao da pagina tinha uma tabela POR ANO (===2024===) de 3
+# colunas (Background | Pokemon | Evento) com rowspan, e o ano vinha do titulo.
+# Agora cada secao e UMA tabela de 5 colunas, sem titulos de ano:
+#   Event | Date | Background | Note | Pokemon
+# O ano de cada linha vem do data-sort-value="YYYY-MM-DD" da celula de data, a
+# legenda do fundo (que era o texto depois da imagem) virou a coluna Note, e a
+# data (que vinha junto do nome do evento) virou coluna propria.
+# Os dois formatos continuam sendo lidos: iter_rows_new cuida do novo, o caminho
+# antigo (iter_year_blocks + resolve_columns) serve pra BACKGROUNDS_OLDID.
+# Until Nov 2026 each section had one table PER YEAR (===2024===) with 3 columns
+# (Background | Pokemon | Event) and rowspan, the year coming from the heading.
+# Now each section is ONE 5-column table with no year headings:
+#   Event | Date | Background | Note | Pokemon
+# Each row's year comes from the date cell's data-sort-value="YYYY-MM-DD", the
+# background caption (once the text after the image) became the Note column, and
+# the date (once part of the event name) became a column of its own.
+# Both layouts are still read: iter_rows_new handles the new one, the old path
+# (iter_year_blocks + resolve_columns) is kept for BACKGROUNDS_OLDID.
+NEW_LAYOUT_RE = re.compile(r'data-sort-value\s*=\s*"\d{4}-\d{2}-\d{2}"')
+SORT_VALUE_RE = re.compile(r'data-sort-value\s*=\s*"(\d{4})-\d{2}-\d{2}"')
+CELL_ATTR_RE = re.compile(r'^\s*[A-Za-z-]+\s*=\s*"[^"]*"\s*\|(?!\|)')
+YEAR_TAIL_RE = re.compile(r",\s*\d{4}\s*$")
+
+
+def split_cells(line):
+    """Celulas de uma linha de tabela: corta no '||' de nivel 0. Nao da pra
+    cortar no '||' cru - {{I|Pikachu||60px|t=t}} tem um dentro, e cada linha de
+    Pokemon viraria tres celulas tortas. Cells of a table line: splits on '||'
+    at depth 0. A plain split on '||' can't work - {{I|Pikachu||60px|t=t}} has
+    one inside, which would tear every Pokemon cell into pieces."""
+    out, cur, i, depth = [], "", 0, 0
+    while i < len(line):
+        two = line[i:i + 2]
+        if two in ("{{", "[["):
+            depth += 1
+            cur += two
+            i += 2
+            continue
+        if two in ("}}", "]]"):
+            depth = max(0, depth - 1)
+            cur += two
+            i += 2
+            continue
+        if two == "||" and depth == 0:
+            out.append(cur)
+            cur = ""
+            i += 2
+            continue
+        cur += line[i]
+        i += 1
+    out.append(cur)
+    return out
+
+
+def parse_table_new(lines):
+    """Linhas de UMA tabela -> lista de linhas, cada uma a lista das suas
+    celulas. As celulas de uma linha podem vir todas juntas separadas por '||',
+    uma por linha com '|' na frente, ou as duas coisas; linha sem '|' na frente
+    continua a celula anterior (as listas de Pokemon quebram em varias linhas).
+    Lines of ONE table -> list of rows, each the list of its cells. A row's
+    cells may come inline separated by '||', one per line prefixed with '|', or
+    both; a line with no leading '|' continues the previous cell (Pokemon lists
+    are often broken over several lines)."""
+    rows, cur = [], None
+    for raw in lines:
+        s = raw.strip()
+        if s.startswith("{|"):
+            continue
+        if s.startswith("|}"):
+            break
+        if s.startswith("!"):
+            continue
+        if s.startswith("|-"):
+            if cur:
+                rows.append(cur)
+            cur = []
+            continue
+        if cur is None:
+            continue
+        if s.startswith("|"):
+            cur.extend(split_cells(s[1:]))
+        elif cur:
+            cur[-1] += "\n" + s
+    if cur:
+        rows.append(cur)
+    return [r for r in rows if r]
+
+
+def strip_cell_attrs(cell):
+    """'data-sort-value="2026-11-17"|November 17' -> 'November 17'."""
+    return CELL_ATTR_RE.sub("", cell or "", count=1).strip()
+
+
+def iter_rows_new(section_text):
+    for table_lines in find_tables(section_text):
+        for cells in parse_table_new(table_lines):
+            if len(cells) < 5:
+                print("AVISO: linha com %d celulas ignorada / row with %d cells "
+                      "skipped: %s" % (len(cells), len(cells),
+                                       clean_wikitext(" | ".join(cells))[:90]))
+                continue
+            event_cell, date_cell, bg_cell, note_cell, pokemon_cell = cells[:5]
+            date_text = clean_wikitext(strip_cell_attrs(date_cell))
+            m = SORT_VALUE_RE.search(date_cell)
+            yield {
+                "bg": bg_cell,
+                "note": first_piece(clean_wikitext(note_cell)),
+                "event": clean_wikitext(strip_cell_attrs(event_cell)),
+                "date": date_text,
+                "pokemon": pokemon_cell,
+                "year": int(m.group(1)) if m else None,
+            }
+
+
+def bg_files_from_cell(bg_cell, note):
+    """(arquivo, legenda) por fundo da celula Background. Quase sempre uma
+    imagem; quando tem duas, a segunda e a arte antiga ao lado da atual
+    ('(old background - unused)') e nao conta como fundo.
+    (file, caption) per background in the Background cell. Almost always one
+    image; when there are two, the second is the superseded art shown next to
+    the current one ('(old background - unused)'), which is not a background."""
+    files = FILE_RE.findall(bg_cell or "")
+    if not files:
+        return []
+    if len(files) == 1:
+        fn = files[0].strip()
+        return [(fn, note or name_from_filename(fn))]
+    out = []
+    for seg in re.split(r"(?=\[\[File:)", bg_cell)[1:]:
+        fn = FILE_RE.match(seg).group(1).strip()
+        tail = clean_wikitext(re.sub(r"\[\[File:[^\]]*\]\]", "", seg))
+        if re.search(r"\bunused\b", tail, re.I):
+            continue
+        out.append((fn, note or name_from_filename(fn)))
+    return out
+
+
 # --------------------------------------------------------------- skeleton
 def load_skeleton():
     with open(SKELETON_PATH, encoding="utf-8") as fh:
@@ -505,6 +660,19 @@ def match_costume(species_name, ci_raw, candidates):
     hint_n = norm(hint)
     if not hint_n:
         return []
+    # Gigamax: a pagina nova escreve ci=Blastoise gigantamax onde a antiga
+    # usava o parametro gigantamax=t (que este parser ignorava - a linha caia
+    # na especie BASE, errado: o fundo e do exemplar Gigamax, que no GO e uma
+    # entrada propria, 0009G). Nao e fantasia nem forma, e flag.
+    # Gigantamax: the new page writes ci=Blastoise gigantamax where the old one
+    # used the gigantamax=t parameter (which this parser ignored - the row fell
+    # back to the BASE species, which is wrong: the background belongs to the
+    # Gigantamax specimen, its own entry in GO, 0009G). It's a flag, not a
+    # costume or a form.
+    if hint_n in ("gigantamax", "gmax"):
+        gmax = [e for e in candidates if "gmax" in (e.get("flags") or [])]
+        if gmax:
+            return gmax
     for field in ("costumeEn", "regFormEn", "altFormEn"):
         exact = [e for e in candidates if e.get(field) and norm(e[field]) == hint_n]
         if exact:
@@ -737,11 +905,11 @@ NAME_PT = {
     "location-background-id-car-free-day": "Jacarta, Indonésia",
     "location-background-national-trust-killerton": "Killerton, Devon, Reino Unido",
     "location-background-los-angeles-2026": "Los Angeles, Califórnia, EUA",
-    "location-background-npb-2026-chunichi-dragons": "NPB 2026 Chunichi Dragons",
-    "location-background-npb-2026-hiroshima-carp": "NPB 2026 Hiroshima Carp",
-    "location-background-npb-2026-hokkaido-fighters": "NPB 2026 Hokkaido Fighters",
-    "location-background-npb-2026-koshien-hanshin-tigers": "NPB 2026 Koshien Hanshin Tigers",
-    "location-background-npb-2026-softbank-hawks": "NPB 2026 Softbank Hawks",
+    "location-background-npb-2026-chunichi-dragons": "Vantelin Dome Nagoya, Japão",
+    "location-background-npb-2026-hiroshima-carp": "MAZDA Zoom-Zoom Stadium Hiroshima, Japão",
+    "location-background-npb-2026-hokkaido-fighters": "ES CON FIELD HOKKAIDO, Kitahiroshima, Hokkaido, Japão",
+    "location-background-npb-2026-koshien-hanshin-tigers": "Estádio Hanshin Koshien, Nishinomiya, Japão",
+    "location-background-npb-2026-softbank-hawks": "Mizuho PayPay Dome Fukuoka, Japão",
     "location-background-pokemon-park":
         "PokéPark KANTO no Parque de Diversões Yomiuriland, em Inagi, Tóquio, Japão",
     "location-background-pokemoncenter-golab": "Laboratório Pokémon GO",
@@ -760,9 +928,9 @@ NAME_PT = {
     "location-background-go-fest-2026-tokyo": "Tóquio, Japão",
     "location-background-npb-2026-yokohama-stadium": "Estádio de Yokohama, Naka-ku, Yokohama, Japão",
     "location-background-npb-2026-zozo-marine": "ZOZO Marine Stadium, Chiba, Japão",
-    "location-background-npb-2026-seibu-lions": "NPB 2026 Seibu Lions",
-    "location-background-npb-2026-orix-buffaloes": "NPB 2026 Orix Buffaloes",
-    "location-background-npb-2026-tokyo-swallows": "NPB 2026 Tokyo Swallows",
+    "location-background-npb-2026-seibu-lions": "Belluna Dome, Tokorozawa, Saitama, Japão",
+    "location-background-npb-2026-orix-buffaloes": "Kyocera Dome Osaka, Japão",
+    "location-background-npb-2026-tokyo-swallows": "Estádio Meiji Jingu, Tóquio, Japão",
     "location-background-npb-2026-mynavi-allstar": "NPB 2026 Mynavi AllStar",
     "location-background-rpj": "Red Pokémon Jet",
     "location-background-gpj": "Green Pokémon Jet",
@@ -806,8 +974,10 @@ NAME_PT = {
     "special-background-observatory-exhibition-tour": "Observatório Astronômico Pokémon",
     "special-background-concierge": "Pokémon Concierge",
     "special-background-gofest-2025": "Pokémon GO Fest 2025: Antigos Recuperados",
-    "special-background-max-finale": "Pokémon GO Fest 2025: Final Max",
+    "special-background-max-finale": "Céu Dinamax",
     "special-background-wild-area-global-2025": "Pokémon GO Área Selvagem 2025",
+    "special-background-wild-area-global-2026": "Pokémon GO Área Selvagem 2026",
+    "special-background-duolingo": "Duolingo",
     "special-background-gofest-2025-shield": "Versão Escudo",
     "special-background-gofest-2025-sword": "Versão Espada",
     "special-background-tales-of-transformation": "Temporada Contos de Transformação",
@@ -869,6 +1039,23 @@ def rule_name_pt(bg_id, name):
 # Fandom currently has isn't good enough - hand-curated, case by case, with
 # the source of the fix noted.
 MANUAL_OVERRIDES = {
+    # A coluna Note do Fandom traz o estadio de cada fundo da NPB 2026, menos
+    # neste: diz so "Japan". Fica o nome que o jogo da ao evento (o All-Star
+    # de 2026 foi em duas sedes), em vez de um pais como nome de fundo.
+    # Fandom's Note column gives each NPB 2026 background's stadium, except
+    # this one: it just says "Japan". Keeps the event's own name (the 2026
+    # All-Star was played at two venues) instead of a country as a name.
+    "location-background-npb-2026-mynavi-allstar": {
+        "name": "NPB 2026 Mynavi AllStar",
+        "namePt": "NPB 2026 Mynavi AllStar",
+    },
+    # Erro de digitacao na pagina do Fandom ("Yamaguch, Japan"): a prefeitura
+    # e Yamaguchi, como nas outras 46 tampas. / Typo on the Fandom page
+    # ("Yamaguch, Japan"): the prefecture is Yamaguchi, as on the other 46 lids.
+    "location-background-pokelid-yamaguchi": {
+        "name": "Yamaguchi, Japan",
+        "namePt": "Yamaguchi, Japão",
+    },
     # A celula do Fandom so tem "Special Background for Mewtwo during
     # Pokémon GO Fest 2026: Global" (o proprio texto de referencia da
     # imagem, nao um nome de verdade) e a imagem hospedada la ainda nao e
@@ -1080,38 +1267,25 @@ EXTRA_ROWS = {
         # Pawniard (21/11/2026) tambem - afirmado pelo Gabriel em 2026-11-03.
         ("{{I|Pawniard||70px|t=t}}", "November 2026 Community Day · November 21"),
     ],
-    # Linhas que so existem na pagina NOVA do Fandom (pos-reestruturacao de nov/2026),
-    # nao na revisao fixa 190986. 3o elemento = ano do evento (senao herda o ano da
-    # 1a aparicao do fundo: Max Finale e de 2025). Adicionadas em 2026-11-11.
-    # Rows only on Fandom's NEW page layout, not in pinned revision 190986.
-    # 3rd element = the event's year. Added 2026-11-11.
-    "special-background-max-finale": [
-        ('{{I|Bulbasaur||60px|t=t|dynamax=t}}{{I|Charmander||60px|t=t|dynamax=t}}{{I|Squirtle||60px|t=t|dynamax=t}}{{I|Caterpie||60px|t=t|dynamax=t}}{{I|Pikachu||60px|t=t|dynamax=t}}{{I|Growlithe||60px|t=t|dynamax=t}}{{I|Abra||60px|t=t|dynamax=t}}{{I|Machop||60px|t=t|dynamax=t}}{{I|Gastly||60px|t=t|dynamax=t}}{{I|Krabby||60px|t=t|dynamax=t}}{{I|Hitmonlee||60px|t=t|dynamax=t}}{{I|Hitmonchan||60px|t=t|dynamax=t}}{{I|Rhyhorn||60px|t=t|dynamax=t}}{{I|Chansey||60px|t=t|dynamax=t}}{{I|Electabuzz||60px|t=t|dynamax=t}}{{I|Magmar||60px|t=t|dynamax=t}}{{I|Magikarp||60px|t=t|dynamax=t}}{{I|Eevee||60px|t=t|dynamax=t}}{{I|Omanyte||60px|t=t|dynamax=t}}{{I|Kabuto||60px|t=t|dynamax=t}}{{I|Hoothoot||60px|t=t|dynamax=t}}{{I|Shuckle||60px|t=t|dynamax=t}}{{I|Sneasel||60px|t=t|dynamax=t}}{{I|Hitmontop||60px|t=t|dynamax=t}}{{I|Ralts||60px|t=t|dynamax=t}}{{I|Sableye||60px|t=t|dynamax=t}}{{I|Wailmer||60px|t=t|dynamax=t}}{{I|Trapinch||60px|t=t|dynamax=t}}{{I|Feebas||60px|t=t|dynamax=t}}{{I|Spheal||60px|t=t|dynamax=t}}{{I|Beldum||60px|t=t|dynamax=t}}{{I|Combee||60px|t=t|dynamax=t}}{{I|Pidove||60px|t=t|dynamax=t}}{{I|Roggenrola||60px|t=t|dynamax=t}}{{I|Woobat||60px|t=t|dynamax=t}}{{I|Drilbur||60px|t=t|dynamax=t}}{{I|Excadrill||60px|t=t|dynamax=t}}{{I|Cottonee||60px|t=t|dynamax=t}}{{I|Darumaka||60px|t=t|dynamax=t}}{{I|Trubbish||60px|t=t|dynamax=t}}{{I|Cryogonal||60px|t=t|dynamax=t}}{{I|Deino||60px|t=t|dynamax=t}}{{I|Espurr||60px|t=t|dynamax=t}}{{I|Inkay||60px|t=t|dynamax=t}}{{I|Bounsweet||60px|t=t|dynamax=t}}{{I|Passimian||60px|t=t|dynamax=t}}{{I|Drampa||60px|t=t|dynamax=t}}{{I|Grookey||60px|t=t|dynamax=t}}{{I|Scorbunny||60px|t=t|dynamax=t}}{{I|Sobble||60px|t=t|dynamax=t}}{{I|Skwovet||60px|t=t|dynamax=t}}{{I|Rookidee||60px|t=t|dynamax=t}}{{I|Wooloo||60px|t=t|dynamax=t}}{{I|Toxtricity||60px|t=t|dynamax=t}}{{I|Toxtricity||ci=Toxtricity lowkey|60px|t=t|dynamax=t}}{{I|Sizzlipede||60px|t=t|dynamax=t}}{{I|Hatenna||60px|t=t|dynamax=t}}{{I|Falinks||60px|t=t|dynamax=t}}{{I|Duraludon||60px|t=t|dynamax=t}}', "Dynamax Trails · November 16 - 23", 2026),
-    ],
-    "location-background-wild-area-sendai": [
-        ("{{I|Lapras||60px|t=t}}", "Sendai – Lapras Stamp Rally · Since November 2", 2026),
-    ],
-    "location-background-wild-area-mexico-city": [
-        ("{{I|Hawlucha||60px|t=t}}", "Mexico City – Hawlucha Stamp Rally · Since November 2", 2026),
-    ],
 }
 
-# Fundos inteiros que so existem na pagina nova do Fandom (mesmo caminho das linhas
-# do wiki: get_bg + add_row). Quando o parser ler o layout novo, viram redundantes.
-# Whole backgrounds only on Fandom's new page (same path as wiki rows).
-EXTRA_BACKGROUNDS = [
-    {"type": "special", "year": 2026,
-     "file": "Special Background Festival of Lights 2026.png", "name": "Festival of Lights 2026",
-     "pokemon": "{{I|Pikachu||ci=Pikachu female saree|60px|t=t}}{{I|Pikachu||ci=Pikachu kurta|60px|t=t}}",
-     "event": "Festival of Lights 2026 · November 6 - 8"},
-]
+# Fundos inteiros que o Fandom ainda nao tem (mesmo caminho das linhas do wiki:
+# get_bg + add_row). Vazio desde 2026-11-18: o parser le a pagina ao vivo, e o
+# Festival of Lights 2026 - o unico que estava aqui, por faltar na revisao fixa -
+# voltou a vir do wiki.
+# Whole backgrounds Fandom doesn't have yet (same path as wiki rows). Empty since
+# 2026-11-18: the parser reads the live page, and Festival of Lights 2026 - the only
+# one that was here, missing from the pinned revision - comes from the wiki again.
+EXTRA_BACKGROUNDS = []
 
-# (bg_id, texto do evento) que a revisao fixa poe no fundo errado: a pagina nova
-# deu ao Festival of Lights 2026 um fundo proprio (antes listado no Festival of Colors).
-# (bg_id, event text) the pinned revision files under the wrong background.
-DROP_EVENTS = {
-    ("special-background-festival-of-colors-2026", "Festival of Lights 2026 · November 6 - 8"),
-}
+# (bg_id, texto do evento) a ignorar quando o wiki poe o evento no fundo errado.
+# Vazio desde 2026-11-18: o unico caso (Festival of Lights 2026 listado no fundo do
+# Festival of Colors) era da revisao fixa; a pagina ao vivo ja o poe no fundo certo.
+# (bg_id, event text) to ignore when the wiki files an event under the wrong
+# background. Empty since 2026-11-18: the only case (Festival of Lights 2026 listed
+# under the Festival of Colors background) was the pinned revision's; the live page
+# already files it under the right one.
+DROP_EVENTS = set()
 
 # (bg_id, num) -> True quando o brilhante daquele Pokemon especifico ainda
 # NAO tinha sido lancado no momento em que ESSE background saiu (mesmo que
@@ -1205,6 +1379,14 @@ def main():
                     bg["pokemon"][entry["id"]]["viaEvolution"] = False
                 costume = entry.get("costumeEn")
                 form = entry.get("regFormEn") or entry.get("altFormEn") or ""
+                flags = entry.get("flags") or []
+                if "mega" in flags or "gmax" in flags:
+                    # Mega/Gigamax nao evolui (o estado desfaz antes), entao a
+                    # linha para aqui: Pikachu Gigamax nao leva Raichu junto.
+                    # A Mega/Gigantamax doesn't evolve (the state ends first),
+                    # so the chain stops here: Gigantamax Pikachu must not drag
+                    # Raichu along.
+                    continue
                 if not costume:
                     targets = expand_forward(entry["num"], form, evo_idx)
                     target_pool = numform_idx
@@ -1230,6 +1412,41 @@ def main():
     ]
     for type_, start_marker, end_markers in sections:
         section_text = extract_section(wikitext, start_marker, end_markers)
+        if NEW_LAYOUT_RE.search(section_text):
+            rows = list(iter_rows_new(section_text))
+            # Ano de estreia de cada fundo = menor ano das suas linhas. A pagina
+            # antiga so escrevia o ano no texto do evento quando ele era DIFERENTE
+            # do titulo da secao (o ano de estreia); a nova escreve sempre. Pra o
+            # texto do evento continuar igual ao de antes (e os eventos ja gravados
+            # em backgrounds.json nao mudarem todos de uma vez), tiro o ano das
+            # linhas do ano de estreia e mantenho nas que voltaram depois.
+            # Each background's debut year = the lowest year among its rows. The old
+            # page only wrote the year into the event text when it DIFFERED from the
+            # section heading (the debut year); the new page always writes it. To keep
+            # the event text as it was (and not change every event already recorded
+            # in backgrounds.json at once), the year is dropped on rows from the
+            # debut year and kept on the ones that came back later.
+            first_year = {}
+            for r in rows:
+                for filename, _name in bg_files_from_cell(r["bg"], r["note"]):
+                    bg_id = slugify(filename)
+                    bg_id = BG_ID_ALIASES.get(bg_id, bg_id)
+                    if r["year"] and (bg_id not in first_year
+                                      or r["year"] < first_year[bg_id]):
+                        first_year[bg_id] = r["year"]
+            for r in rows:
+                for filename, name in bg_files_from_cell(r["bg"], r["note"]):
+                    bg_id = slugify(filename)
+                    bg_id = BG_ID_ALIASES.get(bg_id, bg_id)
+                    year = r["year"] or first_year.get(bg_id)
+                    date_text = r["date"]
+                    if year and first_year.get(bg_id) == year:
+                        date_text = YEAR_TAIL_RE.sub("", date_text)
+                    event_text = " · ".join(
+                        x for x in (r["event"], date_text) if x)
+                    add_row(get_bg(bg_id, filename, name, type_, year),
+                            bg_id, r["pokemon"], event_text, year)
+            continue
         for year, block_text in iter_year_blocks(section_text):
             for table_lines in find_tables(block_text):
                 raw_rows = parse_table(table_lines)
